@@ -115,6 +115,11 @@ def extract_bulletin_from_pdf(pdf_path):
     some documents are not clear and some fields can be empty, you have to extract the data as accurate as possible and return null for empty fields, do not replace empty fields with other values
     a document page either has informtions about only one student or a big table that handle ore than one student 
  Extract this French academic bulletin into STRICT JSON.
+ notes: -moyenneAnterieur is the grade of previous year
+ -matricule can be empty for some students, in this case return null
+ -notesConcours fields can be empty, return null for empty fields
+ -error field can be used to indicate any issues during extraction
+ -observation field in summary can be used to indicate any special notes or observations about the student's performance or the extraction process, it can be null if there are no observations
 
         Return ONLY valid JSON.
 
@@ -124,7 +129,9 @@ def extract_bulletin_from_pdf(pdf_path):
                 "name": "",
                 "group": "",
                 "section": "",
-                "year": ""
+                "year": "",
+                "matricule": "",
+                "moyenneAnterieur": number|null
             },
             "modules": [
                 {
@@ -135,14 +142,22 @@ def extract_bulletin_from_pdf(pdf_path):
                     "note_s2": number|null
                 }
             ],
+            "notesConcours": {
+					"mathematique":number|null;
+					"cultureGenerale":number|null;
+					"testPsychologique":number|null;
+				 },
             "summary": {
                 "semestre1_moyenne": number|null,
                 "semestre1_rang": number|null,
                 "semestre2_moyenne": number|null,
                 "semestre2_rang": number|null,
                 "general_moyenne": number|null,
-                "general_rang": number|null
-            }
+                "general_rang": number|null,
+                "observation": string|null
+            },
+            "error": string|null
+        }
         note : coef and note fields in both semestres can be empty ,return null for empty fields , do not replace empty fields with other values
     """
 
