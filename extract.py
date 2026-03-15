@@ -113,7 +113,7 @@ def extract_bulletin_from_pdf(pdf_path):
     prompt = """
     you are a text extractor of old scanned documents  that contains student informations
     some documents are not clear and some fields can be empty, you have to extract the data as accurate as possible and return null for empty fields, do not replace empty fields with other values
-    a document page either has informtions about only one student or a big table that handle ore than one student 
+    a document page either has informtions about only one student or a big table that handle more than one student 
  Extract this French academic bulletin into STRICT JSON.
  notes: -moyenneAnterieur is the grade of previous year
  -matricule can be empty for some students, in this case return null
@@ -123,8 +123,9 @@ def extract_bulletin_from_pdf(pdf_path):
 
         Return ONLY valid JSON.
 
-        Structure:
+        Structure for one student for 1974-1975:
         {
+            "type":"single student",
             "student": {
                 "name": "",
                 "group": "",
@@ -159,6 +160,87 @@ def extract_bulletin_from_pdf(pdf_path):
             "error": string|null
         }
         note : coef and note fields in both semestres can be empty ,return null for empty fields , do not replace empty fields with other values
+
+
+        structure for multiple students for 1977-1984:
+        {   
+            "type":"multiple students";
+            "annee": ...;
+            "anneeEtude": ...;
+            "section": ...;
+            "option":...;
+            "students : [
+                        { 
+                            "nom": ... ;
+                            "prenom": ...;
+                            "matricule": ...;
+                            "module": [
+                                    {
+                                        "code": ...;
+                                        "noteS1": ...;
+                                        "noteS2": ...;
+                                    }, 
+                                    ...
+                                    ];
+                            "moyenne": {
+                                    "S1":...;
+                                    "S2":...;
+                                    "annuel":...;
+                                }
+                            "rang": {
+                                    "S1":...;
+                                    "S2":...;
+                                    "annuel":...;
+                                }
+                            "decisionDeJuin": ...;
+                            "nbrAbs": ...;
+                            "noteDeStage": ...;
+                            "decisionFinaleDuConseil" : ...;
+                ];
+            "error": String | NULL;
+            
+        }
+
+        note: if there is no table write "not a table" in the error field, other cases mention the error but fill what you can.
+
+        structure for tableau de matiere:
+
+            {
+                "type":"table de matieres";
+                "matieres":[
+                        {
+                            "abrev" : "";
+                            "libelle": "";
+                            "coef":{
+                                    "S1":number|null;
+                                    "S2:number|null;
+                                }
+                            "moyenne":{
+                                    "S1":number|null;
+                                    "S1_80%":number|null;
+                                    "S2":number|null;
+                                    "S2_80%":number|null;
+                                    "annuel":number|null;
+                                    "annuel_80%":number|null;
+                                }
+                        },...
+                        ]
+                "moyennePrommo":{
+                            "S1":number|null;
+                            "S1_80%":number|null;
+                            "S2":number|null;
+                            "S2_80":number|null;
+                            "annuel":number|null;
+                            "annuel_80%":number|null;
+                        }
+                
+            }
+
+
+        note : if you don't encounter any of these structures in the image, for example just a list of names or a cover return:
+        {
+            "error": "unwanted page";
+        }
     """
 
     response = client.models.generate_content(
