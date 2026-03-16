@@ -1,3 +1,7 @@
 google-genai
 pdf2image
 Pillow
+SQLAlchemy
+fastapi
+uvicorn
+python-multipart

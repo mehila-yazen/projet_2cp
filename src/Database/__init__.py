@@ -1,0 +1,36 @@
+from .models import (
+	AnneeUniversitaire,
+	Base,
+	Etudiant,
+	Formation,
+	Groupe,
+	Inscription,
+	InscriptionPeriode,
+	Matiere,
+	Module,
+	PeriodeProgramme,
+	Programme,
+	RechercheNameLog,
+	Resultat,
+	VariationNom,
+	init_db,
+)
+
+
+__all__ = [
+	"AnneeUniversitaire",
+	"Base",
+	"Etudiant",
+	"Formation",
+	"Groupe",
+	"Inscription",
+	"InscriptionPeriode",
+	"Matiere",
+	"Module",
+	"PeriodeProgramme",
+	"Programme",
+	"RechercheNameLog",
+	"Resultat",
+	"VariationNom",
+	"init_db",
+]

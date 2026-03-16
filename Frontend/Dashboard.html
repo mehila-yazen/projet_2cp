@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Archive Management — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #1a6eb5;
+  --text-dark: #0d1f3c;
+  --text-mid: #4a5a7a;
+  --text-light: #8a9abf;
+  --purple: #7c3aed;
+  --purple-label: #9b6ddf;
+  --green: #16a34a;
+  --green-label: #22c55e;
+  --orange: #d97706;
+  --cyan: #0369a1;
+  --cyan-label: #0ea5e9;
+  --shadow: 0 8px 32px rgba(20,50,120,0.12);
+  --shadow-sm: 0 2px 12px rgba(20,50,120,0.08);
+  --sb-width: 252px;
+  --sb-collapsed: 64px;
+  --tr: 0.28s cubic-bezier(0.4,0,0.2,1);
+}
+
+html, body { width:100%; height:100%; font-family:'Plus Jakarta Sans',sans-serif; overflow:hidden; }
+
+/* ── APP ─────────────────────────────── */
+.app {
+  display:flex; width:100%; height:100%;
+  background: linear-gradient(308.07deg,#727FCF 6.04%,#C7D7FC 47.12%,#A7B8F0 63.76%,#F0F1F6 77.28%,#F1F5FE 99.14%);
+  padding:10px 10px 10px 0;
+}
+
+/* ── SIDEBAR ─────────────────────────── */
+.sidebar {
+  display:flex; flex-direction:column;
+  width:var(--sb-width); min-width:var(--sb-width);
+  height:100%; padding:0 7px;
+  border-radius:24px;
+  border-right:1px solid #96abde;
+  box-shadow:0px 4px 4px #00000040,
+    inset 0 1px 0 rgba(255,255,255,0.4),
+    inset 1px 0 0 rgba(255,255,255,0.32),
+    inset 0 -1px 3px rgba(0,0,0,0.14),
+    inset -1px 0 3px rgba(0,0,0,0.11);
+  backdrop-filter:blur(4.7px);
+  background:linear-gradient(177deg,rgba(241,245,253,1) 1%,rgba(212,222,249,1) 49%,rgba(165,189,243,1) 100%);
+  overflow:hidden;
+  transition:width var(--tr), min-width var(--tr);
+  flex-shrink:0;
+}
+.sidebar.collapsed { width:var(--sb-collapsed); min-width:var(--sb-collapsed); }
+
+/* Logo row */
+.sidebar-logo { padding:22px 16px 10px; display:flex; align-items:center; justify-content:space-between; white-space:nowrap; overflow:hidden; }
+.sidebar-logo-title { font-size:15px; font-weight:700; color:#132B53; letter-spacing:-0.3px; transition:opacity var(--tr), width var(--tr); overflow:hidden; }
+.sidebar.collapsed .sidebar-logo-title { opacity:0; width:0; pointer-events:none; }
+
+.sidebar-logo-btn {
+  width:28px; height:28px; border-radius:7px;
+  background:rgba(255,255,255,0.6); border:1px solid rgba(150,171,222,0.5);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; flex-shrink:0;
+  transition:transform var(--tr);
+}
+.sidebar.collapsed .sidebar-logo-btn { transform:rotate(180deg); }
+
+/* Badge */
+.sidebar-badge {
+  margin:0 16px 16px;
+  background:linear-gradient(135deg,rgba(26,110,181,0.12),rgba(14,165,233,0.1));
+  border:1px solid rgba(26,110,181,0.2); border-radius:10px;
+  padding:8px 12px; font-size:12px; font-weight:600; color:#266FA3;
+  white-space:nowrap; overflow:hidden;
+  transition:opacity var(--tr), height var(--tr), margin var(--tr), padding var(--tr);
+}
+.sidebar.collapsed .sidebar-badge { opacity:0; height:0; margin-bottom:0; padding-top:0; padding-bottom:0; pointer-events:none; }
+
+.sidebar-divider { height:1px; background:rgba(150,171,222,0.35); margin:0 16px 12px; transition:margin var(--tr); }
+.sidebar.collapsed .sidebar-divider { margin:0 8px 8px; }
+
+.sidebar-section-label {
+  font-size:10px; font-weight:600; color:var(--text-light);
+  letter-spacing:1px; text-transform:uppercase; padding:0 16px 8px;
+  white-space:nowrap; overflow:hidden; transition:opacity var(--tr);
+}
+.sidebar.collapsed .sidebar-section-label { opacity:0; pointer-events:none; }
+
+/* Nav items */
+.nav-item {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 14px; border-radius:12px;
+  margin:2px 6px; cursor:pointer; transition:all 0.2s;
+  color:var(--text-mid); font-size:13.5px; font-weight:500;
+  position:relative; white-space:nowrap; overflow:hidden;
+}
+.nav-item svg { width:18px; height:18px; flex-shrink:0; }
+.nav-item:hover { background:rgba(26,110,181,0.08); color:var(--text-dark); }
+.nav-item.active {
+  background:linear-gradient(95deg,#3C8BC1 11%,#4C9ED8 47%,#70B2E9 94%);
+  color:white; box-shadow:0 4px 14px rgba(26,110,181,0.3);
+}
+.nav-item.active svg { stroke:white !important; fill:none !important; }
+.nav-item.active .doc-svg { fill:white !important; stroke:none !important; }
+.nav-item.active::after {
+  content:''; position:absolute; right:0; top:50%;
+  transform:translateY(-50%); width:3px; height:22px;
+  background:linear-gradient(180deg,#1a6eb5,#0ea5e9);
+  border-radius:2px 0 0 2px;
+  transition:opacity var(--tr);
+}
+.sidebar.collapsed .nav-item.active::after { opacity:0; }
+
+.nav-label { opacity:1; transition:opacity var(--tr); overflow:hidden; }
+.sidebar.collapsed .nav-label { opacity:0; width:0; pointer-events:none; }
+.sidebar.collapsed .nav-item { justify-content:center; padding:10px; margin:2px 4px; }
+
+.sidebar-spacer { flex:1; }
+
+/* User */
+.sidebar-user {
+  display:flex; align-items:center; gap:10px;
+  padding:16px; border-top:1px solid rgba(150,171,222,0.35);
+  margin-top:8px; overflow:hidden; white-space:nowrap;
+}
+.sidebar-avatar {
+  width:36px; height:36px; border-radius:10px;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white; display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:13px; flex-shrink:0;
+}
+.sidebar-user-info { flex:1; min-width:0; transition:opacity var(--tr); }
+.sidebar.collapsed .sidebar-user-info { opacity:0; width:0; pointer-events:none;  }
+.sidebar-user-name { font-size:13px; font-weight:600; color:#132B53; }
+.sidebar-user-role { font-size:11px; color:var(--text-light); }
+.sidebar-settings-btn {
+  width:28px; height:28px; display:flex; align-items:center; justify-content:center;
+  border-radius:8px; cursor:pointer; color:#266FA3; transition:background 0.2s, opacity var(--tr);
+  flex-shrink:0;
+}
+.sidebar-settings-btn:hover { background:rgba(26,110,181,0.1); }
+.sidebar.collapsed .sidebar-settings-btn { opacity:0; pointer-events:none; }
+.sidebar.collapsed .sidebar-user { justify-content:left; padding:16px 8px; }
+
+/* ── MAIN ────────────────────────────── */
+.main {
+  flex:1; display:flex; flex-direction:column; height:100%;
+  padding:10px 14px; gap:12px; overflow-y:auto; min-width:0;
+}
+.main::-webkit-scrollbar { width:6px; }
+.main::-webkit-scrollbar-thumb { background:rgba(100,130,200,0.3); border-radius:3px; }
+
+/* ── HEADER ──────────────────────────── */
+.header {
+  background:linear-gradient(90deg,#F8F7F8 2.15%,#E1E9FB 45.12%,#CDE0FC 100%);
+  border:1px solid rgba(255,255,255,0.88); border-radius:18px;
+  padding:18px 28px; display:flex; align-items:center; justify-content:space-between;
+  box-shadow:var(--shadow-sm); flex-shrink:0;
+  animation:fadeUp 0.45s ease both;
+}
+.header h1 { font-weight:800; font-size:26px; color:#132B53; letter-spacing:-0.6px; }
+.header-right { display:flex; align-items:center; gap:16px; }
+.header-date { font-size:13px; color:var(--text-mid); font-weight:500; }
+.header-avatar {
+  width:34px; height:34px; border-radius:9px;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white; font-weight:700; font-size:12px;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* ── STATS ───────────────────────────── */
+.stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; flex-shrink:0; }
+.stat-card {
+  backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,0.88);
+  border-radius:16px; padding:16px 20px; box-shadow:var(--shadow-sm);
+  transition:transform 0.2s,box-shadow 0.2s; animation:fadeUp 0.45s ease both; cursor:default;
+}
+.stat-card:nth-child(1){animation-delay:.05s;background:rgba(248,243,255,0.85);}
+.stat-card:nth-child(2){animation-delay:.10s;background:rgba(240,255,248,0.85);}
+.stat-card:nth-child(3){animation-delay:.15s;background:rgba(252,248,235,0.85);}
+.stat-card:nth-child(4){animation-delay:.20s;background:rgba(235,246,255,0.85);}
+.stat-card:hover { transform:translateY(-3px); box-shadow:var(--shadow); }
+.stat-label { font-size:11.5px; font-weight:600; margin-bottom:8px; }
+.stat-label.purple{color:var(--purple-label);} .stat-label.green{color:var(--green-label);}
+.stat-label.orange{color:var(--orange);}       .stat-label.cyan{color:var(--cyan-label);}
+.stat-value { font-size:28px; font-weight:800; letter-spacing:-1px; line-height:1; }
+.stat-value.purple{color:var(--purple);} .stat-value.green{color:var(--green);}
+.stat-value.orange{color:var(--orange);} .stat-value.cyan{color:var(--cyan);}
+.stat-trend { margin-top:6px; font-size:11px; font-weight:500; color:var(--text-light); display:flex; align-items:center; gap:4px; }
+.trend-up{color:#16a34a;} .trend-down{color:#dc2626;}
+
+/* ── UPLOAD ──────────────────────────── */
+.upload-card {
+  background:rgba(226,236,255,0.75); backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.88); border-radius:18px;
+  padding:20px 24px; box-shadow:var(--shadow-sm);
+  display:flex; flex-direction:column; gap:14px;
+  animation:fadeUp 0.45s 0.25s ease both; flex-shrink:0;
+  height:534.4px;
+}
+.upload-header {
+  background:rgba(215,225,245,0.5); border-radius:14px;
+  padding:10px 16px; display:flex; align-items:center; justify-content:space-between;
+  box-shadow:
+0px 4px 4px #adc4fe40, inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 1px 0 0 rgba(
+255,
+255,
+255,
+0.32
+), inset 0 -1px 1px rgba(0, 0, 0, 0.13), inset -1px 0 1px rgba(
+0,
+0,
+0,
+0.11
+);
+}
+.upload-title { font-size:15px; font-weight:700; color:var(--text-dark); }
+.btn-primary {
+  background:linear-gradient(135deg,#1a78c2,#0ea5e9); color:white;
+  border:none; border-radius:9px; padding:9px 18px;
+  font-size:13px; font-weight:600; font-family:inherit; cursor:pointer;
+  display:flex; align-items:center; gap:7px;
+  box-shadow:0 3px 12px rgba(26,110,181,0.3); transition:all 0.2s;
+}
+.btn-primary:hover { transform:translateY(-1px); box-shadow:0 5px 16px rgba(26,110,181,0.4); }
+.drop-zone {
+  background:rgba(188,195,211,0.22); border-radius:16px;
+  border:2px rgba(100,150,210,0.35);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  cursor:pointer; transition:all 0.25s; padding:28px 32px; text-align:center;
+  min-height:170px; box-shadow:0px 2px 8px rgba(173,196,254,0.25);
+  height:400px;
+  box-shadow:
+0px 4px 4px #adc4fe40, inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 1px 0 0 rgba(
+255,
+255,
+255,
+0.32
+), inset 0 -1px 1px rgba(0, 0, 0, 0.13), inset -1px 0 1px rgba(
+0,
+0,
+0,
+0.11
+);
+}
+.drop-zone:hover,.drop-zone.drag-over {
+  border-color:rgba(26,110,181,0.5);
+  background:linear-gradient(160deg,rgba(215,232,255,0.7),rgba(200,222,252,0.6));
+}
+.drop-icon {
+  width:50px; height:50px; background:rgba(255,255,255,0.85); border-radius:13px;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:var(--shadow-sm); margin-bottom:12px;
+}
+.drop-icon svg { width:22px; height:22px; color:#5a7898; }
+.drop-title { font-size:15px; font-weight:700; color:var(--text-dark); margin-bottom:5px; }
+.drop-sub   { font-size:12px; color:var(--text-mid); margin-bottom:16px; }
+.btn-select {
+  background:linear-gradient(135deg,#1a78c2,#0ea5e9); color:white;
+  border:none; border-radius:9px; padding:10px 28px;
+  font-size:13px; font-weight:600; font-family:inherit; cursor:pointer;
+  box-shadow:0 3px 12px rgba(26,110,181,0.3); transition:all 0.2s; margin-bottom:10px;
+}
+.btn-select:hover { transform:translateY(-1px); }
+.drop-format { font-size:11.5px; color:var(--text-light); font-weight:500; }
+
+/* ── WORKFLOW ─────────────────────────── */
+.workflow-section {
+  background:rgba(226,236,255,0.70); border-radius:16px;
+  border:1.28px solid #E5E7EB; padding:24px 28px;
+  box-shadow:0px 4px 4px rgba(0,0,0,0.18); flex-shrink:0;
+  animation:fadeUp 0.45s 0.3s ease both;
+}
+.workflow-title { font-weight:600; font-size:20px; color:#101828; margin-bottom:20px; }
+.workflow-steps { display:flex; align-items:flex-start; width:100%; }
+.workflow-step { flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; }
+.step-number {
+  width:52px; height:52px; background:#5D4887; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:white; font-size:18px; font-weight:700; margin-bottom:12px;
+  box-shadow:0 4px 14px rgba(93,72,135,0.35);
+}
+.step-title   { font-weight:600; font-size:14px; color:#101828; margin-bottom:6px; }
+.step-description { font-weight:400; font-size:12px; color:#020655; line-height:1.4; max-width:90px; }
+.workflow-connector { flex:0 0 40px; height:2px; background:#4E3290; margin-top:25px; align-self:flex-start; }
+
+/* ── RECENT DOCS ─────────────────────── */
+.recent-documents {
+  background:rgba(226,236,255,0.75); border-radius:16px;
+  border:1.28px solid #E5E7EB;
+  box-shadow:0px 4px 8px rgba(0,0,0,0.15),inset 0 1px 0 rgba(255,255,255,0.4);
+  flex-shrink:0; animation:fadeUp 0.45s 0.35s ease both; overflow:hidden;
+}
+.recent-docs-header { padding:18px 28px 16px; border-bottom:1.28px solid #E5E7EB; font-weight:600; font-size:18px; color:#101828; }
+.doc-row { display:flex; flex-direction:column; border-bottom:1.28px solid #E5E7EB; padding:20px 28px; gap:12px; }
+.doc-row:last-child { border-bottom:none; }
+.doc-main-row { display:flex; align-items:center; justify-content:space-between; }
+.doc-info { display:flex; align-items:center; gap:12px; flex:1; }
+.doc-icon {
+  width:36px; height:36px; border-radius:8px;
+  background:rgba(255,255,255,0.7); border:1px solid rgba(200,215,240,0.6);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.doc-icon svg { width:18px; height:18px; }
+.doc-name { font-family:'Inter',sans-serif; font-weight:500; font-size:15px; color:#101828; letter-spacing:-0.3px; }
+.doc-meta { font-family:'Inter',sans-serif; font-size:12px; color:var(--text-mid); margin-top:2px; }
+.doc-status { padding:4px 12px; border-radius:100px; font-family:'Inter',sans-serif; font-size:13px; font-weight:500; white-space:nowrap; flex-shrink:0; }
+.status-completed  { background:#dcfce7; color:#008236; }
+.status-processing { background:#dbeafe; color:#1447e6; }
+.status-pending    { background:#fef9c2; color:#a65f00; }
+.status-failed     { background:#ffe2e2; color:#c10007; }
+.doc-actions { display:flex; gap:8px; }
+.doc-btn { padding:7px 16px; border-radius:6px; font-family:'Inter',sans-serif; font-size:13px; font-weight:500; cursor:pointer; transition:all 0.2s; border:none; }
+.doc-btn-outline { background:transparent; color:var(--text-mid); border:1px solid rgba(150,171,222,0.5); }
+.doc-btn-outline:hover { background:rgba(26,110,181,0.08); color:var(--blue); }
+.doc-btn-primary { color:var(--blue); background:transparent; }
+.doc-btn-primary:hover { box-shadow:0 4px 12px rgba(26,110,181,0.4); transform:translateY(-1px); }
+.doc-btn-danger { background:transparent; color:#e7000b; border:1px solid rgba(231,0,11,0.3); }
+.doc-btn-danger:hover { background:rgba(231,0,11,0.06); }
+.progress-section { display:flex; flex-direction:column; gap:5px; }
+.progress-labels { display:flex; justify-content:space-between; font-family:'Inter',sans-serif; font-size:13px; color:#1c1c1c; }
+.progress-track { height:8px; background:#e5e7eb; border-radius:100px; overflow:hidden; }
+.progress-fill { height:100%; background:#4a7bff; border-radius:100px; transition:width 1.5s ease; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px);} to{opacity:1;transform:translateY(0);} }
+@keyframes pulse  { 0%,100%{opacity:1;} 50%{opacity:0.45;} }
+.pulsing { animation:pulse 1.8s ease-in-out infinite; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <span class="sidebar-logo-title">Archive Manager</span>
+      <div class="sidebar-logo-btn" id="collapseBtn" title="Réduire">
+        <svg width="14" height="14" fill="none" stroke="#266FA3" stroke-width="2" viewBox="0 0 24 24">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </div>
+    </div>
+
+    <div class="sidebar-badge">ESI records 1974-1988</div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Navigation</div>
+
+    <div class="nav-item" onclick="setActive(this)">
+      <svg fill="none" stroke="#266FA3" stroke-width="1.8" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+        <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+      </svg>
+      <span class="nav-label">Dashboard</span>
+    </div>
+
+    <div class="nav-item" onclick="setActive(this)">
+      <svg fill="none" stroke="#266FA3" stroke-width="1.8" viewBox="0 0 24 24">
+        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+      </svg>
+      <span class="nav-label">Students</span>
+    </div>
+
+    <div class="nav-item active" onclick="setActive(this)">
+      <svg class="doc-svg" fill="#266FA3" stroke="none" viewBox="0 -960 960 960" width="18" height="18">
+        <path d="M80-720v-200h200v80H160v120H80Zm720 0v-120H680v-80h200v200h-80ZM80-40v-200h80v120h120v80H80Zm600 0v-80h120v-120h80v200H680ZM280-240h400v-480H280v480Zm0 80q-33 0-56.5-23.5T200-240v-480q0-33 23.5-56.5T280-800h400q33 0 56.5 23.5T760-720v480q0 33-23.5 56.5T680-160H280Zm80-400h240v-80H360v80Zm0 120h240v-80H360v80Zm0 120h240v-80H360v80Zm-80 80v-480 480Z"/>
+      </svg>
+      <span class="nav-label">Digitization</span>
+    </div>
+
+    <div class="nav-item" onclick="setActive(this)">
+      <svg fill="none" stroke="#266FA3" stroke-width="1.8" viewBox="0 0 24 24">
+        <polyline points="9 11 12 14 22 4"/>
+        <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+      </svg>
+      <span class="nav-label">Validation</span>
+    </div>
+
+    <div class="nav-item" onclick="setActive(this)">
+      <svg fill="none" stroke="#266FA3" stroke-width="1.8" viewBox="0 0 24 24">
+        <line x1="18" y1="20" x2="18" y2="10"/>
+        <line x1="12" y1="20" x2="12" y2="4"/>
+        <line x1="6" y1="20" x2="6" y2="14"/>
+      </svg>
+      <span class="nav-label">Statistics</span>
+    </div>
+
+    <div class="nav-item" onclick="setActive(this)">
+      <svg fill="none" stroke="#266FA3" stroke-width="1.8" viewBox="0 0 24 24">
+        <ellipse cx="12" cy="5" rx="9" ry="3"/>
+        <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/>
+        <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/>
+      </svg>
+      <span class="nav-label">Database</span>
+    </div>
+
+    <div class="sidebar-spacer"></div>
+
+    <div class="sidebar-user">
+      <div class="sidebar-avatar">JD</div>
+      <div class="sidebar-user-info">
+        <div class="sidebar-user-name">John Doe</div>
+        <div class="sidebar-user-role">Administrator</div>
+      </div>
+      <div class="sidebar-settings-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#266FA3">
+          <path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- HEADER -->
+    <div class="header">
+      <h1>Document Digitization</h1>
+      <div class="header-right">
+        <span class="header-date" id="headerDate"></span>
+        <div class="header-avatar">JD</div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label purple">Total Documents</div>
+        <div class="stat-value purple">45,230</div>
+        <div class="stat-trend"><span class="trend-up">↑ 2.4%</span> vs last month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label green">Processed</div>
+        <div class="stat-value green">42,156</div>
+        <div class="stat-trend"><span class="trend-up">↑ 1.8%</span> vs last month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label orange">Pending</div>
+        <div class="stat-value orange">2,134</div>
+        <div class="stat-trend"><span class="trend-down">↓ 0.3%</span> vs last month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label cyan">Success Rate</div>
+        <div class="stat-value cyan">93%</div>
+        <div class="stat-trend"><span class="trend-up">↑ 0.5%</span> vs last month</div>
+      </div>
+    </div>
+
+    <!-- UPLOAD CARD -->
+    <div class="upload-card">
+      <div class="upload-header">
+        <span class="upload-title">Add New Data</span>
+        <button class="btn-primary" onclick="document.getElementById('fileInput').click()">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          Upload PDF
+        </button>
+      </div>
+      <div class="drop-zone"
+        ondragover="event.preventDefault();this.classList.add('drag-over')"
+        ondragleave="this.classList.remove('drag-over')"
+        ondrop="event.preventDefault();this.classList.remove('drag-over')"
+        onclick="document.getElementById('fileInput').click()">
+        <div class="drop-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <div class="drop-title">Drop your PDF files here</div>
+        <div class="drop-sub">or click to browse from your computer</div>
+        <button class="btn-select" onclick="event.stopPropagation();document.getElementById('fileInput').click()">Select Files</button>
+        <div class="drop-format">Supported format: PDF (Max 100MB)</div>
+      </div>
+      <input type="file" id="fileInput" accept=".pdf" multiple style="display:none">
+    </div>
+
+    <!-- WORKFLOW -->
+    <div class="workflow-section">
+      <div class="workflow-title">Processing Workflow</div>
+      <div class="workflow-steps">
+        <div class="workflow-step"><div class="step-number">1</div><div class="step-title">Upload PDF</div><div class="step-description">Scanned document upload</div></div>
+        <div class="workflow-connector"></div>
+        <div class="workflow-step"><div class="step-number">2</div><div class="step-title">OCR Processing</div><div class="step-description">Text extraction from images</div></div>
+        <div class="workflow-connector"></div>
+        <div class="workflow-step"><div class="step-number">3</div><div class="step-title">AI Extraction</div><div class="step-description">Structured data identification</div></div>
+        <div class="workflow-connector"></div>
+        <div class="workflow-step"><div class="step-number">4</div><div class="step-title">Validation</div><div class="step-description">Manual review & confirmation</div></div>
+        <div class="workflow-connector"></div>
+        <div class="workflow-step"><div class="step-number">5</div><div class="step-title">Save to DB</div><div class="step-description">Store in database</div></div>
+      </div>
+    </div>
+
+    <!-- RECENT DOCUMENTS -->
+    <div class="recent-documents">
+      <div class="recent-docs-header">Recent Documents</div>
+
+      <div class="doc-row">
+        <div class="doc-main-row">
+          <div class="doc-info">
+            <div class="doc-icon"><svg fill="none" stroke="#5a7898" stroke-width="1.6" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div><div class="doc-name">Promotion_1974_Registre_1.pdf</div><div class="doc-meta">45 pages • Uploaded on 2026-02-20</div></div>
+          </div>
+          <div class="doc-status status-completed">Completed</div>
+        </div>
+        <div class="doc-actions"><button class="doc-btn doc-btn-primary">View Results</button><button class="doc-btn doc-btn-outline">Re-process</button></div>
+      </div>
+
+      <div class="doc-row">
+        <div class="doc-main-row">
+          <div class="doc-info">
+            <div class="doc-icon"><svg fill="none" stroke="#5a7898" stroke-width="1.6" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div><div class="doc-name">Promotion_1975_Registre_2.pdf</div><div class="doc-meta">52 pages • Uploaded on 2026-02-21</div></div>
+          </div>
+          <div class="doc-status status-processing">Processing</div>
+        </div>
+        <div class="progress-section">
+          <div class="progress-labels"><span class="pulsing">Processing...</span><span id="progLabel">67%</span></div>
+          <div class="progress-track"><div class="progress-fill" id="progressBar1" style="width:67%"></div></div>
+        </div>
+        <div class="doc-actions"><button class="doc-btn doc-btn-outline">View Progress</button></div>
+      </div>
+
+      <div class="doc-row">
+        <div class="doc-main-row">
+          <div class="doc-info">
+            <div class="doc-icon"><svg fill="none" stroke="#5a7898" stroke-width="1.6" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <div><div class="doc-name">Promotion_1976_Notes_Annuelles.pdf</div><div class="doc-meta">38 pages • Uploaded on 2026-02-21</div></div>
+          </div>
+          <div class="doc-status status-pending">Pending</div>
+        </div>
+        <div class="progress-section">
+          <div class="progress-labels"><span>Waiting...</span><span>0%</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
+        </div>
+      </div>
+
+      <div class="doc-row">
+        <div class="doc-main-row">
+          <div class="doc-info">
+            <div class="doc-icon"><svg fill="none" stroke="#5a7898" stroke-width="1.6" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="12" x2="12" y2="16"/><circle cx="12" cy="18.5" r="0.5" fill="#5a7898"/></svg></div>
+            <div><div class="doc-name">Promotion_1977_Deliberations.pdf</div><div class="doc-meta">41 pages • Uploaded on 2026-02-20</div></div>
+          </div>
+          <div class="doc-status status-failed">Failed</div>
+        </div>
+        <div class="doc-actions"><button class="doc-btn doc-btn-danger">View Error</button><button class="doc-btn doc-btn-primary">Retry</button></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Date
+document.getElementById('headerDate').textContent =
+  new Date().toLocaleDateString('fr-FR', {weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+// Progress animation
+let prog = 67;
+const bar = document.getElementById('progressBar1');
+const lbl = document.getElementById('progLabel');
+const iv = setInterval(() => {
+  prog += Math.random() * 3;
+  if (prog >= 100) { prog = 100; clearInterval(iv); }
+  bar.style.width = prog.toFixed(0) + '%';
+  lbl.textContent  = prog.toFixed(0) + '%';
+}, 2500);
+
+// Nav active
+function setActive(el) {
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.remove('active');
+    const svg = n.querySelector('svg');
+    if (svg) {
+      svg.setAttribute('stroke','#266FA3');
+      if (svg.classList.contains('doc-svg')) { svg.setAttribute('fill','#266FA3'); svg.setAttribute('stroke','none'); }
+    }
+  });
+  el.classList.add('active');
+  const svg = el.querySelector('svg');
+  if (svg) {
+    if (svg.classList.contains('doc-svg')) { svg.setAttribute('fill','white'); svg.setAttribute('stroke','none'); }
+    else { svg.setAttribute('stroke','white'); }
+  }
+}
+
+// Sidebar collapse
+document.getElementById('collapseBtn').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('collapsed');
+});
+
+// File upload
+document.getElementById('fileInput').addEventListener('change', e => {
+  const files = Array.from(e.target.files).filter(f => {
+    if (f.type !== 'application/pdf') { alert('Only PDF files are allowed'); return false; }
+    if (f.size > 100*1024*1024) { alert(f.name+' is too large (max 100MB)'); return false; }
+    return true;
+  });
+  if (files.length) alert(files.length+' file(s) ready for upload');
+});
+</script>
+</body>
+</html>
