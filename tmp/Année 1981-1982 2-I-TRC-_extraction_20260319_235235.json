@@ -1,0 +1,2196 @@
+{
+  "file_path": "C:\\Users\\dell\\Downloads\\Année 1981-1982 2-I-TRC-.pdf",
+  "run_dir": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260319_234018",
+  "pages_dir": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260319_234018\\pages",
+  "total_pages": 9,
+  "ok_pages": 3,
+  "failed_pages": 6,
+  "pages": [
+    {
+      "page_number": 1,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260319_234018\\pages\\page_0001.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "3I3U",
+      "result": {
+        "type": "cover",
+        "sectionCode": "2-I-TRC",
+        "annee": "81/82",
+        "anneeEtude": "2",
+        "section": "TRC",
+        "option": null,
+        "institution": null,
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 2,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260319_234018\\pages\\page_0002.png",
+      "status": "failed",
+      "attempt": 4,
+      "api_key_suffix": null,
+      "result": null,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 18.586483093s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '18s'}]}}"
+    },
+    {
+      "page_number": 3,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260319_234018\\pages\\page_0003.png",
+      "status": "failed",
+      "attempt": 4,
+      "api_key_suffix": null,
+      "result": null,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 41.704502728s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '41s'}]}}"
+    },
+    {
+      "page_number": 4,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260319_234018\\pages\\page_0004.png",
+      "status": "failed",
+      "attempt": 4,
+      "api_key_suffix": null,
+      "result": null,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 5.179006148s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '5s'}]}}"
+    },
+    {
+      "page_number": 5,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260319_234018\\pages\\page_0005.png",
+      "status": "failed",
+      "attempt": 4,
+      "api_key_suffix": null,
+      "result": null,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 28.493964514s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '28s'}]}}"
+    },
+    {
+      "page_number": 6,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260319_234018\\pages\\page_0006.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "3I3U",
+      "result": {
+        "type": "multiple_students",
+        "sectionCode": "2-I-TRC",
+        "annee": "1981/1982",
+        "anneeEtude": "2",
+        "section": "INGENIEUR",
+        "option": "TR-COMMUN",
+        "students": [
+          {
+            "nom": "REKKAB",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 11.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 9.83,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": 8.0,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 10.85,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 13.25,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": 9.0,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 14.1,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 10.75,
+              "S2": 10.18,
+              "annuel": 9.61
+            },
+            "rang": {
+              "S1": 13,
+              "S2": 26,
+              "annuel": 32
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": 16.0,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "FOUAD",
+            "prenom": null,
+            "matricule": "820260",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 10.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 5.83,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": null,
+                "noteS2": 11.12
+              },
+              {
+                "code": "STR",
+                "noteS1": null,
+                "noteS2": 12.09
+              },
+              {
+                "code": "FIP",
+                "noteS1": null,
+                "noteS2": 9.9
+              },
+              {
+                "code": "GES",
+                "noteS1": 3.25,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.92,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": 12.0,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": 11.17,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.61,
+              "S2": 10.18,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 22,
+              "S2": 26,
+              "annuel": 32
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "CHABOUCHE",
+            "prenom": null,
+            "matricule": "820251",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 6.75,
+                "noteS2": 7.3
+              },
+              {
+                "code": "STA",
+                "noteS1": 7.15,
+                "noteS2": 11.0
+              },
+              {
+                "code": "CBB",
+                "noteS1": 12.15,
+                "noteS2": 11.0
+              },
+              {
+                "code": "ASS",
+                "noteS1": 11.0,
+                "noteS2": 11.75
+              },
+              {
+                "code": "STR",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 12.2,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 10.26,
+              "S2": null,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 18,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "ABDELGHANI",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.87,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 6.33,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 13.54,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 7.7,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 7.0,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.5,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": 10.5,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": 11.88,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 10.17,
+              "S2": 10.03,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 23,
+              "S2": 26,
+              "annuel": 28
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": 17,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "KERKOUB",
+            "prenom": null,
+            "matricule": "820028",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 8.87,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 7.04,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": 8.2,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 8.76,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.78,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": 10.5,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.5,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 13.2,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.68,
+              "S2": 10.13,
+              "annuel": 10.61
+            },
+            "rang": {
+              "S1": 21,
+              "S2": 24,
+              "annuel": 29
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": 13.0,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "NOUR-EDDINE",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 11.37,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 6.5,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 13.04,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 9.2,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.0,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.9,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": 12.0,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": 9.0,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 10.13,
+              "S2": null,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 20,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "KIMBOUR",
+            "prenom": "MED TAHAR",
+            "matricule": "820289",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 11.87,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 8.0,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": 8.2,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 11.6,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.66,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": 11.0,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.66,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 10.4,
+              "S2": 10.08,
+              "annuel": 9.75
+            },
+            "rang": {
+              "S1": 17,
+              "S2": 25,
+              "annuel": 31
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": 12.0,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "DEMMOU",
+            "prenom": null,
+            "matricule": "790065",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 11.75,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 8.66,
+                "noteS2": 6.16
+              },
+              {
+                "code": "CBB",
+                "noteS1": 11.32,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 11.5,
+                "noteS2": 8.0
+              },
+              {
+                "code": "STR",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 14.1,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 10.1,
+              "S2": 10.05,
+              "annuel": 9.96
+            },
+            "rang": {
+              "S1": 20,
+              "S2": 28,
+              "annuel": 25
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "provisoirement_elimine"
+          },
+          {
+            "nom": "LOUISA",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 12.75,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 6.33,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": null,
+                "noteS2": 10.95
+              },
+              {
+                "code": "STR",
+                "noteS1": 7.0,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 8.5,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 9.8,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": 9.0,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": 12.33,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": null,
+              "S2": null,
+              "annuel": null
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "ABDOUS",
+            "prenom": null,
+            "matricule": "820202",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 8.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 6.0,
+                "noteS2": 8.43
+              },
+              {
+                "code": "CBB",
+                "noteS1": 10.78,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 13.33,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.75,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 13.16,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.94,
+              "S2": 9.75,
+              "annuel": 9.52
+            },
+            "rang": {
+              "S1": 23,
+              "S2": 27,
+              "annuel": 33
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": 10,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "AHMED KARIM",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 8.5,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 5.16,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 8.95,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 9.2,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": 13.25,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 10.92,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 12.0,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": 9.47,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": null,
+              "S2": null,
+              "annuel": null
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "ZERHGUINI",
+            "prenom": null,
+            "matricule": "820268",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.33,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 4.0,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": 7.5,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 8.28,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 11.5,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": 9.25,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 12.4,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 8.82,
+              "S2": 9.75,
+              "annuel": 10.66
+            },
+            "rang": {
+              "S1": 37,
+              "S2": 27,
+              "annuel": 15
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": 8,
+            "noteDeStage": 17.0,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "MOURAD",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 8.25,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 6.06,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 9.82,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 11.7,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": 13.25,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.7,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 15.5,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": 10.19,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": null,
+              "S2": null,
+              "annuel": null
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          }
+        ],
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 7,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260319_234018\\pages\\page_0007.png",
+      "status": "ok",
+      "attempt": 2,
+      "api_key_suffix": "3I3U",
+      "result": {
+        "type": "multiple_students",
+        "sectionCode": null,
+        "annee": "1981/1982",
+        "anneeEtude": "2",
+        "section": "INGENIEUR",
+        "option": "TR-COMMUN",
+        "students": [
+          {
+            "nom": "DILEM",
+            "prenom": null,
+            "matricule": "800020",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 12.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 7.17,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": 7.31,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 8.96,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.33,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": 12.0,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 8.16,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.41,
+              "S2": null,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 34,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "RACHID",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": null,
+                "noteS2": 11.75
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": 8.16
+              },
+              {
+                "code": "CBB",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": null,
+                "noteS2": 11.29
+              },
+              {
+                "code": "STR",
+                "noteS1": null,
+                "noteS2": 5.4
+              },
+              {
+                "code": "FIP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": 10.25
+              },
+              {
+                "code": "ANG",
+                "noteS1": null,
+                "noteS2": 12.33
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": 8.5
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": 10.14
+              }
+            ],
+            "moyenne": {
+              "S1": null,
+              "S2": 9.67,
+              "annuel": null
+            },
+            "rang": {
+              "S1": null,
+              "S2": 27,
+              "annuel": null
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "provisoirement_elimine"
+          },
+          {
+            "nom": "OBOUKARI",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 8.5,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 6.33,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": 7.98,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 8.96,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.83,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": 7.25,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 15.4,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.21,
+              "S2": null,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 31,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "ZAHIDA",
+            "prenom": null,
+            "matricule": "800022",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": null,
+                "noteS2": 9.0
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": 7.5
+              },
+              {
+                "code": "CBB",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": null,
+                "noteS2": 10.37
+              },
+              {
+                "code": "STR",
+                "noteS1": null,
+                "noteS2": 7.6
+              },
+              {
+                "code": "FIP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": 4.5
+              },
+              {
+                "code": "ANG",
+                "noteS1": null,
+                "noteS2": 14.9
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": 13.5
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": 11.22
+              }
+            ],
+            "moyenne": {
+              "S1": null,
+              "S2": 9.54,
+              "annuel": null
+            },
+            "rang": {
+              "S1": null,
+              "S2": 30,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": 16,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "JENANE",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 8.37,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 6.0,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": 6.05,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 10.32,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 9.66,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": 8.0,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 12.6,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 8.68,
+              "S2": null,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 39,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "LOTFI",
+            "prenom": null,
+            "matricule": "820213",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": null,
+                "noteS2": 9.0
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": 7.53
+              },
+              {
+                "code": "CBB",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": null,
+                "noteS2": 13.2
+              },
+              {
+                "code": "STR",
+                "noteS1": null,
+                "noteS2": 11.8
+              },
+              {
+                "code": "FIP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": 9.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": null,
+                "noteS2": 13.4
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": 10.5
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": 8.61
+              }
+            ],
+            "moyenne": {
+              "S1": null,
+              "S2": 10.32,
+              "annuel": null
+            },
+            "rang": {
+              "S1": null,
+              "S2": 31,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": 10,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "AMGHAR",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 11.25,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 6.17,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": 6.6,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 10.32,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 7.5,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": 9.76,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.33,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.03,
+              "S2": null,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 33,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "OUAMAR",
+            "prenom": null,
+            "matricule": "820908",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": null,
+                "noteS2": 7.9
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": 7.16
+              },
+              {
+                "code": "CBB",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": null,
+                "noteS2": 11.87
+              },
+              {
+                "code": "STR",
+                "noteS1": null,
+                "noteS2": 9.0
+              },
+              {
+                "code": "FIP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": 11.5
+              },
+              {
+                "code": "ANG",
+                "noteS1": null,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": 13.5
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": 9.61
+              }
+            ],
+            "moyenne": {
+              "S1": null,
+              "S2": 10.05,
+              "annuel": null
+            },
+            "rang": {
+              "S1": null,
+              "S2": 23,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": 14,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "AIT BUMESSAUD",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 10.62,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 3.83,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": 7.75,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 11.6,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 11.83,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": 10.0,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 9.83,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.43,
+              "S2": null,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 29,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "ACHBUR",
+            "prenom": null,
+            "matricule": "820145",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": null,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": 6.5
+              },
+              {
+                "code": "CBB",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": null,
+                "noteS2": 12.29
+              },
+              {
+                "code": "STR",
+                "noteS1": null,
+                "noteS2": 11.6
+              },
+              {
+                "code": "FIP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": 8.25
+              },
+              {
+                "code": "ANG",
+                "noteS1": null,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": 7.5
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": 8.97
+              }
+            ],
+            "moyenne": {
+              "S1": null,
+              "S2": 9.55,
+              "annuel": null
+            },
+            "rang": {
+              "S1": null,
+              "S2": 34,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "HABIB",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.25,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 4.33,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": 8.6,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 9.25,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.16,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": 8.0,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.83,
+                "noteS2": null
+              },
+              {
+                "code": null,
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 8.8,
+              "S2": null,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 38,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "AKILA",
+            "prenom": null,
+            "matricule": "800024",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": null,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": 6.83
+              },
+              {
+                "code": "CBB",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": null,
+                "noteS2": 12.08
+              },
+              {
+                "code": "STR",
+                "noteS1": null,
+                "noteS2": 9.8
+              },
+              {
+                "code": "FIP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": 5.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": null,
+                "noteS2": 10.83
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": 9.0
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": 13.5
+              }
+            ],
+            "moyenne": {
+              "S1": null,
+              "S2": 9.98,
+              "annuel": null
+            },
+            "rang": {
+              "S1": null,
+              "S2": 29,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "MESSABUDENE",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.25,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 7.7,
+                "noteS2": null
+              },
+              {
+                "code": "CBB",
+                "noteS1": 6.9,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 14.0,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 8.66,
+                "noteS2": null
+              },
+              {
+                "code": "FIP",
+                "noteS1": 11.5,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 12.1,
+                "noteS2": null
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 10.02,
+              "S2": null,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 21,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "YBOUCEF",
+            "prenom": null,
+            "matricule": "820152",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": null,
+                "noteS2": 5.75
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": 5.33
+              },
+              {
+                "code": "CBB",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": null,
+                "noteS2": 12.04
+              },
+              {
+                "code": "STR",
+                "noteS1": null,
+                "noteS2": 8.4
+              },
+              {
+                "code": "FIP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": 8.5
+              },
+              {
+                "code": "ANG",
+                "noteS1": null,
+                "noteS2": 10.8
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": 6.5
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": 10.33
+              }
+            ],
+            "moyenne": {
+              "S1": null,
+              "S2": 8.6,
+              "annuel": null
+            },
+            "rang": {
+              "S1": null,
+              "S2": 35,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          }
+        ],
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 8,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260319_234018\\pages\\page_0008.png",
+      "status": "failed",
+      "attempt": 4,
+      "api_key_suffix": null,
+      "result": null,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 8.269586585s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '8s'}]}}"
+    },
+    {
+      "page_number": 9,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260319_234018\\pages\\page_0009.png",
+      "status": "failed",
+      "attempt": 4,
+      "api_key_suffix": null,
+      "result": null,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 31.581520828s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '31s'}]}}"
+    }
+  ]
+}

@@ -22,32 +22,94 @@ DEFAULT_MAX_RETRIES_PER_PAGE = 4
 DEFAULT_KEY_COOLDOWN_SECONDS = 20
 
 PROMPT = """
-you are a text extractor of old scanned documents  that contains student informations
-some documents are not clear and some fields can be empty, you have to extract the data as accurate as possible and return null for empty fields, do not replace empty fields with other values
-a document page either has informtions about only one student or a big table that handle more than one student
-Extract this French academic bulletin into STRICT JSON.
-notes: -moyenneAnterieur is the grade of previous year
--matricule can be empty for some students, in this case return null
--notesConcours fields can be empty, return null for empty fields
--error field can be used to indicate any issues during extraction
--observation field in summary can be used to indicate any special notes or observations about the student's performance or the extraction process, it can be null if there are no observations
+You are a text extractor of old scanned documents containing student academic records.
+Some documents are not clear and some fields can be empty. Extract data as accurately as possible.
+Return null for empty or unreadable fields. Do not infer or replace missing values.
 
-Return ONLY valid JSON.
+Return ONLY valid JSON. No explanation, no markdown, no text outside the JSON.
 
-Structure for one student for 1974-1975:
+---
+
+## IMPORTANT: COLUMN DISAMBIGUATION RULES
+
+Some grade tables contain NON-MODULE columns mixed among module columns.
+You MUST identify and exclude these from the modules list and place them in a dedicated field instead.
+
+Known non-module columns by year/period:
+
+### 1977-1978 tables (RELEVE ANNUEL FINAL, CYCLE LONG):
+The table contains these columns in order:
+ NOM et PRENOM N° matricule  | [SEMESTER] | [S/G] | MAT | FOR | PLI | GES | ANG | STR | ...moyennes...
+
+- [SEMESTER] = "Semestre d'inscription" or semester indicator → NOT a module grade
+  Values are typically: "1" or "2" (which semester the student attended)
+- [S/G] = "Effectif / Unité" or sous-groupe indicator → NOT a module grade  
+  Values are typically small integers like "1", "2", "3"
+
+These two columns appear BEFORE the actual module grades.
+Extract them separately into the student's `metadata` field, NOT into `modules`.
+
+If you encounter columns with values that are always small integers (1-3) and do not 
+correspond to any known module code, treat them as metadata columns, not module grades.
+
+-N° matricule : Can be found as a number next to nom et prenom , or null if not found
+
+### General rule for ALL years:
+If a column header does not match a known subject abbreviation (MAT, FOR, FBR, PLI, 
+GES, ANG, STR, DEC, STH, IST, STA, CBB, ASS, STK, FIP, ANA, FIC, etc.), 
+do NOT include it as a module. Place it in `metadata` instead.
+
+---
+
+## STRUCTURE 1 — Cover page:
+Used when the page is a cover/title page with a section code and no student grade data.
 {
-    "type":"single student",
+    "type": "cover",
+    "sectionCode": "...",
+    "annee": "...",
+    "anneeEtude": "...",
+    "section": "...",
+    "option": "...",
+    "institution": "...",
+    "error": string|null
+}
+
+---
+
+## STRUCTURE 2 — Results announcement page (admis / éliminé / non admis lists):
+Used when the page contains named lists of admitted or eliminated students (not a grade table).
+{
+    "type": "resultats_annonce",
+    "annee": "...",
+    "anneeEtude": "...",
+    "sectionCode": string|null,
+    "students": [
+        {
+            "nom": "...",
+            "prenom": "...",
+            "decision": "admis" | "elimine" | "non_admis" | "provisoirement_elimine"
+        }
+    ],
+    "error": string|null
+}
+
+---
+
+## STRUCTURE 3 — Single student bulletin (1974-1975 era):
+{
+    "type": "single_student",
+    "sectionCode": string|null,
     "student": {
-        "name": "",
-        "group": "",
-        "section": "",
-        "year": "",
-        "matricule": "",
+        "name": "...",
+        "group": "...",
+        "section": "...",
+        "year": "...",
+        "matricule": string|null,
         "moyenneAnterieur": number|null
     },
     "modules": [
         {
-            "name": "",
+            "name": "...",
             "coef_s1": number|null,
             "note_s1": number|null,
             "coef_s2": number|null,
@@ -55,10 +117,10 @@ Structure for one student for 1974-1975:
         }
     ],
     "notesConcours": {
-            "mathematique":number|null,
-            "cultureGenerale":number|null,
-            "testPsychologique":number|null
-         },
+        "mathematique": number|null,
+        "cultureGenerale": number|null,
+        "testPsychologique": number|null
+    },
     "summary": {
         "semestre1_moyenne": number|null,
         "semestre1_rang": number|null,
@@ -71,19 +133,27 @@ Structure for one student for 1974-1975:
     "error": string|null
 }
 
-structure for multiple students for 1977-1984:
+---
+
+## STRUCTURE 4 — Multiple students grade table (1977-1984 era):
 {
-    "type":"multiple students",
+    "type": "multiple_students",
+    "sectionCode": string|null,
     "annee": "...",
     "anneeEtude": "...",
     "section": "...",
-    "option":"...",
+    "option": "...",
     "students": [
         {
             "nom": "...",
             "prenom": "...",
-            "matricule": "...",
-            "module": [
+            "matricule": string|null,
+            "metadata": {
+                "semestre": number|null,
+                "sousGroupe": number|null,
+                "autresChamps": {}
+            },
+            "modules": [
                 {
                     "code": "...",
                     "noteS1": number|null,
@@ -100,50 +170,125 @@ structure for multiple students for 1977-1984:
                 "S2": number|null,
                 "annuel": number|null
             },
-            "decisionDeJuin": "...",
+            "decisionDeJuin": string|null,
             "nbrAbs": number|null,
             "noteDeStage": number|null,
-            "decisionFinaleDuConseil": "..."
+            "decisionFinaleDuConseil": string|null
         }
     ],
     "error": string|null
 }
 
-structure for tableau de matiere:
+---
+
+## STRUCTURE 5 — Table de matières (subject averages summary):
 {
-    "type":"table de matieres",
-    "matieres":[
+    "type": "table_de_matieres",
+    "sectionCode": string|null,
+    "annee": string|null,
+    "anneeEtude": string|null,
+    "matieres": [
         {
-            "abrev" : "",
-            "libelle": "",
-            "coef":{
-                    "S1":number|null,
-                    "S2":number|null
-                },
-            "moyenne":{
-                    "S1":number|null,
-                    "S1_80%":number|null,
-                    "S2":number|null,
-                    "S2_80%":number|null,
-                    "annuel":number|null,
-                    "annuel_80%":number|null
-                }
+            "abrev": "...",
+            "libelle": "...",
+            "coef": {
+                "S1": number|null,
+                "S2": number|null
+            },
+            "moyenne": {
+                "S1": number|null,
+                "S1_80pct": number|null,
+                "S2": number|null,
+                "S2_80pct": number|null,
+                "annuel": number|null,
+                "annuel_80pct": number|null
+            }
         }
     ],
-    "moyennePrommo":{
-            "S1":number|null,
-            "S1_80%":number|null,
-            "S2":number|null,
-            "S2_80":number|null,
-            "annuel":number|null,
-            "annuel_80%":number|null
-        }
+    "moyennePromotion": {
+        "S1": number|null,
+        "S1_80pct": number|null,
+        "S2": number|null,
+        "S2_80pct": number|null,
+        "annuel": number|null,
+        "annuel_80pct": number|null
+    },
+    "error": string|null
 }
 
-note : if you don't encounter any of these structures in the image, for example just a list of names or a cover return:
+---
+
+## FALLBACK — Unrecognized or irrelevant page:
 {
+    "type": "unknown",
     "error": "unwanted page"
 }
+
+---
+
+## DECISION VALUE NORMALIZATION:
+Always normalize these French terms to standard values:
+- "Admis" → "admis"
+- "Eliminé" / "Elimine" / "Eliminé(e)" → "elimine"
+- "Non admis" → "non_admis"
+- "Provisoirement éliminé" → "provisoirement_elimine"
+- "Passage conditionnel" → "passage_conditionnel"
+- "Ajourné" → "ajourne"
+- Unreadable → null
+
+---
+
+## SECTION CODE EXTRACTION RULES:
+- Look for patterns like "2-I-TRC", "1-I-TRC", "77-1I-TRC" in headers, covers, or corners
+- Normalize variants like "2_I. TRC" or "2 I TRC" → "2-I-TRC"
+- If not clearly visible on this page, return null
+- Do not infer sectionCode from context or other pages
+
+---
+
+## KNOWN MODULE CODES (for reference):
+MAT, FOR, FBR, FGR, PL1, PLI, GES, ANG, STR, DEC, STH, IST,
+STA, CBB, ASS, STK, FIP, ANA, FIC, MEC, ELE, PHY, CHI, DES
+
+Any column header NOT in this list and NOT a known administrative field 
+should be flagged in `metadata.autresChamps` with its raw value.
+
+## CRITICAL LAYOUT RULE — MULTI-STUDENT GRADE TABLES :
+
+In multi-student grade tables, EACH STUDENT OCCUPIES TWO CONSECUTIVE ROWS:
+  - ROW 1 (top row):    contains the SEMESTRE 1 (S1) grade for each module
+  - ROW 2 (bottom row): contains the SEMESTRE 2 (S2) grade for each module
+
+
+
+Example visual layout:
+1st case
+┌──────────────┬──────┬──────┬──────┬──────┬──────┐
+│              │ MAT  │ FOR  │ PLI  │ GES  │ ANG  │
+│ Drid         │12.25 │ 1.75 │      │ 9.00 │11.00 │  ← S1 grades (top row)
+│ Khaled       │15.05 │13.79 │ 8.53 │10.00 │      │  ← S2 grades (bottom row)
+└──────────────┴──────┴──────┴──────┴──────┴──────┘
+2nd case
+┌──────────────┬──────┬──────┬──────┬──────┬──────┐
+│              │ MAT  │ FOR  │ PLI  │ GES  │ ANG  │
+│ Drid  Khaled │12.25 │ 1.75 │      │ 9.00 │11.00 │  ← S1 grades (top row)
+│              │15.05 │13.79 │ 8.53 │10.00 │      │  ← S2 grades (bottom row)
+└──────────────┴──────┴──────┴──────┴──────┴──────┘
+
+for each case the matricule can be next to nom et prenom or between them even under them, but in the same column as them
+
+RULES FOR READING MODULE GRADES:
+- If BOTH rows have a value for a module → noteS1 = top value, noteS2 = bottom value
+- If ONLY the TOP row has a value (bottom is blank) → noteS1 = value, noteS2 = null
+  (module taught in S1 only)
+- If ONLY the BOTTOM row has a value (top is blank) → noteS1 = null, noteS2 = value
+  (module taught in S2 only)
+- NEVER assign a bottom-row value to noteS1, or a top-row value to noteS2
+- NEVER shift grades horizontally — each grade belongs strictly to its column
+
+This two-row-per-student layout is the source of most extraction errors.
+Read each student's two rows completely and independently before moving to the next student.
+Do NOT confuse the bottom row of one student with the top row of the next student.
 """.strip()
 
 

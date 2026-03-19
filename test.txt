@@ -1,0 +1,5 @@
+analyse the extarction service inside backend folder then write another python file wich we will run as main just for testing the result of extracting data from a file. i want to save the results of extraction inside the tmp folder.
+
+python test_extraction_service_main.py path/to/file.pdf
+
+python test_extraction_service_main.py "C:\Users\dell\Downloads\1-I-TRC.pdf" --api-key "YOUR_KEY"

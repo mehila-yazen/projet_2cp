@@ -1,0 +1,842 @@
+{
+  "file_path": "C:\\Users\\dell\\Downloads\\Année 1981-1982 2-I-TRC-.pdf",
+  "run_dir": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260320_001505",
+  "pages_dir": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260320_001505\\pages",
+  "total_pages": 9,
+  "ok_pages": 3,
+  "failed_pages": 6,
+  "pages": [
+    {
+      "page_number": 1,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260320_001505\\pages\\page_0001.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "SupU",
+      "result": {
+        "type": "cover",
+        "sectionCode": "2-I-TRC",
+        "annee": "1981-1982",
+        "anneeEtude": "2-I",
+        "section": "TRC",
+        "option": null,
+        "institution": null,
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 2,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260320_001505\\pages\\page_0002.png",
+      "status": "ok",
+      "attempt": 4,
+      "api_key_suffix": "SupU",
+      "result": {
+        "type": "table_de_matieres",
+        "sectionCode": null,
+        "annee": null,
+        "anneeEtude": null,
+        "matieres": [
+          {
+            "abrev": "MAT",
+            "libelle": "MATHEMATIQUES",
+            "coef": {
+              "S1": 4,
+              "S2": 3
+            },
+            "moyenne": {
+              "S1": 10.37,
+              "S1_80pct": 8.29,
+              "S2": 10.28,
+              "S2_80pct": 8.22,
+              "annuel": 10.33,
+              "annuel_80pct": 8.26
+            }
+          },
+          {
+            "abrev": "STA",
+            "libelle": "STATISTIQUES",
+            "coef": {
+              "S1": 3,
+              "S2": 2
+            },
+            "moyenne": {
+              "S1": 7.37,
+              "S1_80pct": 5.89,
+              "S2": 7.87,
+              "S2_80pct": 6.27,
+              "annuel": 7.57,
+              "annuel_80pct": 9.05
+            }
+          },
+          {
+            "abrev": "CBB",
+            "libelle": "LCY/COBOL",
+            "coef": {
+              "S1": 4,
+              "S2": null
+            },
+            "moyenne": {
+              "S1": 8.86,
+              "S1_80pct": 7.08,
+              "S2": null,
+              "S2_80pct": null,
+              "annuel": 8.86,
+              "annuel_80pct": 1.08
+            }
+          },
+          {
+            "abrev": "ASS",
+            "libelle": "ASSEMBLEUR ET M.E.D",
+            "coef": {
+              "S1": 4,
+              "S2": 3
+            },
+            "moyenne": {
+              "S1": 11.06,
+              "S1_80pct": 8.84,
+              "S2": 11.98,
+              "S2_80pct": 9.58,
+              "annuel": 11.45,
+              "annuel_80pct": 7.16
+            }
+          },
+          {
+            "abrev": "STR",
+            "libelle": "STRUCTURE MACHINES",
+            "coef": {
+              "S1": 3,
+              "S2": 2
+            },
+            "moyenne": {
+              "S1": 11.89,
+              "S1_80pct": 9.27,
+              "S2": 10.36,
+              "S2_80pct": 8.28,
+              "annuel": 11.09,
+              "annuel_80pct": 0.87
+            }
+          },
+          {
+            "abrev": "FIP",
+            "libelle": "FINANCES PUBLIQUES",
+            "coef": {
+              "S1": 3,
+              "S2": null
+            },
+            "moyenne": {
+              "S1": 10.32,
+              "S1_80pct": 8.25,
+              "S2": null,
+              "S2_80pct": null,
+              "annuel": 10.32,
+              "annuel_80pct": 8.25
+            }
+          },
+          {
+            "abrev": "GES",
+            "libelle": "COMPTABILITE GLE",
+            "coef": {
+              "S1": null,
+              "S2": 2
+            },
+            "moyenne": {
+              "S1": null,
+              "S1_80pct": null,
+              "S2": 10.09,
+              "S2_80pct": 8.07,
+              "annuel": 10.09,
+              "annuel_80pct": 0.07
+            }
+          },
+          {
+            "abrev": "ANG",
+            "libelle": "ANGLAIS",
+            "coef": {
+              "S1": 3,
+              "S2": 2
+            },
+            "moyenne": {
+              "S1": 11.98,
+              "S1_80pct": 9.58,
+              "S2": 11.31,
+              "S2_80pct": 9.04,
+              "annuel": 11.71,
+              "annuel_80pct": 7.36
+            }
+          },
+          {
+            "abrev": "ANA",
+            "libelle": "ELEMENTS D'ANALYSE",
+            "coef": {
+              "S1": null,
+              "S2": 2
+            },
+            "moyenne": {
+              "S1": null,
+              "S1_80pct": null,
+              "S2": 11.29,
+              "S2_80pct": 9.03,
+              "annuel": 11.29,
+              "annuel_80pct": 7.03
+            }
+          },
+          {
+            "abrev": "FIC",
+            "libelle": "FICHIERS",
+            "coef": {
+              "S1": null,
+              "S2": 3
+            },
+            "moyenne": {
+              "S1": null,
+              "S1_80pct": null,
+              "S2": 11.23,
+              "S2_80pct": 8.98,
+              "annuel": 11.23,
+              "annuel_80pct": 8.98
+            }
+          }
+        ],
+        "moyennePromotion": {
+          "S1": 10.2,
+          "S1_80pct": 8.16,
+          "S2": 10.64,
+          "S2_80pct": 8.51,
+          "annuel": 10.42,
+          "annuel_80pct": 8.33
+        },
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 3,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260320_001505\\pages\\page_0003.png",
+      "status": "ok",
+      "attempt": 4,
+      "api_key_suffix": "SupU",
+      "result": {
+        "type": "multiple_students",
+        "sectionCode": null,
+        "annee": "1981/1982",
+        "anneeEtude": "2",
+        "section": "INGENIEUR",
+        "option": "TR-COMMUN",
+        "students": [
+          {
+            "nom": "BENHARRATS",
+            "prenom": "LEILA NASSIRA",
+            "matricule": "800014",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 13.0,
+                "noteS2": 15.87
+              },
+              {
+                "code": "STA",
+                "noteS1": 11.33,
+                "noteS2": 8.83
+              },
+              {
+                "code": "CBB",
+                "noteS1": 14.3,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 14.82,
+                "noteS2": 14.54
+              },
+              {
+                "code": "STR",
+                "noteS1": 14.66,
+                "noteS2": 15.1
+              },
+              {
+                "code": "FIP",
+                "noteS1": 11.25,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": 15.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 14.66,
+                "noteS2": 11.16
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": 14.5
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": 14.05
+              }
+            ],
+            "moyenne": {
+              "S1": 13.5,
+              "S2": 13.82,
+              "annuel": 13.66
+            },
+            "rang": {
+              "S1": 1,
+              "S2": 2,
+              "annuel": 1
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": 14.0,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "BENDEKOUM",
+            "prenom": "TOUFFIK",
+            "matricule": "800010",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 10.0,
+                "noteS2": 11.62
+              },
+              {
+                "code": "STA",
+                "noteS1": 10.0,
+                "noteS2": 10.66
+              },
+              {
+                "code": "CBB",
+                "noteS1": 13.18,
+                "noteS2": 15.25
+              },
+              {
+                "code": "ASS",
+                "noteS1": 14.77,
+                "noteS2": 15.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 14.0,
+                "noteS2": 15.0
+              },
+              {
+                "code": "FIP",
+                "noteS1": 11.75,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": 16.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 16.35,
+                "noteS2": 13.4
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": 17.5
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": 13.33
+              }
+            ],
+            "moyenne": {
+              "S1": 12.83,
+              "S2": 13.95,
+              "annuel": 13.4
+            },
+            "rang": {
+              "S1": 2,
+              "S2": 3,
+              "annuel": 2
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": 15.0,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "METIBA",
+            "prenom": "MOHAMED",
+            "matricule": "820256",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 11.37,
+                "noteS2": 10.62
+              },
+              {
+                "code": "STA",
+                "noteS1": 9.13,
+                "noteS2": 12.16
+              },
+              {
+                "code": "CBB",
+                "noteS1": 11.5,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 14.78,
+                "noteS2": 14.95
+              },
+              {
+                "code": "STR",
+                "noteS1": 15.66,
+                "noteS2": 14.8
+              },
+              {
+                "code": "FIP",
+                "noteS1": 11.25,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": 15.5
+              },
+              {
+                "code": "ANG",
+                "noteS1": 13.6,
+                "noteS2": 13.3
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": 13.5
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": 13.33
+              }
+            ],
+            "moyenne": {
+              "S1": 12.45,
+              "S2": 13.43,
+              "annuel": 12.95
+            },
+            "rang": {
+              "S1": 3,
+              "S2": 4,
+              "annuel": 3
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": 15.0,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "MALKI",
+            "prenom": "MUSTAPHA",
+            "matricule": "822261",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 15.62,
+                "noteS2": 16.0
+              },
+              {
+                "code": "STA",
+                "noteS1": 10.27,
+                "noteS2": 10.33
+              },
+              {
+                "code": "CBB",
+                "noteS1": 11.86,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 11.75,
+                "noteS2": 13.04
+              },
+              {
+                "code": "STR",
+                "noteS1": 14.16,
+                "noteS2": 11.6
+              },
+              {
+                "code": "FIP",
+                "noteS1": 12.0,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": 12.75
+              },
+              {
+                "code": "ANG",
+                "noteS1": 12.7,
+                "noteS2": 11.9
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": 13.5
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": 12.33
+              }
+            ],
+            "moyenne": {
+              "S1": 12.57,
+              "S2": 12.85,
+              "annuel": 12.76
+            },
+            "rang": {
+              "S1": 4,
+              "S2": 5,
+              "annuel": 4
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": 14.0,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "ADLA",
+            "prenom": "ABDELKADER",
+            "matricule": "800003",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 13.75,
+                "noteS2": 10.25
+              },
+              {
+                "code": "STA",
+                "noteS1": 11.83,
+                "noteS2": 11.5
+              },
+              {
+                "code": "CBB",
+                "noteS1": 9.93,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 14.0,
+                "noteS2": 14.75
+              },
+              {
+                "code": "STR",
+                "noteS1": 11.33,
+                "noteS2": 13.0
+              },
+              {
+                "code": "FIP",
+                "noteS1": 13.25,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": 16.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 13.68,
+                "noteS2": 12.25
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": 12.0
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": 12.94
+              }
+            ],
+            "moyenne": {
+              "S1": 12.53,
+              "S2": 12.8,
+              "annuel": 12.66
+            },
+            "rang": {
+              "S1": 5,
+              "S2": 6,
+              "annuel": 5
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": 10.0,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "ZERDAZI",
+            "prenom": "BACHIR",
+            "matricule": "800038",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 12.0,
+                "noteS2": 10.25
+              },
+              {
+                "code": "STA",
+                "noteS1": 11.0,
+                "noteS2": 11.16
+              },
+              {
+                "code": "CBB",
+                "noteS1": 10.98,
+                "noteS2": 11.31
+              },
+              {
+                "code": "ASS",
+                "noteS1": 12.57,
+                "noteS2": 12.5
+              },
+              {
+                "code": "STR",
+                "noteS1": 16.0,
+                "noteS2": 14.25
+              },
+              {
+                "code": "FIP",
+                "noteS1": 12.0,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": 12.16
+              },
+              {
+                "code": "ANG",
+                "noteS1": 13.33,
+                "noteS2": 10.5
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": 12.28
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 12.45,
+              "S2": 11.71,
+              "annuel": 12.08
+            },
+            "rang": {
+              "S1": 7,
+              "S2": 10,
+              "annuel": 6
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "HADJ-NACEUR",
+            "prenom": "SAMIRA",
+            "matricule": "820204",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 11.87,
+                "noteS2": 11.37
+              },
+              {
+                "code": "STA",
+                "noteS1": 7.33,
+                "noteS2": 9.0
+              },
+              {
+                "code": "CBB",
+                "noteS1": 16.98,
+                "noteS2": null
+              },
+              {
+                "code": "ASS",
+                "noteS1": 11.71,
+                "noteS2": 12.54
+              },
+              {
+                "code": "STR",
+                "noteS1": 14.16,
+                "noteS2": 10.5
+              },
+              {
+                "code": "FIP",
+                "noteS1": 13.25,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": null,
+                "noteS2": 5.25
+              },
+              {
+                "code": "ANG",
+                "noteS1": 12.83,
+                "noteS2": 11.42
+              },
+              {
+                "code": "ANA",
+                "noteS1": null,
+                "noteS2": 14.5
+              },
+              {
+                "code": "FIC",
+                "noteS1": null,
+                "noteS2": 11.69
+              }
+            ],
+            "moyenne": {
+              "S1": 12.7,
+              "S2": 10.92,
+              "annuel": 11.84
+            },
+            "rang": {
+              "S1": 3,
+              "S2": 7,
+              "annuel": 7
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": 14.0,
+            "decisionFinaleDuConseil": "elimine"
+          }
+        ],
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 4,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260320_001505\\pages\\page_0004.png",
+      "status": "failed",
+      "attempt": 4,
+      "api_key_suffix": null,
+      "result": null,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 5.332667894s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '5s'}]}}"
+    },
+    {
+      "page_number": 5,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260320_001505\\pages\\page_0005.png",
+      "status": "failed",
+      "attempt": 4,
+      "api_key_suffix": null,
+      "result": null,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 28.492129192s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '28s'}]}}"
+    },
+    {
+      "page_number": 6,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260320_001505\\pages\\page_0006.png",
+      "status": "failed",
+      "attempt": 4,
+      "api_key_suffix": null,
+      "result": null,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 51.690320607s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '51s'}]}}"
+    },
+    {
+      "page_number": 7,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260320_001505\\pages\\page_0007.png",
+      "status": "failed",
+      "attempt": 4,
+      "api_key_suffix": null,
+      "result": null,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 14.948545456s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '14s'}]}}"
+    },
+    {
+      "page_number": 8,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260320_001505\\pages\\page_0008.png",
+      "status": "failed",
+      "attempt": 4,
+      "api_key_suffix": null,
+      "result": null,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 38.081439814s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '38s'}]}}"
+    },
+    {
+      "page_number": 9,
+      "image_path": "tmp\\extractions\\Année 1981-1982 2-I-TRC-_20260320_001505\\pages\\page_0009.png",
+      "status": "failed",
+      "attempt": 4,
+      "api_key_suffix": null,
+      "result": null,
+      "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 1.623727916s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '1s'}]}}"
+    }
+  ]
+}
