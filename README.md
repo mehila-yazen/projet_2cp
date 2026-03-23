@@ -43,6 +43,7 @@ Endpoints:
 - `GET /health`
 - `POST /extract/pdf` (multipart form-data with `file` as PDF)
 - `POST /extract/pdfs` (multipart form-data with `files` as multiple PDFs)
+- `GET /extract/completed?limit=50` (returns latest completed extracted files with per-page results)
 - `POST /verify/students/save` (JSON payload from human verification step)
 - `GET /matricules/pending/check` (find pending temporary matricules that can now be reconciled)
 - `POST /matricules/pending/apply?preview=true|false` (preview or apply reconciliation)
@@ -141,11 +142,84 @@ Sample response (`POST /extract/pdf`):
 }
 ```
 
+Sample response (`GET /extract/completed?limit=2`):
+```json
+{
+	"count": 2,
+	"records": [
+		{
+			"id": "batch_20260322_102030_ab12cd34::archive_1978.pdf",
+			"batch_id": "batch_20260322_102030_ab12cd34",
+			"file_name": "archive_1978.pdf",
+			"processed_at": "2026-03-22T10:20:45",
+			"status": "ok",
+			"total_pages": 20,
+			"ok_pages": 18,
+			"failed_pages": 2,
+			"pages": [
+				{
+					"page_number": 1,
+					"status": "ok",
+					"image_path": "tmp/extractions/.../pages/page_0001.png",
+					"result": {"type": "single_student"},
+					"error": null
+				}
+			]
+		}
+	]
+}
+```
+
 Multiple API keys for quota/rate limits:
 ```cmd
 set GEMINI_API_KEYS=KEY_1,KEY_2,KEY_3
 ```
 If not set, backend falls back to `GEMINI_API_KEY`.
+
+## Frontend integration (Digitization + Validation)
+
+### Shared API client
+- File: `Frontend/Js/apiClient.js`
+- Global object: `window.ArchiveApiClient`
+- Methods:
+	- `getBaseUrl()` / `setBaseUrl(url)`
+	- `health()`
+	- `extractPdf(file)`
+	- `extractPdfs(files)`
+	- `getCompletedExtractions(limit)`
+
+Base URL behavior:
+- Stored in browser `localStorage` key: `apiBaseUrl`
+- Default: `http://127.0.0.1:8000`
+
+### Digitization page
+- File: `Frontend/Js/Digitization.js`
+- Validates selected files (PDF only, max 100MB each)
+- Calls `ArchiveApiClient.extractPdfs(files)`
+- Saves completed extraction records to browser `localStorage` key: `completedExtractions`
+
+### Validation page
+- File: `Frontend/Js/Validation.js`
+- Loads completed records from backend first (`GET /extract/completed`)
+- Falls back to local `completedExtractions` if backend is unavailable
+- Queue list shows completed files and per-file processed pages
+- Pagination updates per selected document using backend page count
+
+### Script order in HTML
+- `Frontend/Html/Digitization.html`:
+	- `../Js/apiClient.js`
+	- `../Js/Digitization.js`
+- `Frontend/Html/Validation.html`:
+	- `../Js/apiClient.js`
+	- `../Js/Validation.js`
+
+### Quick run flow
+1. Start backend:
+	 ```cmd
+	 uvicorn src.Backend.api:app --reload
+	 ```
+2. Open `Frontend/Html/Digitization.html` and upload PDFs.
+3. Open `Frontend/Html/Validation.html` to see completed files and page-level extracted results.
 
 ## Matricule strategy (missing matricule cases)
 Implemented helpers in [src/services/matricule_service.py](src/services/matricule_service.py).

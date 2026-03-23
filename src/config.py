@@ -1,7 +1,10 @@
 from dotenv import load_dotenv
 import os
+from pathlib import Path
 
-load_dotenv('env.env')
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+ENV_FILE = PROJECT_ROOT / 'env.env'
+load_dotenv(ENV_FILE)
 
 class Config:
     api_keys = [

@@ -1,11 +1,16 @@
 from __future__ import annotations
 
+import json
+import os
 from datetime import datetime
 from datetime import date
 from pathlib import Path
 from uuid import uuid4
 
 from fastapi import Body, FastAPI, File, HTTPException, Query, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
 
 from src.Backend.extraction_service import extract_pdf_with_page_mapping_async
 from src.Database.models import Etudiant
@@ -17,11 +22,27 @@ from src.services.matricule_service import (
 )
 
 
-UPLOAD_ROOT = Path("tmp/uploads")
-EXTRACTION_ROOT = Path("tmp/extractions")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+UPLOAD_ROOT = PROJECT_ROOT / "tmp" / "uploads"
+EXTRACTION_ROOT = PROJECT_ROOT / "tmp" / "extractions"
+COMPLETED_EXTRACTIONS_ROOT = PROJECT_ROOT / "tmp" / "completed_extractions"
+FRONTEND_ROOT = PROJECT_ROOT / "Frontend"
 
 
 app = FastAPI(title="Archive Digitization API", version="0.1.0")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.get("/", include_in_schema=False)
+async def root_redirect() -> RedirectResponse:
+    return RedirectResponse(url="/Html/Dashboard.html")
 
 
 @app.get("/health")
@@ -33,6 +54,11 @@ def _parse_date(value: str | None) -> date | None:
     if not value:
         return None
     return datetime.strptime(value, "%Y-%m-%d").date()
+
+
+def _db_writes_enabled() -> bool:
+    raw = os.getenv("ALLOW_DB_WRITES", "false").strip().lower()
+    return raw in {"1", "true", "yes", "on"}
 
 
 def _build_processing_progress(extraction: dict | None) -> dict:
@@ -137,6 +163,86 @@ async def _process_uploaded_pdf(file: UploadFile, batch_dir: Path) -> dict:
     }
 
 
+def _build_completed_record(batch_id: str, item: dict, *, processed_at: str) -> dict | None:
+    if item.get("status") != "ok":
+        return None
+
+    extraction = item.get("extraction") or {}
+    upload = item.get("upload") or {}
+    file_name = upload.get("original_filename") or Path(extraction.get("file_path", "unknown.pdf")).name
+    pages = extraction.get("pages") or []
+
+    return {
+        "id": f"{batch_id}::{file_name}",
+        "batch_id": batch_id,
+        "file_name": file_name,
+        "processed_at": processed_at,
+        "status": item.get("status"),
+        "total_pages": int(extraction.get("total_pages", 0) or 0),
+        "ok_pages": int(extraction.get("ok_pages", 0) or 0),
+        "failed_pages": int(extraction.get("failed_pages", 0) or 0),
+        "pages": [
+            {
+                "page_number": int(page.get("page_number", 0) or 0),
+                "status": page.get("status"),
+                "image_path": page.get("image_path"),
+                "result": page.get("result"),
+                "error": page.get("error"),
+            }
+            for page in pages
+        ],
+    }
+
+
+def _persist_completed_batch(batch_id: str, results: list[dict]) -> None:
+    COMPLETED_EXTRACTIONS_ROOT.mkdir(parents=True, exist_ok=True)
+    processed_at = datetime.now().isoformat(timespec="seconds")
+
+    records = [
+        record
+        for result in results
+        if (record := _build_completed_record(batch_id, result, processed_at=processed_at)) is not None
+    ]
+
+    if not records:
+        return
+
+    payload = {
+        "batch_id": batch_id,
+        "processed_at": processed_at,
+        "count": len(records),
+        "records": records,
+    }
+
+    path = COMPLETED_EXTRACTIONS_ROOT / f"{batch_id}.json"
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _load_completed_records(limit: int = 50) -> list[dict]:
+    if not COMPLETED_EXTRACTIONS_ROOT.exists():
+        return []
+
+    files = sorted(
+        COMPLETED_EXTRACTIONS_ROOT.glob("*.json"),
+        key=lambda p: p.stat().st_mtime,
+        reverse=True,
+    )
+
+    records: list[dict] = []
+    for file in files:
+        try:
+            payload = json.loads(file.read_text(encoding="utf-8"))
+            batch_records = payload.get("records") or []
+            for item in batch_records:
+                records.append(item)
+                if len(records) >= limit:
+                    return records
+        except Exception:
+            continue
+
+    return records
+
+
 @app.post("/extract/pdf")
 async def extract_pdf(file: UploadFile = File(...)) -> dict:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -145,6 +251,7 @@ async def extract_pdf(file: UploadFile = File(...)) -> dict:
     batch_dir.mkdir(parents=True, exist_ok=True)
 
     result = await _process_uploaded_pdf(file, batch_dir)
+    _persist_completed_batch(batch_id, [result])
     batch_progress = _build_batch_processing_progress([result])
     return {
         "batch_id": batch_id,
@@ -173,6 +280,7 @@ async def extract_pdfs(files: list[UploadFile] = File(...)) -> dict:
 
     processed = sum(1 for item in results if item.get("status") == "ok")
     failed = len(results) - processed
+    _persist_completed_batch(batch_id, results)
     batch_progress = _build_batch_processing_progress(results)
 
     return {
@@ -185,8 +293,23 @@ async def extract_pdfs(files: list[UploadFile] = File(...)) -> dict:
     }
 
 
+@app.get("/extract/completed")
+async def get_completed_extractions(limit: int = Query(default=50, ge=1, le=500)) -> dict:
+    records = _load_completed_records(limit=limit)
+    return {
+        "count": len(records),
+        "records": records,
+    }
+
+
 @app.post("/verify/students/save")
 async def save_verified_students(payload: dict = Body(...)) -> dict:
+    if not _db_writes_enabled():
+        raise HTTPException(
+            status_code=403,
+            detail="Database writes are disabled for testing. Set ALLOW_DB_WRITES=true to enable this endpoint.",
+        )
+
     students = payload.get("students")
     annee_univ = payload.get("annee_univ")
 
@@ -299,6 +422,12 @@ async def check_pending_matricules() -> dict:
 
 @app.post("/matricules/pending/apply")
 async def apply_pending_matricules(preview: bool = Query(True)) -> dict:
+    if not preview and not _db_writes_enabled():
+        raise HTTPException(
+            status_code=403,
+            detail="Database writes are disabled for testing. Use preview=true or set ALLOW_DB_WRITES=true.",
+        )
+
     with get_session() as db:
         report = apply_pending_matricule_reconciliation(db, preview=preview)
     return report
@@ -314,3 +443,10 @@ async def get_pending_matricule_conflicts() -> dict:
         "conflicts_count": report.get("conflicts_count", 0),
         "conflicts": report.get("conflicts", []),
     }
+
+
+if FRONTEND_ROOT.exists():
+    tmp_root = PROJECT_ROOT / "tmp"
+    if tmp_root.exists():
+        app.mount("/tmp", StaticFiles(directory=str(tmp_root)), name="tmp-static")
+    app.mount("/", StaticFiles(directory=str(FRONTEND_ROOT)), name="frontend")

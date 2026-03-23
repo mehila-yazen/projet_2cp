@@ -11,9 +11,15 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from pdf2image import convert_from_path
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+ENV_FILE = PROJECT_ROOT / "env.env"
+load_dotenv(ENV_FILE)
 
 
 DEFAULT_MODEL = "models/gemini-2.5-flash"
