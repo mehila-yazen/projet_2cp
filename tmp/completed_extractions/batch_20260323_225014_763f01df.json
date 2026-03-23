@@ -1,0 +1,19 @@
+{
+  "batch_id": "batch_20260323_225014_763f01df",
+  "processed_at": "2026-03-23T22:57:14",
+  "count": 1,
+  "records": [
+    {
+      "id": "batch_20260323_225014_763f01df::1-I-TRC.pdf",
+      "batch_id": "batch_20260323_225014_763f01df",
+      "file_name": "1-I-TRC.pdf",
+      "processed_at": "2026-03-23T22:57:14",
+      "status": "failed",
+      "error": "Extraction timed out after 420 seconds.",
+      "total_pages": 0,
+      "ok_pages": 0,
+      "failed_pages": 0,
+      "pages": []
+    }
+  ]
+}

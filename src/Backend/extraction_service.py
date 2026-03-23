@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import os
 import random
 import re
@@ -9,7 +10,7 @@ import time
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 from dotenv import load_dotenv
 from google import genai
@@ -26,6 +27,8 @@ DEFAULT_MODEL = "models/gemini-2.5-flash"
 DEFAULT_DPI = 200
 DEFAULT_MAX_RETRIES_PER_PAGE = 4
 DEFAULT_KEY_COOLDOWN_SECONDS = 20
+
+logger = logging.getLogger(__name__)
 
 PROMPT = """
 You are a text extractor of old scanned documents containing student academic records.
@@ -432,6 +435,7 @@ def _is_transient_error(exc: Exception) -> bool:
 
 
 def _render_pdf_pages(pdf_path: Path, output_dir: Path, dpi: int = DEFAULT_DPI) -> list[Path]:
+    logger.info("Rendering PDF pages for %s at %s DPI", pdf_path, dpi)
     images = convert_from_path(str(pdf_path), dpi=dpi)
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -440,6 +444,7 @@ def _render_pdf_pages(pdf_path: Path, output_dir: Path, dpi: int = DEFAULT_DPI) 
         page_path = output_dir / f"page_{idx:04d}.png"
         image.save(page_path, "PNG")
         page_paths.append(page_path)
+    logger.info("Rendered %s pages for %s", len(page_paths), pdf_path)
     return page_paths
 
 
@@ -508,50 +513,143 @@ def extract_pdf_with_page_mapping(
     model: str = DEFAULT_MODEL,
     dpi: int = DEFAULT_DPI,
     max_retries_per_page: int = DEFAULT_MAX_RETRIES_PER_PAGE,
+    progress_callback: Callable[[dict[str, Any]], None] | None = None,
 ) -> dict[str, Any]:
     pdf_path = Path(file_path)
     if not pdf_path.exists():
         raise FileNotFoundError(f"PDF file not found: {pdf_path}")
 
+    logger.info("Extraction pipeline started for %s", pdf_path)
+
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     run_dir = Path(output_root) / f"{pdf_path.stem}_{timestamp}"
     pages_dir = run_dir / "pages"
+    run_dir.mkdir(parents=True, exist_ok=True)
 
-    page_images = _render_pdf_pages(pdf_path, pages_dir, dpi=dpi)
-    key_pool = ApiKeyPool.from_environment()
+    try:
+        page_images = _render_pdf_pages(pdf_path, pages_dir, dpi=dpi)
+        key_pool = ApiKeyPool.from_environment()
 
-    page_results: list[dict[str, Any]] = []
-    for page_number, image_path in enumerate(page_images, start=1):
-        extraction = _extract_one_page(
-            image_path=image_path,
-            key_pool=key_pool,
-            model=model,
-            max_retries=max_retries_per_page,
+        if progress_callback is not None:
+            progress_callback(
+                {
+                    "status": "processing",
+                    "stage": "rendered",
+                    "total_pages": len(page_images),
+                    "processed_pages": 0,
+                    "failed_pages": 0,
+                    "current_page": 0,
+                }
+            )
+
+        page_results: list[dict[str, Any]] = []
+        processed_pages = 0
+        failed_pages = 0
+        for page_number, image_path in enumerate(page_images, start=1):
+            logger.info("Processing page %s/%s for %s", page_number, len(page_images), pdf_path.name)
+            extraction = _extract_one_page(
+                image_path=image_path,
+                key_pool=key_pool,
+                model=model,
+                max_retries=max_retries_per_page,
+            )
+            logger.info(
+                "Page %s/%s status=%s attempts=%s",
+                page_number,
+                len(page_images),
+                extraction.get("status"),
+                extraction.get("attempt"),
+            )
+
+            if extraction.get("status") == "ok":
+                processed_pages += 1
+            else:
+                failed_pages += 1
+
+            if progress_callback is not None:
+                progress_callback(
+                    {
+                        "status": "processing",
+                        "stage": "extracting",
+                        "total_pages": len(page_images),
+                        "processed_pages": processed_pages,
+                        "failed_pages": failed_pages,
+                        "current_page": page_number,
+                    }
+                )
+
+            page_results.append(
+                {
+                    "page_number": page_number,
+                    "image_path": str(image_path),
+                    "status": extraction["status"],
+                    "attempt": extraction["attempt"],
+                    "api_key_suffix": extraction["api_key_suffix"],
+                    "result": extraction["result"],
+                    "error": extraction["error"],
+                }
+            )
+
+        ok_count = sum(1 for item in page_results if item["status"] == "ok")
+        failed_count = len(page_results) - ok_count
+
+        payload = {
+            "file_path": str(pdf_path),
+            "run_dir": str(run_dir),
+            "pages_dir": str(pages_dir),
+            "total_pages": len(page_results),
+            "ok_pages": ok_count,
+            "failed_pages": failed_count,
+            "pages": page_results,
+        }
+
+        (run_dir / "extraction_result.json").write_text(
+            json.dumps(payload, ensure_ascii=False, indent=2),
+            encoding="utf-8",
         )
-        page_results.append(
-            {
-                "page_number": page_number,
-                "image_path": str(image_path),
-                "status": extraction["status"],
-                "attempt": extraction["attempt"],
-                "api_key_suffix": extraction["api_key_suffix"],
-                "result": extraction["result"],
-                "error": extraction["error"],
-            }
+
+        logger.info(
+            "Extraction pipeline finished for %s: total=%s ok=%s failed=%s",
+            pdf_path,
+            len(page_results),
+            ok_count,
+            failed_count,
         )
 
-    ok_count = sum(1 for item in page_results if item["status"] == "ok")
-    failed_count = len(page_results) - ok_count
+        if progress_callback is not None:
+            progress_callback(
+                {
+                    "status": "completed",
+                    "stage": "completed",
+                    "total_pages": len(page_results),
+                    "processed_pages": ok_count,
+                    "failed_pages": failed_count,
+                    "current_page": len(page_results),
+                }
+            )
 
-    return {
-        "file_path": str(pdf_path),
-        "run_dir": str(run_dir),
-        "pages_dir": str(pages_dir),
-        "total_pages": len(page_results),
-        "ok_pages": ok_count,
-        "failed_pages": failed_count,
-        "pages": page_results,
-    }
+        return payload
+    except Exception as exc:
+        error_payload = {
+            "file_path": str(pdf_path),
+            "run_dir": str(run_dir),
+            "pages_dir": str(pages_dir),
+            "error": str(exc),
+        }
+        (run_dir / "extraction_error.json").write_text(
+            json.dumps(error_payload, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        if progress_callback is not None:
+            progress_callback(
+                {
+                    "status": "failed",
+                    "stage": "failed",
+                    "error": str(exc),
+                }
+            )
+        logger.exception("Extraction pipeline crashed for %s: %s", pdf_path, exc)
+        raise
 
 
 async def extract_pdf_with_page_mapping_async(
@@ -561,6 +659,7 @@ async def extract_pdf_with_page_mapping_async(
     model: str = DEFAULT_MODEL,
     dpi: int = DEFAULT_DPI,
     max_retries_per_page: int = DEFAULT_MAX_RETRIES_PER_PAGE,
+    progress_callback: Callable[[dict[str, Any]], None] | None = None,
 ) -> dict[str, Any]:
     return await asyncio.to_thread(
         extract_pdf_with_page_mapping,
@@ -569,4 +668,5 @@ async def extract_pdf_with_page_mapping_async(
         model=model,
         dpi=dpi,
         max_retries_per_page=max_retries_per_page,
+        progress_callback=progress_callback,
     )

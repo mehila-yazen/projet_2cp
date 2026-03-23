@@ -1,612 +1,610 @@
+(function () {
+  var api = new window.DigitizationApiClient();
+  var records = [];
+  var selectedRecordIndex = 0;
+  var currentPageIndex = 0;
+  var editMode = false;
 
-/* Date */
-  var days   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  var now = new Date();
-  var el = document.getElementById('headerDate');
-  if (el) el.textContent = days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+  var queueList = document.getElementById('queueList');
+  var pageLabel = document.getElementById('pageLabel');
+  var pageInfo = document.getElementById('pageInfo');
+  var tableBody = document.getElementById('tableBody');
+  var metaYear = document.getElementById('meta-year');
+  var metaLevel = document.getElementById('meta-level');
+  var metaSpec = document.getElementById('meta-spec');
+  var metaSystem = document.getElementById('meta-system');
+  var editBtn = document.getElementById('editBtn');
+  var editBtnLabel = document.getElementById('editBtnLabel');
+  var editBanner = document.getElementById('editBanner');
+  var previewCard = document.querySelector('.pdf-placeholder');
+  var warningBox = document.querySelector('.warning-box');
 
-// ── NAV ACTIVE ────────────────────────────────────────
-function setActive(el) {
-  document.querySelectorAll('.nav-item').forEach(n => {
-    n.classList.remove('active');
-    const svg = n.querySelector('svg');
-    if (svg) {
-      if (svg.getAttribute('fill') && svg.getAttribute('fill') !== 'none') svg.setAttribute('fill', '#266FA3');
-      if (svg.getAttribute('stroke') && svg.getAttribute('stroke') !== 'none') svg.setAttribute('stroke', '#266FA3');
-      svg.querySelectorAll('path, circle, ellipse, line, polyline, rect, polygon').forEach(child => {
-        if (child.getAttribute('stroke') && child.getAttribute('stroke') !== 'none') child.setAttribute('stroke', '#266FA3');
-        if (child.getAttribute('fill') && child.getAttribute('fill') !== 'none') child.setAttribute('fill', '#266FA3');
-      });
+  function getPageType(page) {
+    var result = page && page.result ? page.result : {};
+    return String(result.type || 'unknown');
+  }
+
+  function getRecordStatusLabel(record) {
+    var status = String((record && record.status) || 'unknown').toLowerCase();
+    if (status === 'ok' || status === 'completed') {
+      return 'Completed';
     }
-  });
-  el.classList.add('active');
-  const svg = el.querySelector('svg');
-  if (svg) {
-    if (svg.getAttribute('fill') && svg.getAttribute('fill') !== 'none') svg.setAttribute('fill', 'white');
-    if (svg.getAttribute('stroke') && svg.getAttribute('stroke') !== 'none') svg.setAttribute('stroke', 'white');
-    svg.querySelectorAll('path, circle, ellipse, line, polyline, rect, polygon').forEach(child => {
-      if (child.getAttribute('stroke') && child.getAttribute('stroke') !== 'none') child.setAttribute('stroke', 'white');
-      if (child.getAttribute('fill') && child.getAttribute('fill') !== 'none') child.setAttribute('fill', 'white');
-    });
+    if (status === 'failed') {
+      return 'Failed';
+    }
+    if (status === 'processing') {
+      return 'Processing';
+    }
+    return 'Unknown';
   }
-}
 
-// ── SIDEBAR ───────────────────────────────────────────
-document.getElementById('collapseBtn').addEventListener('click', () => {
-  document.getElementById('sidebar').classList.toggle('collapsed');
-});
-
-// Init: apply active icon color on load
-(function() {
-  const activeItem = document.querySelector('.nav-item.active');
-  if (activeItem) setActive(activeItem);
-})();
-
-// ── PAGINATION ────────────────────────────────────────
-let currentPage = 1;
-const totalPages = 45;
-function changePage(dir) {
-  currentPage = Math.max(1, Math.min(totalPages, currentPage + dir));
-  document.getElementById('pageLabel').textContent = 'PDF Preview — Page ' + currentPage;
-  document.getElementById('pageInfo').textContent = 'Page ' + currentPage + ' / ' + totalPages;
-}
-
-// ── QUEUE ─────────────────────────────────────────────
-const docs = [
-  {title:'Document 1', sub:'Promotion 1974'},
-  {title:'Document 2', sub:'Promotion 1975'},
-  {title:'Document 3', sub:'Promotion 1976'},
-  {title:'Document 4', sub:'Promotion 1977'},
-  {title:'Document 5', sub:'Promotion 1978'},
-  {title:'Document 6', sub:'Promotion 1979'},
-  {title:'Document 7', sub:'Promotion 1980'},
-  {title:'Document 8', sub:'Promotion 1981'},
-];
-const queueList = document.getElementById('queueList');
-docs.forEach((d, i) => {
-  const el = document.createElement('div');
-  el.className = 'queue-item' + (i===0 ? ' active' : '');
-  el.innerHTML = `<div class="queue-item-title">${d.title}</div><div class="queue-item-sub">${d.sub}</div>`;
-  el.onclick = () => {
-    document.querySelectorAll('.queue-item').forEach(q => q.classList.remove('active'));
-    el.classList.add('active');
-  };
-  queueList.appendChild(el);
-});
-
-// ── BASE DE DONNÉES DE RÉFÉRENCE ──────────────────────
-// Simule la BDD réelle (noms et prénoms enregistrés)
-const DB_LAST_NAMES = new Set([
-  'BELKACEM','BENALI','KADDOUR','MEZIANE','BRAHIM','BOUDIAF','CHEBLI','DRICI',
-  'FERHAT','GHOZALI','HAMDANI','IDIR','KHELIF','LARBI','MANSOURI','NACER',
-  'OUKIL','RAHMANI','SAID','TLEMCANI','YAHIA','ZERROUK','AMRANI','BOUKHARI',
-  'CHERIF','DJABALLAH','FELLAH','GUENDOUZ','HAMDI','IGHIL','KHALED','LAIB',
-  'MADANI','NOUAR','OUALI','ROUABAH','SAHRAOUI','TOUMI','YAHI','ZIANI',
-  'BENHAMOUDA','BENSALEM','MEBARKI','BOUAZZA','BENABBAS','AOUADI','BOUCHERIT',
-  'LADACI','BERBER','BOUSSAID','BOUMEDIENE','MAMMERI','HADDAD','AISSAOUI'
-]);
-
-const DB_FIRST_NAMES = new Set([
-  'Mohammed','Fatima','Amine','Sarah','Yacine','Amina','Karim','Nadia',
-  'Sofiane','Samira','Bilal','Houria','Djamel','Naima','Hichem','Sonia',
-  'Adel','Meriem','Riad','Leila','Omar','Aicha','Walid','Lynda','Samir',
-  'Kheira','Mourad','Rachida','Fares','Malika','Tarek','Zahia','Mehdi',
-  'Djamila','Ilyas','Widad','Hakim','Sabrina','Nassim','Farida','Youssef',
-  'Hafida','Hamza','Selma','Rachid','Wafa','Aziz','Chafia','Abdelkader',
-  'Zohra','Abderrahmane','Halima','Salim','Radhia','Lotfi','Ferroudja'
-]);
-
-// Vérifie si un nom existe dans la BDD (insensible à la casse)
-function existsInDB(value, dbSet) {
-  return dbSet.has(value) || [...dbSet].some(n => n.toUpperCase() === value.toUpperCase());
-}
-
-// ── ALGORITHME DE SIMILARITÉ ──────────────────────────
-
-// Distance de Levenshtein
-function levenshtein(a, b) {
-  a = a.toUpperCase(); b = b.toUpperCase();
-  const m = a.length, n = b.length;
-  const dp = Array.from({length:m+1}, (_,i) => Array.from({length:n+1}, (_,j) => i===0?j:j===0?i:0));
-  for (let i=1;i<=m;i++) for (let j=1;j<=n;j++) {
-    dp[i][j] = a[i-1]===b[j-1] ? dp[i-1][j-1]
-      : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  function setDate() {
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var now = new Date();
+    var element = document.getElementById('headerDate');
+    if (element) {
+      element.textContent = days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+    }
   }
-  return dp[m][n];
-}
 
-// Score de similarité 0–100
-function similarity(a, b) {
-  const dist = levenshtein(a, b);
-  const maxLen = Math.max(a.length, b.length);
-  return maxLen === 0 ? 100 : Math.round((1 - dist / maxLen) * 100);
-}
-
-// Trouve les N noms les plus proches dans la BDD
-function findSimilarNames(input, dbSet, topN = 5) {
-  const results = [...dbSet].map(name => ({
-    name,
-    score: similarity(input, name)
-  }));
-  results.sort((a, b) => b.score - a.score);
-  return results.filter(r => r.score >= 30).slice(0, topN);
-}
-
-// ── GESTION DES DROPDOWNS ─────────────────────────────
-let activeDropdown = null;
-
-function closeAllDropdowns() {
-  if (activeDropdown) {
-    activeDropdown.classList.remove('open');
-    activeDropdown = null;
-  }
-}
-
-// ── CONSTRUCTION D'UNE CELLULE NOM/PRÉNOM ─────────────
-function buildNameCell(value, type /* 'last' | 'first' */) {
-  const dbSet   = type === 'last' ? DB_LAST_NAMES : DB_FIRST_NAMES;
-  const found   = existsInDB(value, dbSet);   // ✅ existe en BDD → normal
-  const flagged = !found;                      // ❌ introuvable → suggestions
-
-  const wrapper = document.createElement('div');
-  wrapper.className = 'cell-box-wrapper';
-
-  const cell = document.createElement('div');
-  cell.className = 'cell-box' + (flagged ? ' flagged' : '');
-  cell.textContent = value;
-  cell.dataset.original = value;
-  cell.dataset.type = type;
-
-  wrapper.appendChild(cell);
-
-  if (flagged) {
-    const suggestions = findSimilarNames(value, dbSet);
-
-    const dropdown = document.createElement('div');
-    dropdown.className = 'suggestion-dropdown';
-
-    // En-tête
-    const header = document.createElement('div');
-    header.className = 'suggestion-header';
-    header.textContent = type === 'last' ? '🔍 Noms similaires en BDD' : '🔍 Prénoms similaires en BDD';
-    dropdown.appendChild(header);
-
-    // Valeur extraite par OCR
-    const origRow = document.createElement('div');
-    origRow.className = 'suggestion-original';
-    origRow.innerHTML = `⚠️ Lu par OCR : <span>${value}</span> — introuvable en BDD`;
-    dropdown.appendChild(origRow);
-
-    // Liste des suggestions
-    if (suggestions.length > 0) {
-      suggestions.forEach(s => {
-        const item = document.createElement('div');
-        item.className = 'suggestion-item';
-        const scoreClass = s.score >= 70 ? 'high' : s.score >= 50 ? 'medium' : '';
-        item.innerHTML = `
-          <span>${s.name}</span>
-          <span class="suggestion-score ${scoreClass}">${s.score}%</span>
-        `;
-        item.addEventListener('click', (e) => {
-          e.stopPropagation();
-          cell.textContent = s.name;
-          cell.classList.remove('flagged');
-          cell.dataset.corrected = s.name;
-          dropdown.classList.remove('open');
-          activeDropdown = null;
-          cell.style.background = '#DCFCE7';
-          cell.style.border = '1.5px solid #16A34A';
-          cell.style.color = '#166534';
-          setTimeout(() => {
-            cell.style.background = '';
-            cell.style.border = '';
-            cell.style.color = '';
-          }, 1500);
+  function setActive(el) {
+    document.querySelectorAll('.nav-item').forEach(function (n) {
+      n.classList.remove('active');
+      var svg = n.querySelector('svg');
+      if (svg) {
+        if (svg.getAttribute('fill') && svg.getAttribute('fill') !== 'none') svg.setAttribute('fill', '#266FA3');
+        if (svg.getAttribute('stroke') && svg.getAttribute('stroke') !== 'none') svg.setAttribute('stroke', '#266FA3');
+        svg.querySelectorAll('path, circle, ellipse, line, polyline, rect, polygon').forEach(function (child) {
+          if (child.getAttribute('stroke') && child.getAttribute('stroke') !== 'none') child.setAttribute('stroke', '#266FA3');
+          if (child.getAttribute('fill') && child.getAttribute('fill') !== 'none') child.setAttribute('fill', '#266FA3');
         });
-        dropdown.appendChild(item);
-      });
-    } else {
-      const none = document.createElement('div');
-      none.className = 'suggestion-none';
-      none.textContent = 'Aucune correspondance en BDD';
-      dropdown.appendChild(none);
-    }
-
-    // Option : conserver
-    const keepBtn = document.createElement('div');
-    keepBtn.className = 'suggestion-keep';
-    keepBtn.textContent = '✕ Conserver la valeur extraite';
-    keepBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      dropdown.classList.remove('open');
-      activeDropdown = null;
-    });
-    dropdown.appendChild(keepBtn);
-
-    wrapper.appendChild(dropdown);
-
-    cell.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (dropdown.classList.contains('open')) {
-        dropdown.classList.remove('open');
-        activeDropdown = null;
-      } else {
-        closeAllDropdowns();
-        dropdown.classList.add('open');
-        activeDropdown = dropdown;
       }
     });
+
+    el.classList.add('active');
+    var activeSvg = el.querySelector('svg');
+    if (activeSvg) {
+      if (activeSvg.getAttribute('fill') && activeSvg.getAttribute('fill') !== 'none') activeSvg.setAttribute('fill', 'white');
+      if (activeSvg.getAttribute('stroke') && activeSvg.getAttribute('stroke') !== 'none') activeSvg.setAttribute('stroke', 'white');
+      activeSvg.querySelectorAll('path, circle, ellipse, line, polyline, rect, polygon').forEach(function (child) {
+        if (child.getAttribute('stroke') && child.getAttribute('stroke') !== 'none') child.setAttribute('stroke', 'white');
+        if (child.getAttribute('fill') && child.getAttribute('fill') !== 'none') child.setAttribute('fill', 'white');
+      });
+    }
   }
 
-  return wrapper;
-}
+  function setupSidebar() {
+    var collapseBtn = document.getElementById('collapseBtn');
+    var sidebar = document.getElementById('sidebar');
+    var logo = document.querySelector('.sidebar-logo .esi svg');
 
-document.addEventListener('click', closeAllDropdowns);
+    if (collapseBtn && sidebar) {
+      collapseBtn.addEventListener('click', function () {
+        sidebar.classList.toggle('collapsed');
+      });
+    }
 
-// ── DONNÉES ÉTUDIANTS ─────────────────────────────────
-// Noms avec erreurs OCR typiques : lettre substituée (pas de ?, *)
-const students = [
-  // BELKACEM → OCR lit BELKACEN (C→N en fin de mot)
-  {lastName:'BELKACEN', firstName:'Mohammed', matricule:'19740001',
-   s1:[14.5,13,15.5,12,16,14,15,13.5], s1Avg:14.20, s1Rank:2,
-   s2:[15,14.5,16,13.5,15.5,14.5,15.5,14], s2Avg:14.80, s2Rank:1,
-   annualAvg:14.50, annualRank:1, juneDecision:'Admis',
-   stageEligible:'Yes', stageGrade:16.5, finalDecision:'Admis', diploma:'Engineer'},
-  // BENALI → correct, existe en BDD
-  {lastName:'BENALI', firstName:'Fatirna', matricule:'19740002',
-   s1:[13,12.5,14,11.5,15,13,14,12.5], s1Avg:13.20, s1Rank:5,
-   s2:[14,13,15,12.5,14.5,13.5,14.5,13], s2Avg:13.70, s2Rank:3,
-   annualAvg:13.45, annualRank:3, juneDecision:'Admis',
-   stageEligible:'Yes', stageGrade:15, finalDecision:'Admis', diploma:'Engineer'},
-  // KADDOUR → OCR lit KADDAUR
-  {lastName:'KADDAUR', firstName:'Amine', matricule:'19740003',
-   s1:[12,11,13.5,10.5,14,12,13,11.5], s1Avg:12.20, s1Rank:8,
-   s2:[13.5,12,14,11.5,13.5,12.5,13.5,12], s2Avg:12.80, s2Rank:6,
-   annualAvg:12.50, annualRank:6, juneDecision:'Admis avec rachat',
-   stageEligible:'Yes', stageGrade:13.5, finalDecision:'Admis', diploma:'License'},
-  // MEZIANE → correct
-  {lastName:'MEZIANE', firstName:'Sarah', matricule:'19740004',
-   s1:[15.5,14,16,13.5,17,15,16,14.5], s1Avg:15.20, s1Rank:1,
-   s2:[16,15,16.5,14.5,16.5,15.5,16.5,15], s2Avg:15.70, s2Rank:1,
-   annualAvg:15.45, annualRank:1, juneDecision:'Admis',
-   stageEligible:'Yes', stageGrade:17.5, finalDecision:'Admis', diploma:'Engineer'},
-  // BRAHIM → correct, Yacine → OCR lit Yacîne (î→i invisible)
-  {lastName:'BRAHIM', firstName:'Yacîne', matricule:'19740005',
-   s1:[11,10.5,12.5,9.5,13,11,12,10.5], s1Avg:11.20, s1Rank:12,
-   s2:[12,11,13,10.5,12.5,11.5,12.5,11], s2Avg:11.70, s2Rank:10,
-   annualAvg:11.45, annualRank:10, juneDecision:'Rattrapage',
-   stageEligible:'No', stageGrade:null, finalDecision:'Eliminé', diploma:'License'},
-  // HAMDANI → OCR lit HAMDAWI
-  {lastName:'HAMDAWI', firstName:'Karim', matricule:'19740006',
-   s1:[14.5,13,15.5,12,16,14,15,13.5], s1Avg:14.20, s1Rank:2,
-   s2:[15,14.5,16,13.5,15.5,14.5,15.5,14], s2Avg:14.80, s2Rank:1,
-   annualAvg:14.50, annualRank:1, juneDecision:'Admis',
-   stageEligible:'Yes', stageGrade:16.5, finalDecision:'Admis', diploma:'Engineer'},
-  // CHERIF → correct, Sofiane correct
-  {lastName:'CHERIF', firstName:'Sofiane', matricule:'19740007',
-   s1:[13,12.5,14,11.5,15,13,14,12.5], s1Avg:13.20, s1Rank:5,
-   s2:[14,13,15,12.5,14.5,13.5,14.5,13], s2Avg:13.70, s2Rank:3,
-   annualAvg:13.45, annualRank:3, juneDecision:'Admis',
-   stageEligible:'Yes', stageGrade:15, finalDecision:'Admis', diploma:'Engineer'},
-  // MANSOURI → OCR lit MANSAURI
-  {lastName:'MANSAURI', firstName:'Meriem', matricule:'19740008',
-   s1:[12,11,13.5,10.5,14,12,13,11.5], s1Avg:12.20, s1Rank:8,
-   s2:[13.5,12,14,11.5,13.5,12.5,13.5,12], s2Avg:12.80, s2Rank:6,
-   annualAvg:12.50, annualRank:6, juneDecision:'Admis avec rachat',
-   stageEligible:'Yes', stageGrade:13.5, finalDecision:'Admis', diploma:'License'},
-  // RAHMANI → OCR lit RAHMONI
-  {lastName:'RAHMONI', firstName:'Nadia', matricule:'19740009',
-   s1:[15.5,14,16,13.5,17,15,16,14.5], s1Avg:15.20, s1Rank:1,
-   s2:[16,15,16.5,14.5,16.5,15.5,16.5,15], s2Avg:15.70, s2Rank:1,
-   annualAvg:15.45, annualRank:1, juneDecision:'Admis',
-   stageEligible:'Yes', stageGrade:17.5, finalDecision:'Admis', diploma:'Engineer'},
-  // ZERROUK correct, Omar correct
-  {lastName:'ZERROUK', firstName:'Omar', matricule:'19740010',
-   s1:[11,10.5,12.5,9.5,13,11,12,10.5], s1Avg:11.20, s1Rank:12,
-   s2:[12,11,13,10.5,12.5,11.5,12.5,11], s2Avg:11.70, s2Rank:10,
-   annualAvg:11.45, annualRank:10, juneDecision:'Rattrapage',
-   stageEligible:'No', stageGrade:null, finalDecision:'Eliminé', diploma:'License'},
-];
+    if (logo && sidebar) {
+      logo.addEventListener('click', function () {
+        if (sidebar.classList.contains('collapsed')) {
+          sidebar.classList.remove('collapsed');
+        }
+      });
+    }
 
-function decisionClass(d) {
-  if (!d) return '';
-  const l = d.toLowerCase();
-  if (l.includes('avec rachat')) return 'decision-avec-rachat';
-  if (l.includes('admis')) return 'decision-admis';
-  if (l.includes('elimin') || l.includes('éliminé')) return 'decision-elimine';
-  if (l.includes('rattrapage')) return 'decision-rattrapage';
-  return '';
-}
+    var activeItem = document.querySelector('.nav-item.active');
+    if (activeItem) {
+      setActive(activeItem);
+    }
+  }
 
-const chevron = `<svg width="9" height="5" viewBox="0 0 9 5" fill="none" opacity="0.5"><path d="M1 1L4.5 4.5L8 1" stroke="#1F1F82" stroke-width="1.2"/></svg>`;
+  function readLocalRecords() {
+    try {
+      var raw = localStorage.getItem('completedExtractions');
+      var parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (_err) {
+      return [];
+    }
+  }
 
-const tbody = document.getElementById('tableBody');
-students.forEach(s => {
-  const tr1 = document.createElement('tr');
+  async function loadRecords() {
+    try {
+      var response = await api.getCompletedExtractions(100);
+      var backendRecords = Array.isArray(response.records) ? response.records : [];
+      if (backendRecords.length) {
+        records = backendRecords;
+        return;
+      }
+    } catch (_err) {
+      // fallback below
+    }
+    records = readLocalRecords();
+  }
 
-  // Last name cell
-  const tdLastName = document.createElement('td');
-  tdLastName.setAttribute('rowspan','2');
-  tdLastName.style.verticalAlign = 'middle';
-  tdLastName.style.position = 'relative';
-  tdLastName.appendChild(buildNameCell(s.lastName, 'last'));
+  function getSelectedRecord() {
+    if (!records.length) {
+      return null;
+    }
+    if (selectedRecordIndex < 0) {
+      selectedRecordIndex = 0;
+    }
+    if (selectedRecordIndex >= records.length) {
+      selectedRecordIndex = records.length - 1;
+    }
+    return records[selectedRecordIndex] || null;
+  }
 
-  // First name cell
-  const tdFirstName = document.createElement('td');
-  tdFirstName.setAttribute('rowspan','2');
-  tdFirstName.style.verticalAlign = 'middle';
-  tdFirstName.style.position = 'relative';
-  tdFirstName.appendChild(buildNameCell(s.firstName, 'first'));
+  function getSortedPages(record) {
+    var pages = Array.isArray(record && record.pages) ? record.pages.slice() : [];
+    pages.sort(function (a, b) { return Number(a.page_number || 0) - Number(b.page_number || 0); });
+    return pages;
+  }
 
-  tr1.appendChild(tdLastName);
-  tr1.appendChild(tdFirstName);
-  tr1.insertAdjacentHTML('beforeend', `
-    <td rowspan="2" style="vertical-align:middle;text-align:center;"><span style="color:#083A83;font-size:11px;">${s.matricule}</span></td>
-    <td class="cell-sem">S1</td>
-    ${s.s1.map(g=>`<td><div class="cell-box">${g}</div></td>`).join('')}
-    <td class="cell-avg" style="vertical-align:middle;text-align:center;">${s.s1Avg.toFixed(2)}</td>
-    <td class="cell-rank" style="vertical-align:middle;text-align:center;">${s.s1Rank}</td>
-    <td class="cell-annual-avg" rowspan="2">${s.annualAvg.toFixed(2)}</td>
-    <td class="cell-annual-rank" rowspan="2">${s.annualRank}</td>
-    <td rowspan="2" style="vertical-align:middle;">
-      <div class="decision-box ${decisionClass(s.juneDecision)}">${s.juneDecision}${chevron}</div>
-    </td>
-    <td rowspan="2" style="vertical-align:middle;">
-      <div class="stage-box">${s.stageEligible}${chevron}</div>
-      ${s.stageGrade ? `<div class="stage-grade">${s.stageGrade}</div>` : ''}
-    </td>
-    <td rowspan="2" style="vertical-align:middle;">
-      <div class="decision-box ${decisionClass(s.finalDecision)}">${s.finalDecision}${chevron}</div>
-    </td>
-    <td rowspan="2" style="vertical-align:middle;">
-      <div class="diploma-box">${s.diploma}${chevron}</div>
-    </td>
-  `);
-  tbody.appendChild(tr1);
+  function getCurrentPage() {
+    var record = getSelectedRecord();
+    if (!record) {
+      return null;
+    }
+    var pages = getSortedPages(record);
+    if (!pages.length) {
+      return null;
+    }
+    if (currentPageIndex < 0) {
+      currentPageIndex = 0;
+    }
+    if (currentPageIndex >= pages.length) {
+      currentPageIndex = pages.length - 1;
+    }
+    return pages[currentPageIndex];
+  }
 
-  const tr2 = document.createElement('tr');
-  tr2.innerHTML = `
-    <td class="cell-sem">S2</td>
-    ${s.s2.map(g=>`<td><div class="cell-box">${g}</div></td>`).join('')}
-    <td class="cell-avg" style="text-align:center;">${s.s2Avg.toFixed(2)}</td>
-    <td class="cell-rank" style="text-align:center;">${s.s2Rank}</td>
-  `;
-  tbody.appendChild(tr2);
-});
+  function toTmpUrl(imagePath) {
+    if (!imagePath) {
+      return null;
+    }
+    var normalized = String(imagePath).replace(/\\/g, '/');
+    var marker = '/tmp/';
+    var idx = normalized.toLowerCase().indexOf(marker);
+    if (idx === -1) {
+      return null;
+    }
+    return normalized.slice(idx);
+  }
 
-// ── EDIT MODE ─────────────────────────────────────────
-let isEditMode = false;
+  function renderPreview() {
+    var record = getSelectedRecord();
+    var page = getCurrentPage();
+    var pages = record ? getSortedPages(record) : [];
+    var pageNumber = page ? Number(page.page_number || (currentPageIndex + 1)) : 0;
+    var pageType = page ? getPageType(page) : 'unknown';
+    var pageStatus = page && page.status ? String(page.status).toUpperCase() : 'N/A';
 
-function toggleEditMode() {
-  isEditMode = !isEditMode;
-  const btn       = document.getElementById('editBtn');
-  const btnLabel  = document.getElementById('editBtnLabel');
-  const banner    = document.getElementById('editBanner');
-  const tableRows = document.querySelectorAll('#tableBody tr');
+    pageLabel.textContent = 'PDF Preview — Page ' + (pageNumber || 1) + ' (' + pageType + ')';
+    pageInfo.textContent = 'Page ' + (pages.length ? (currentPageIndex + 1) : 0) + ' / ' + pages.length;
 
-  if (isEditMode) {
-    // ── Activer Edit Mode ──
-    btn.classList.add('active');
-    btnLabel.textContent = 'Save Changes';
-    banner.classList.add('visible');
+    if (warningBox) {
+      warningBox.textContent = 'Page status: ' + pageStatus + ' | Type: ' + pageType + ' — verify before saving';
+    }
 
-    // Métadonnées → inputs
-    convertMetaToInput('meta-year',  'text');
-    convertMetaToInput('meta-level', 'text');
-    convertMetaToInput('meta-spec',  'text');
-    convertMetaToSelect('meta-system', ['Semester System','Annual System','Module System']);
+    if (previewCard) {
+      var imageUrl = page ? toTmpUrl(page.image_path) : null;
+      previewCard.style.backgroundPosition = 'center';
+      previewCard.style.backgroundSize = 'contain';
+      previewCard.style.backgroundRepeat = 'no-repeat';
+      previewCard.style.backgroundImage = imageUrl ? ('url("' + imageUrl + '")') : 'none';
+    }
+  }
 
-    // Tableau → inputs (toutes colonnes)
-    tableRows.forEach(tr => {
-      tr.classList.add('edit-mode');
-      tr.querySelectorAll('td').forEach(td => {
+  function splitName(fullName) {
+    var value = String(fullName || '').trim();
+    if (!value) {
+      return { nom: '', prenom: '' };
+    }
+    var tokens = value.split(/\s+/);
+    if (tokens.length === 1) {
+      return { nom: tokens[0], prenom: '' };
+    }
+    return {
+      nom: tokens[0],
+      prenom: tokens.slice(1).join(' '),
+    };
+  }
 
-        // 1. Notes dans cell-box (numériques)
-        td.querySelectorAll('.cell-box:not(.flagged)').forEach(box => {
-          if (box.querySelector('input,select')) return;
-          const val = box.textContent.trim();
-          if (!isNaN(parseFloat(val)) && isFinite(val)) {
-            const inp = makeInput(val, 'edit-input grade-input', '46px', 'center');
-            box.innerHTML = ''; box.appendChild(inp);
+  function parseStudentsFromResult(resultObj) {
+    var result = resultObj || {};
+    var type = result.type || 'unknown';
+
+    if (type === 'single_student') {
+      var student = result.student || {};
+      var split = splitName(student.name);
+      return [{
+        nom: split.nom,
+        prenom: split.prenom,
+        matricule: student.matricule || null,
+        modules: Array.isArray(result.modules) ? result.modules : [],
+        decision: (result.summary && result.summary.observation) || null,
+      }];
+    }
+
+    if (type === 'multiple_students') {
+      return (Array.isArray(result.students) ? result.students : []).map(function (student) {
+        return {
+          nom: student.nom || '',
+          prenom: student.prenom || '',
+          matricule: student.matricule || null,
+          modules: Array.isArray(student.modules) ? student.modules : [],
+          decision: student.decisionFinaleDuConseil || student.decisionDeJuin || null,
+        };
+      });
+    }
+
+    if (type === 'resultats_annonce') {
+      return (Array.isArray(result.students) ? result.students : []).map(function (student) {
+        return {
+          nom: student.nom || '',
+          prenom: student.prenom || '',
+          matricule: null,
+          modules: [],
+          decision: student.decision || null,
+        };
+      });
+    }
+
+    return [];
+  }
+
+  function formatModuleList(rawModules) {
+    var modules = (Array.isArray(rawModules) ? rawModules : []).slice(0, 8);
+    while (modules.length < 8) {
+      modules.push({});
+    }
+
+    return modules.map(function (module) {
+      return {
+        code: module.code || module.name || '',
+        s1: module.noteS1 != null ? module.noteS1 : module.note_s1,
+        s2: module.noteS2 != null ? module.noteS2 : module.note_s2,
+      };
+    });
+  }
+
+  function renderMetadata() {
+    var page = getCurrentPage();
+    var result = page && page.result ? page.result : {};
+
+    var year = result.annee || '';
+    var level = result.anneeEtude || '';
+    var spec = result.section || result.option || result.sectionCode || result.type || '';
+
+    metaYear.textContent = year || 'N/A';
+    metaLevel.textContent = level || 'N/A';
+    metaSpec.textContent = spec || 'N/A';
+
+    var systemSpan = metaSystem.querySelector('span');
+    if (systemSpan) {
+      systemSpan.textContent = 'Semester System';
+    }
+  }
+
+  function createEditableCell(value, field, extraClass) {
+    var td = document.createElement('td');
+    if (extraClass) {
+      td.className = extraClass;
+    }
+    td.dataset.field = field;
+    td.dataset.editable = '1';
+    td.textContent = value == null ? '' : String(value);
+    return td;
+  }
+
+  function renderStudentsTable() {
+    var page = getCurrentPage();
+    var result = page && page.result ? page.result : {};
+    var students = parseStudentsFromResult(result);
+    var pageType = String(result.type || 'unknown');
+    var pageStatus = page && page.status ? String(page.status) : 'unknown';
+
+    tableBody.innerHTML = '';
+
+    var infoRow = document.createElement('tr');
+    var infoCell = document.createElement('td');
+    infoCell.colSpan = 20;
+    infoCell.style.textAlign = 'left';
+    infoCell.style.padding = '8px 12px';
+    infoCell.style.fontWeight = '600';
+    infoCell.textContent = 'Extraction type: ' + pageType + ' | Page status: ' + pageStatus + ' | Students found: ' + students.length;
+    infoRow.appendChild(infoCell);
+    tableBody.appendChild(infoRow);
+
+    if (!students.length) {
+      var emptyRow = document.createElement('tr');
+      var emptyCell = document.createElement('td');
+      emptyCell.colSpan = 20;
+      if (pageType === 'table_de_matieres') {
+        emptyCell.textContent = 'This page is a subject summary (table_de_matieres), not student rows.';
+      } else if (pageType === 'cover') {
+        emptyCell.textContent = 'This page is a cover page. No student rows to validate.';
+      } else if (pageType === 'unknown') {
+        emptyCell.textContent = 'Extractor returned unknown page type for this page.';
+      } else {
+        emptyCell.textContent = 'No student rows found for this page.';
+      }
+      emptyCell.style.textAlign = 'center';
+      emptyCell.style.padding = '16px';
+      emptyRow.appendChild(emptyCell);
+      tableBody.appendChild(emptyRow);
+      return;
+    }
+
+    students.forEach(function (student, studentIndex) {
+      var modules = formatModuleList(student.modules);
+
+      var rowS1 = document.createElement('tr');
+      rowS1.dataset.studentIndex = String(studentIndex);
+      rowS1.dataset.sem = 'S1';
+
+      var nomCell = createEditableCell(student.nom || '', 'nom');
+      nomCell.rowSpan = 2;
+      nomCell.style.verticalAlign = 'middle';
+
+      var prenomCell = createEditableCell(student.prenom || '', 'prenom');
+      prenomCell.rowSpan = 2;
+      prenomCell.style.verticalAlign = 'middle';
+
+      var matriculeCell = createEditableCell(student.matricule || '', 'matricule');
+      matriculeCell.rowSpan = 2;
+      matriculeCell.style.verticalAlign = 'middle';
+
+      rowS1.appendChild(nomCell);
+      rowS1.appendChild(prenomCell);
+      rowS1.appendChild(matriculeCell);
+      rowS1.appendChild(createEditableCell('S1', 'period', 'cell-sem'));
+
+      modules.forEach(function (module, moduleIndex) {
+        rowS1.appendChild(createEditableCell(module.s1 == null ? '' : module.s1, 'module_' + moduleIndex + '_s1'));
+      });
+
+      rowS1.appendChild(createEditableCell('', 'avg_s1', 'cell-avg'));
+      rowS1.appendChild(createEditableCell('', 'rank_s1', 'cell-rank'));
+
+      var annualAvg = createEditableCell('', 'annual_avg', 'cell-annual-avg');
+      annualAvg.rowSpan = 2;
+      var annualRank = createEditableCell('', 'annual_rank', 'cell-annual-rank');
+      annualRank.rowSpan = 2;
+      var juneDecision = createEditableCell(student.decision || '', 'decision_june');
+      juneDecision.rowSpan = 2;
+      var stage = createEditableCell('', 'stage');
+      stage.rowSpan = 2;
+      var finalDecision = createEditableCell(student.decision || '', 'decision_finale');
+      finalDecision.rowSpan = 2;
+      var diploma = createEditableCell('', 'diploma');
+      diploma.rowSpan = 2;
+
+      rowS1.appendChild(annualAvg);
+      rowS1.appendChild(annualRank);
+      rowS1.appendChild(juneDecision);
+      rowS1.appendChild(stage);
+      rowS1.appendChild(finalDecision);
+      rowS1.appendChild(diploma);
+
+      var rowS2 = document.createElement('tr');
+      rowS2.dataset.studentIndex = String(studentIndex);
+      rowS2.dataset.sem = 'S2';
+      rowS2.appendChild(createEditableCell('S2', 'period', 'cell-sem'));
+      modules.forEach(function (module, moduleIndex) {
+        rowS2.appendChild(createEditableCell(module.s2 == null ? '' : module.s2, 'module_' + moduleIndex + '_s2'));
+      });
+      rowS2.appendChild(createEditableCell('', 'avg_s2', 'cell-avg'));
+      rowS2.appendChild(createEditableCell('', 'rank_s2', 'cell-rank'));
+
+      tableBody.appendChild(rowS1);
+      tableBody.appendChild(rowS2);
+    });
+  }
+
+  function renderSelectedPage() {
+    renderPreview();
+    renderMetadata();
+    renderStudentsTable();
+    if (editMode) {
+      applyEditMode(true);
+    }
+  }
+
+  function renderQueue() {
+    queueList.innerHTML = '';
+
+    if (!records.length) {
+      var empty = document.createElement('div');
+      empty.className = 'queue-item active';
+      empty.innerHTML = '<div class="queue-item-title">No extracted document</div><div class="queue-item-sub">Upload from Digitization first</div>';
+      queueList.appendChild(empty);
+      renderSelectedPage();
+      return;
+    }
+
+    records.forEach(function (record, index) {
+      var item = document.createElement('div');
+      item.className = 'queue-item' + (index === selectedRecordIndex ? ' active' : '');
+
+      var fileName = record.file_name || ('Document ' + (index + 1));
+      var okPages = Number(record.ok_pages || 0);
+      var totalPages = Number(record.total_pages || 0);
+      var failedPages = Number(record.failed_pages || 0);
+      var percent = totalPages > 0 ? Math.round((okPages / totalPages) * 100) : 0;
+      var statusLabel = getRecordStatusLabel(record);
+
+      item.innerHTML = '<div class="queue-item-title">' + fileName + '</div>' +
+        '<div class="queue-item-sub">' + statusLabel + ' • ' + okPages + '/' + totalPages + ' ok • failed: ' + failedPages + ' (' + percent + '%)</div>';
+
+      item.addEventListener('click', function () {
+        selectedRecordIndex = index;
+        currentPageIndex = 0;
+        renderQueue();
+        renderSelectedPage();
+      });
+
+      queueList.appendChild(item);
+    });
+
+    renderSelectedPage();
+  }
+
+  function applyEditMode(enabled) {
+    var editableCells = tableBody.querySelectorAll('td[data-editable="1"]');
+    editableCells.forEach(function (cell) {
+      cell.contentEditable = enabled ? 'true' : 'false';
+      cell.classList.toggle('edit-mode', enabled);
+    });
+
+    [metaYear, metaLevel, metaSpec].forEach(function (el) {
+      el.contentEditable = enabled ? 'true' : 'false';
+      el.classList.toggle('editing', enabled);
+    });
+
+    if (enabled) {
+      editBtn.classList.add('active');
+      editBtnLabel.textContent = 'Save Changes';
+      editBanner.classList.add('visible');
+    } else {
+      editBtn.classList.remove('active');
+      editBtnLabel.textContent = 'Edit Mode';
+      editBanner.classList.remove('visible');
+    }
+  }
+
+  function collectStudentsFromTable() {
+    var studentsByIndex = {};
+    var rows = tableBody.querySelectorAll('tr[data-student-index]');
+
+    rows.forEach(function (row) {
+      var studentIndex = row.dataset.studentIndex;
+      if (!studentsByIndex[studentIndex]) {
+        studentsByIndex[studentIndex] = {
+          nom: '',
+          prenom: '',
+          matricule: null,
+          is_first_year: false,
+          modules: {},
+        };
+      }
+
+      var student = studentsByIndex[studentIndex];
+      var sem = row.dataset.sem;
+
+      row.querySelectorAll('td[data-field]').forEach(function (cell) {
+        var field = cell.dataset.field;
+        var value = cell.textContent.trim();
+
+        if (field === 'nom') student.nom = value;
+        if (field === 'prenom') student.prenom = value;
+        if (field === 'matricule') student.matricule = value || null;
+
+        var moduleMatch = field.match(/^module_(\d+)_(s1|s2)$/);
+        if (moduleMatch) {
+          var index = moduleMatch[1];
+          var targetSem = moduleMatch[2].toUpperCase();
+          var num = value === '' ? null : Number(value);
+          if (!studentsByIndex[studentIndex].modules[index]) {
+            studentsByIndex[studentIndex].modules[index] = { S1: null, S2: null };
           }
-        });
-
-        // 2. Noms/prénoms non flaggés
-        td.querySelectorAll('.cell-box-wrapper .cell-box:not(.flagged)').forEach(box => {
-          if (box.querySelector('input,select')) return;
-          const val = box.textContent.trim();
-          if (val && isNaN(parseFloat(val))) {
-            const inp = makeInput(val, 'edit-input name-input', '100%', 'left');
-            box.innerHTML = ''; box.appendChild(inp);
+          if (targetSem === 'S1' && sem === 'S1') {
+            studentsByIndex[studentIndex].modules[index].S1 = Number.isFinite(num) ? num : null;
           }
-        });
-
-        // 3. Matricule
-        td.querySelectorAll('span[style*="083A83"]').forEach(span => {
-          if (span.querySelector('input')) return;
-          const val = span.textContent.trim();
-          const inp = makeInput(val, 'edit-input', '72px', 'center');
-          span.innerHTML = ''; span.appendChild(inp);
-        });
-
-        // 4. Avg (S1 / S2) — cell-avg
-        if (td.classList.contains('cell-avg') && !td.querySelector('input')) {
-          const val = td.textContent.trim();
-          if (val) { td.innerHTML = ''; td.appendChild(makeInput(val, 'edit-input grade-input', '50px', 'center')); }
+          if (targetSem === 'S2' && sem === 'S2') {
+            studentsByIndex[studentIndex].modules[index].S2 = Number.isFinite(num) ? num : null;
+          }
         }
-
-        // 5. Rank (S1 / S2) — cell-rank
-        if (td.classList.contains('cell-rank') && !td.querySelector('input')) {
-          const val = td.textContent.trim();
-          if (val) { td.innerHTML = ''; td.appendChild(makeInput(val, 'edit-input grade-input', '36px', 'center')); }
-        }
-
-        // 6. Annual Avg — cell-annual-avg
-        if (td.classList.contains('cell-annual-avg') && !td.querySelector('input')) {
-          const val = td.textContent.trim();
-          if (val) { td.innerHTML = ''; td.appendChild(makeInput(val, 'edit-input grade-input', '50px', 'center')); }
-        }
-
-        // 7. Annual Rank — cell-annual-rank
-        if (td.classList.contains('cell-annual-rank') && !td.querySelector('input')) {
-          const val = td.textContent.trim();
-          if (val) { td.innerHTML = ''; td.appendChild(makeInput(val, 'edit-input grade-input', '36px', 'center')); }
-        }
-
-        // 8. June Decision & Final Decision — decision-box
-        td.querySelectorAll('.decision-box').forEach(box => {
-          if (box.querySelector('input,select')) return;
-          const val = box.textContent.replace(/\s+/g,' ').trim();
-          const sel = makeSelect(['Admis','Admis avec rachat','Rattrapage','Eliminé'], val, 'edit-input', '100%');
-          box.innerHTML = ''; box.appendChild(sel);
-        });
-
-        // 9. Stage eligible — stage-box
-        td.querySelectorAll('.stage-box').forEach(box => {
-          if (box.querySelector('input,select')) return;
-          const val = box.textContent.replace(/\s+/g,' ').trim();
-          const sel = makeSelect(['Yes','No'], val, 'edit-input', '56px');
-          box.innerHTML = ''; box.appendChild(sel);
-        });
-
-        // 10. Stage grade — stage-grade
-        td.querySelectorAll('.stage-grade').forEach(box => {
-          if (box.querySelector('input')) return;
-          const val = box.textContent.trim();
-          if (val) { box.innerHTML = ''; box.appendChild(makeInput(val, 'edit-input grade-input', '46px', 'center')); }
-        });
-
-        // 11. Diploma — diploma-box
-        td.querySelectorAll('.diploma-box').forEach(box => {
-          if (box.querySelector('input,select')) return;
-          const val = box.textContent.replace(/\s+/g,' ').trim();
-          const sel = makeSelect(['Engineer','License','Master'], val, 'edit-input', '100%');
-          box.innerHTML = ''; box.appendChild(sel);
-        });
-
       });
     });
 
-  } else {
-    // ── Sauvegarder & quitter Edit Mode ──
-    btn.classList.remove('active');
-    btnLabel.textContent = 'Edit Mode';
-    banner.classList.remove('visible');
-
-    // Sauvegarder métadonnées
-    saveMetaFromInput('meta-year');
-    saveMetaFromInput('meta-level');
-    saveMetaFromInput('meta-spec');
-    saveMetaFromSelect('meta-system');
-
-    // Sauvegarder toutes les cellules du tableau
-    tableRows.forEach(tr => {
-      tr.classList.remove('edit-mode');
-
-      tr.querySelectorAll('input.edit-input').forEach(inp => {
-        inp.parentElement.textContent = inp.value || inp.dataset.original || '';
-      });
-
-      // Restaurer les selects avec leur style visuel
-      tr.querySelectorAll('.decision-box select.edit-input').forEach(sel => {
-        const val = sel.value;
-        const box = sel.parentElement;
-        box.innerHTML = `${val}${chevron}`;
-        box.className = 'decision-box ' + decisionClass(val);
-      });
-      tr.querySelectorAll('.stage-box select.edit-input').forEach(sel => {
-        const val = sel.value;
-        const box = sel.parentElement;
-        box.innerHTML = `${val}${chevron}`;
-      });
-      tr.querySelectorAll('.diploma-box select.edit-input').forEach(sel => {
-        const val = sel.value;
-        const box = sel.parentElement;
-        box.innerHTML = `${val}${chevron}`;
-      });
+    return Object.keys(studentsByIndex).map(function (key) {
+      var student = studentsByIndex[key];
+      return {
+        nom: student.nom,
+        prenom: student.prenom,
+        matricule: student.matricule,
+        is_first_year: false,
+      };
+    }).filter(function (student) {
+      return student.nom && student.prenom;
     });
-
-    // Flash confirmation vert
-    const rightCol = document.querySelector('.right-col');
-    rightCol.style.transition = 'box-shadow 0.3s';
-    rightCol.style.boxShadow = '0 0 0 2px #16A34A, 0 8px 28px rgba(22,163,74,0.15)';
-    setTimeout(() => { rightCol.style.boxShadow = ''; }, 1200);
   }
-}
 
-// ── HELPERS INPUT / SELECT ─────────────────────────────
-function makeInput(val, cls, width, align) {
-  const inp = document.createElement('input');
-  inp.type = 'text';
-  inp.value = val;
-  inp.dataset.original = val;
-  inp.className = cls;
-  inp.style.width = width;
-  inp.style.textAlign = align;
-  return inp;
-}
+  async function saveValidatedStudents() {
+    var students = collectStudentsFromTable();
+    if (!students.length) {
+      alert('No valid student rows to save.');
+      return;
+    }
 
-function makeSelect(options, currentVal, cls, width) {
-  const sel = document.createElement('select');
-  sel.className = cls;
-  sel.style.width = width;
-  // trouver la meilleure correspondance (insensible casse / partielle)
-  const match = options.find(o => currentVal.toLowerCase().includes(o.toLowerCase())) || options[0];
-  options.forEach(opt => {
-    const o = document.createElement('option');
-    o.value = opt; o.textContent = opt;
-    if (opt === match) o.selected = true;
-    sel.appendChild(o);
-  });
-  return sel;
-}
+    var payload = {
+      annee_univ: metaYear.textContent.trim() || null,
+      students: students,
+    };
 
-function convertMetaToInput(id, type) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const val = el.textContent.trim();
-  el.classList.add('editing');
-  el.innerHTML = '';
-  const inp = document.createElement('input');
-  inp.type = type; inp.value = val; inp.dataset.original = val;
-  el.appendChild(inp);
-}
-
-function convertMetaToSelect(id, options) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const current = el.querySelector('span') ? el.querySelector('span').textContent.trim() : options[0];
-  el.classList.add('editing');
-  el.innerHTML = '';
-  el.appendChild(makeSelect(options, current, '', '100%'));
-}
-
-function saveMetaFromInput(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const inp = el.querySelector('input');
-  el.classList.remove('editing');
-  el.textContent = inp ? inp.value : el.textContent;
-}
-
-function saveMetaFromSelect(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const sel = el.querySelector('select');
-  const val = sel ? sel.value : 'Semester System';
-  el.classList.remove('editing');
-  el.innerHTML = `<span>${val}</span>
-    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" opacity="0.5">
-      <path d="M1 1L5 5L9 1" stroke="#3D3D45" stroke-width="1.5"/>
-    </svg>`;
-}
-
-const sidebar = document.getElementById("sidebar");
-const logo = document.querySelector(".sidebar-logo .esi svg");
-
-logo.addEventListener("click", () => {
-  if (sidebar.classList.contains("collapsed")) {
-    sidebar.classList.remove("collapsed");
+    try {
+      var result = await api.saveVerifiedStudents(payload);
+      alert('Saved: ' + Number(result.saved_count || 0) + ' | Failed: ' + Number(result.failed_count || 0));
+    } catch (err) {
+      alert((err && err.message) || 'Failed to save validated students.');
+    }
   }
-});
+
+  function changePage(dir) {
+    var record = getSelectedRecord();
+    if (!record) {
+      return;
+    }
+
+    var pages = getSortedPages(record);
+    if (!pages.length) {
+      return;
+    }
+
+    currentPageIndex = Math.max(0, Math.min(pages.length - 1, currentPageIndex + dir));
+    renderSelectedPage();
+  }
+
+  function toggleEditMode() {
+    editMode = !editMode;
+    applyEditMode(editMode);
+
+    if (!editMode) {
+      saveValidatedStudents();
+    }
+  }
+
+  function setupActions() {
+    var validateBtn = document.querySelector('.btn-validate');
+    var rejectBtn = document.querySelector('.btn-reject');
+
+    if (validateBtn) {
+      validateBtn.addEventListener('click', function () {
+        saveValidatedStudents();
+      });
+    }
+
+    if (rejectBtn) {
+      rejectBtn.addEventListener('click', function () {
+        alert('Document rejected. Upload a corrected scan from Digitization.');
+      });
+    }
+  }
+
+  async function init() {
+    setDate();
+    setupSidebar();
+    setupActions();
+    await loadRecords();
+    renderQueue();
+  }
+
+  window.changePage = changePage;
+  window.toggleEditMode = toggleEditMode;
+  window.setActive = setActive;
+
+  init();
+})();

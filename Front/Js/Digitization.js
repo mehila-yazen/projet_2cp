@@ -2,6 +2,9 @@
 (function () {
   var MAX_FILE_BYTES = 100 * 1024 * 1024;
   var BACKEND_CHECK_TIMEOUT = 1800;
+  var EXTRACTION_TIMEOUT_MS = 15 * 60 * 1000;
+  var DOCUMENTS_STORAGE_KEY = 'digitizationDocuments';
+  var COMPLETED_EXTRACTIONS_STORAGE_KEY = 'completedExtractions';
   var idCounter = 0;
 
   var api = new window.DigitizationApiClient();
@@ -11,48 +14,132 @@
   var dropZone = document.querySelector('.drop-zone');
 
   var progressIntervals = {};
-  var documents = [
-    {
-      id: nextId(),
-      name: 'Promotion_1974_Registre_1.pdf',
-      pages: 45,
-      uploadedAt: '2026-02-20',
-      status: 'completed',
-      progress: 100,
-      error: null,
-      source: 'seed',
-    },
-    {
-      id: nextId(),
-      name: 'Promotion_1975_Registre_2.pdf',
-      pages: 52,
-      uploadedAt: '2026-02-21',
-      status: 'processing',
-      progress: 67,
-      error: null,
-      source: 'seed',
-    },
-    {
-      id: nextId(),
-      name: 'Promotion_1976_Notes_Annuelles.pdf',
-      pages: 38,
-      uploadedAt: '2026-02-21',
-      status: 'pending',
-      progress: 0,
-      error: null,
-      source: 'seed',
-    },
-    {
-      id: nextId(),
-      name: 'Promotion_1977_Deliberations.pdf',
-      pages: 41,
-      uploadedAt: '2026-02-20',
-      status: 'failed',
-      progress: 0,
-      error: 'Extraction failed on unreadable pages.',
-      source: 'seed',
+  function seedDocuments() {
+    return [];
+  }
+
+  function normalizeDocument(raw) {
+    var doc = raw || {};
+    var status = doc.status || 'pending';
+
+    return {
+      id: doc.id || nextId(),
+      name: doc.name || 'Unknown.pdf',
+      pages: typeof doc.pages === 'number' && doc.pages > 0 ? doc.pages : 1,
+      uploadedAt: doc.uploadedAt || toUploadedDate(),
+      status: status,
+      progress: typeof doc.progress === 'number' ? Math.max(0, Math.min(100, doc.progress)) : 0,
+      error: doc.error || null,
+      source: doc.source || 'upload',
+      extractionSummary: doc.extractionSummary || null,
+    };
+  }
+
+  function saveDocuments() {
+    try {
+      window.localStorage.setItem(DOCUMENTS_STORAGE_KEY, JSON.stringify(documents));
+    } catch (_err) {
+      // ignore storage errors
     }
-  ];
+  }
+
+  function syncIdCounterFromDocuments(items) {
+    items.forEach(function (doc) {
+      var id = String(doc.id || '');
+      var parts = id.split('_');
+      var last = Number(parts[parts.length - 1]);
+      if (Number.isFinite(last) && last > idCounter) {
+        idCounter = last;
+      }
+    });
+  }
+
+  function loadDocuments() {
+    try {
+      var raw = window.localStorage.getItem(DOCUMENTS_STORAGE_KEY);
+      if (!raw) {
+        return null;
+      }
+
+      var parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) {
+        return null;
+      }
+
+      var normalized = parsed
+        .map(normalizeDocument)
+        .filter(function (doc) { return doc.source !== 'seed'; });
+      syncIdCounterFromDocuments(normalized);
+      return normalized;
+    } catch (_err) {
+      return null;
+    }
+  }
+
+  var documents = loadDocuments() || seedDocuments();
+
+  function buildDocumentFromCompletedRecord(record) {
+    var totalPages = Number(record.total_pages || 0);
+    var okPages = Number(record.ok_pages || 0);
+    var failedPages = Number(record.failed_pages || 0);
+    var processedPercent = totalPages > 0 ? Math.round((okPages / totalPages) * 100) : 0;
+    var isCompleted = failedPages === 0 && totalPages > 0 && okPages >= totalPages;
+
+    return {
+      id: (record.id || nextId()),
+      name: record.file_name || 'Unknown.pdf',
+      pages: Math.max(1, totalPages || 1),
+      uploadedAt: toUploadedDate(),
+      status: isCompleted ? 'completed' : 'failed',
+      progress: Math.max(0, Math.min(100, processedPercent)),
+      error: isCompleted ? null : ('Only ' + okPages + '/' + totalPages + ' pages processed.'),
+      source: 'upload',
+      extractionSummary: {
+        totalPages: totalPages,
+        okPages: okPages,
+        failedPages: failedPages,
+        batchId: record.batch_id || null,
+      }
+    };
+  }
+
+  function mergeDocumentsFromCompletedRecords(records) {
+    if (!Array.isArray(records) || !records.length) {
+      return;
+    }
+
+    var changed = false;
+    var indexByName = {};
+    documents.forEach(function (doc, idx) {
+      indexByName[String(doc.name || '').toLowerCase()] = idx;
+    });
+
+    records.forEach(function (record) {
+      var fileName = String(record && record.file_name ? record.file_name : '').toLowerCase();
+      if (!fileName) {
+        return;
+      }
+
+      var nextDoc = buildDocumentFromCompletedRecord(record);
+      var existingIndex = indexByName[fileName];
+
+      if (typeof existingIndex === 'number') {
+        documents[existingIndex] = Object.assign({}, documents[existingIndex], nextDoc, {
+          id: documents[existingIndex].id || nextDoc.id,
+          name: documents[existingIndex].name || nextDoc.name,
+        });
+        changed = true;
+      } else {
+        documents.unshift(nextDoc);
+        indexByName[fileName] = 0;
+        changed = true;
+      }
+    });
+
+    if (changed) {
+      renderDocuments();
+    }
+  }
 
   function nextId() {
     idCounter += 1;
@@ -197,6 +284,7 @@
     }
 
     listElement.innerHTML = documents.map(docRowHtml).join('');
+    saveDocuments();
   }
 
   function setDocumentState(docId, patch) {
@@ -209,6 +297,31 @@
     renderDocuments();
   }
 
+  function setUploadItemsFailed(uploadItems, reason) {
+    uploadItems.forEach(function (uploadItem) {
+      stopProgress(uploadItem.doc.id);
+      setDocumentState(uploadItem.doc.id, {
+        status: 'failed',
+        progress: 0,
+        error: reason || 'Extraction failed.',
+      });
+    });
+  }
+
+  function withTimeout(promise, timeoutMs, timeoutMessage) {
+    var timeoutId = null;
+
+    var timeoutPromise = new Promise(function (_resolve, reject) {
+      timeoutId = setTimeout(function () {
+        reject(new Error(timeoutMessage || 'Operation timed out.'));
+      }, timeoutMs);
+    });
+
+    return Promise.race([promise, timeoutPromise]).finally(function () {
+      clearTimeout(timeoutId);
+    });
+  }
+
   function stopProgress(docId) {
     if (progressIntervals[docId]) {
       clearInterval(progressIntervals[docId]);
@@ -216,10 +329,20 @@
     }
   }
 
-  function startProgressLoop(docId) {
+  function startProgressLoop(docId, operationId) {
     stopProgress(docId);
 
+    if (!operationId || !backendAvailable) {
+      return;
+    }
+
+    var inFlight = false;
+
     progressIntervals[docId] = setInterval(function () {
+      if (inFlight) {
+        return;
+      }
+
       var doc = documents.find(function (item) { return item.id === docId; });
       if (!doc) {
         stopProgress(docId);
@@ -231,9 +354,50 @@
         return;
       }
 
-      var increment = Math.floor(Math.random() * 6) + 1;
-      var next = Math.min(90, doc.progress + increment);
-      setDocumentState(docId, { progress: next });
+      inFlight = true;
+      api.getExtractionProgress(operationId)
+        .then(function (progress) {
+          if (!progress) {
+            return;
+          }
+
+          var totalPages = Number(progress.total_pages || 0);
+          var processedPages = Number(progress.processed_pages || 0);
+          var failedPages = Number(progress.failed_pages || 0);
+          var processedPercentage = Number(progress.processed_percentage || 0);
+          var nextProgress = Math.max(0, Math.min(100, Math.round(processedPercentage)));
+
+          var patch = {
+            pages: Math.max(1, totalPages || doc.pages || 1),
+            progress: nextProgress,
+            extractionSummary: Object.assign({}, doc.extractionSummary || {}, {
+              totalPages: totalPages,
+              okPages: processedPages,
+              failedPages: failedPages,
+            }),
+          };
+
+          if (progress.status === 'failed') {
+            patch.status = 'failed';
+            patch.error = progress.error || 'Extraction failed.';
+            stopProgress(docId);
+          } else if (progress.status === 'completed') {
+            patch.status = failedPages > 0 ? 'failed' : 'completed';
+            patch.error = failedPages > 0
+              ? ('Only ' + processedPages + '/' + totalPages + ' pages processed. Please review failed pages in Validation.')
+              : null;
+            patch.progress = 100;
+            stopProgress(docId);
+          }
+
+          setDocumentState(docId, patch);
+        })
+        .catch(function () {
+          // ignore transient polling failures
+        })
+        .finally(function () {
+          inFlight = false;
+        });
     }, 900);
   }
 
@@ -279,31 +443,22 @@
     documents = created.map(function (item) { return item.doc; }).concat(documents);
     renderDocuments();
 
-    created.forEach(function (item) {
-      startProgressLoop(item.doc.id);
-    });
-
     return created;
   }
 
   async function uploadWithBackend(uploadItems) {
-    var files = uploadItems.map(function (item) { return item.file; });
-    var response;
+    var responses = await Promise.all(uploadItems.map(async function (uploadItem) {
+      var operationId = 'op_' + uploadItem.doc.id + '_' + Date.now();
+      startProgressLoop(uploadItem.doc.id, operationId);
 
-    if (files.length === 1) {
-      response = await api.extractPdf(files[0]);
-    } else {
-      response = await api.extractPdfs(files);
-    }
+      var response = await withTimeout(
+        api.extractPdf(uploadItem.file, operationId),
+        EXTRACTION_TIMEOUT_MS,
+        'Extraction is taking too long. Please retry this file.'
+      );
 
-    var results = Array.isArray(response.results) ? response.results : [];
-    if (!results.length) {
-      throw new Error('Empty response from extraction endpoint.');
-    }
-
-    uploadItems.forEach(function (uploadItem, index) {
-      var result = results[index] || null;
-      stopProgress(uploadItem.doc.id);
+      var results = Array.isArray(response.results) ? response.results : [];
+      var result = results[0] || null;
 
       if (!result) {
         setDocumentState(uploadItem.doc.id, {
@@ -311,62 +466,132 @@
           progress: 0,
           error: 'No extraction result for this file.',
         });
-        return;
+        return { response: response, uploadItem: uploadItem, result: null };
       }
 
       if (result.status === 'ok') {
+        stopProgress(uploadItem.doc.id);
         var extraction = result.extraction || {};
         var progress = result.processing_progress || {};
+        var totalPages = Number(extraction.total_pages || progress.total_pages || 0);
+        var processedPages = Number(progress.processed_pages || extraction.ok_pages || 0);
+        var failedPages = Number(progress.failed_pages || extraction.failed_pages || 0);
+        var processedPercentage = Number(progress.processed_percentage);
+        if (!Number.isFinite(processedPercentage)) {
+          processedPercentage = totalPages > 0 ? (processedPages / totalPages) * 100 : 0;
+        }
+        processedPercentage = Math.max(0, Math.min(100, Math.round(processedPercentage)));
+
+        var isFullyCompleted = (failedPages === 0) && (totalPages > 0) && (processedPages >= totalPages);
+        var status = isFullyCompleted ? 'completed' : 'failed';
+        var errorMessage = isFullyCompleted
+          ? null
+          : ('Only ' + processedPages + '/' + totalPages + ' pages processed. Please review failed pages in Validation.');
+
         setDocumentState(uploadItem.doc.id, {
-          pages: safePagesCount({ extraction: extraction }),
-          progress: 100,
-          status: 'completed',
-          error: null,
+          pages: Math.max(1, totalPages || safePagesCount({ extraction: extraction })),
+          progress: Math.max(processedPercentage, isFullyCompleted ? 100 : processedPercentage),
+          status: status,
+          error: errorMessage,
           extractionSummary: {
-            totalPages: extraction.total_pages || progress.total_pages || 0,
-            okPages: extraction.ok_pages || progress.processed_pages || 0,
-            failedPages: extraction.failed_pages || progress.failed_pages || 0,
+            totalPages: totalPages,
+            okPages: processedPages,
+            failedPages: failedPages,
             batchId: response.batch_id || null,
           }
         });
+      } else if (result.status === 'processing') {
+        setDocumentState(uploadItem.doc.id, {
+          status: 'processing',
+          error: result.error || 'Extraction is still running in background.',
+        });
       } else {
+        stopProgress(uploadItem.doc.id);
         setDocumentState(uploadItem.doc.id, {
           status: 'failed',
           progress: 0,
           error: result.error || 'Extraction failed.',
         });
       }
+
+      return { response: response, uploadItem: uploadItem, result: result };
+    }));
+
+    responses.forEach(function (item) {
+      if (!item || !item.response) {
+        return;
+      }
+      persistCompletedExtractions(item.response, [item.uploadItem], [item.result]);
     });
   }
 
-  function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+  function persistCompletedExtractions(response, uploadItems, results) {
+    var batchId = response && response.batch_id ? response.batch_id : null;
 
-  function simulateUploadResults(uploadItems) {
-    uploadItems.forEach(function (uploadItem, index) {
-      var delay = 1800 + (index * 350);
+    try {
+      var existingRaw = window.localStorage.getItem(COMPLETED_EXTRACTIONS_STORAGE_KEY);
+      var existing = existingRaw ? JSON.parse(existingRaw) : [];
+      if (!Array.isArray(existing)) {
+        existing = [];
+      }
 
-      setTimeout(function () {
-        stopProgress(uploadItem.doc.id);
-        var success = Math.random() >= 0.2;
+      var additions = [];
 
-        if (success) {
-          setDocumentState(uploadItem.doc.id, {
-            pages: randomInt(10, 80),
-            status: 'completed',
-            progress: 100,
-            error: null,
-          });
-        } else {
-          setDocumentState(uploadItem.doc.id, {
-            status: 'failed',
-            progress: 0,
-            error: 'Could not complete extraction in demo mode.',
-          });
+      uploadItems.forEach(function (uploadItem, index) {
+        var result = results[index] || null;
+        if (!result || !result.extraction) {
+          return;
         }
-      }, delay);
-    });
+
+        var extraction = result.extraction || {};
+        var fileName = uploadItem.file && uploadItem.file.name ? uploadItem.file.name : uploadItem.doc.name;
+        additions.push({
+          id: (batchId || 'batch_local') + '::' + fileName,
+          batch_id: batchId,
+          file_name: fileName,
+          processed_at: new Date().toISOString(),
+          status: result.status || 'ok',
+          total_pages: Number(extraction.total_pages || 0),
+          ok_pages: Number(extraction.ok_pages || 0),
+          failed_pages: Number(extraction.failed_pages || 0),
+          pages: Array.isArray(extraction.pages) ? extraction.pages : [],
+        });
+      });
+
+      if (!additions.length) {
+        return;
+      }
+
+      var merged = additions.concat(existing).slice(0, 200);
+      window.localStorage.setItem(COMPLETED_EXTRACTIONS_STORAGE_KEY, JSON.stringify(merged));
+    } catch (_err) {
+      // ignore storage errors
+    }
+  }
+
+  async function hydrateCompletedExtractionsIntoDocuments() {
+    var records = [];
+
+    if (backendAvailable) {
+      try {
+        var response = await api.getCompletedExtractions(100);
+        records = Array.isArray(response.records) ? response.records : [];
+      } catch (_err) {
+        records = [];
+      }
+    }
+
+    if (!records.length) {
+      try {
+        var raw = window.localStorage.getItem(COMPLETED_EXTRACTIONS_STORAGE_KEY);
+        var localRecords = raw ? JSON.parse(raw) : [];
+        records = Array.isArray(localRecords) ? localRecords : [];
+      } catch (_err) {
+        records = [];
+      }
+    }
+
+    mergeDocumentsFromCompletedRecords(records);
   }
 
   async function processSelectedFiles(files) {
@@ -379,16 +604,30 @@
     showToast(validFiles.length + ' file(s) added to recent documents.', 'success');
 
     if (!backendAvailable) {
-      simulateUploadResults(uploadItems);
+      await checkBackendAvailability();
+    }
+
+    if (!backendAvailable) {
+      setUploadItemsFailed(uploadItems, 'Backend is not reachable. Start uvicorn and try again.');
+      showToast('Backend is not reachable. Start uvicorn and retry.', 'error');
       return;
     }
 
     try {
       await uploadWithBackend(uploadItems);
-      showToast('Extraction finished for uploaded file(s).', 'success');
+      var stillProcessing = uploadItems.some(function (item) {
+        var doc = documents.find(function (candidate) { return candidate.id === item.doc.id; });
+        return doc && doc.status === 'processing';
+      });
+
+      if (stillProcessing) {
+        showToast('Upload accepted. Extraction is still running in background.', 'info');
+      } else {
+        showToast('Extraction finished for uploaded file(s).', 'success');
+      }
     } catch (err) {
-      showToast((err && err.message) || 'Upload failed. Falling back to demo mode.', 'error');
-      simulateUploadResults(uploadItems);
+      setUploadItemsFailed(uploadItems, (err && err.message) || 'Upload failed.');
+      showToast((err && err.message) || 'Upload failed.', 'error');
     }
   }
 
@@ -409,6 +648,8 @@
       backendAvailable = false;
       showToast('Backend not reachable. Demo mode enabled.', 'info');
     }
+
+    await hydrateCompletedExtractionsIntoDocuments();
   }
 
   function onActionClick(event) {
@@ -447,23 +688,10 @@
     }
 
     if (action === 'reprocess' || action === 'retry' || action === 'start') {
-      setDocumentState(doc.id, {
-        status: 'processing',
-        progress: 8,
-        error: null,
-      });
-
-      startProgressLoop(doc.id);
-
-      setTimeout(function () {
-        stopProgress(doc.id);
-        setDocumentState(doc.id, {
-          status: 'completed',
-          progress: 100,
-          error: null,
-        });
-        showToast(doc.name + ' reprocessed successfully.', 'success');
-      }, 1700);
+      showToast('Re-process requires re-uploading the PDF file.', 'info');
+      if (fileInput) {
+        fileInput.click();
+      }
     }
   }
 

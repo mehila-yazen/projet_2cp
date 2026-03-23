@@ -18,7 +18,14 @@
 
   function ApiClient(options) {
     var opts = options || {};
-    var configuredBase = opts.baseUrl || global.__API_BASE_URL || '';
+    var storedBase = '';
+    try {
+      storedBase = (global.localStorage && global.localStorage.getItem('apiBaseUrl')) || '';
+    } catch (_err) {
+      storedBase = '';
+    }
+
+    var configuredBase = opts.baseUrl || global.__API_BASE_URL || storedBase || 'http://127.0.0.1:8000';
     this.baseUrl = configuredBase.replace(/\/$/, '');
   }
 
@@ -50,9 +57,12 @@
     return this._request('/health');
   };
 
-  ApiClient.prototype.extractPdf = async function (file) {
+  ApiClient.prototype.extractPdf = async function (file, operationId) {
     var formData = new FormData();
     formData.append('file', file);
+    if (operationId) {
+      formData.append('operation_id', operationId);
+    }
 
     return this._request('/extract/pdf', {
       method: 'POST',
@@ -60,12 +70,15 @@
     });
   };
 
-  ApiClient.prototype.extractPdfs = async function (files) {
+  ApiClient.prototype.extractPdfs = async function (files, operationId) {
     var formData = new FormData();
 
     files.forEach(function (file) {
       formData.append('files', file);
     });
+    if (operationId) {
+      formData.append('operation_id', operationId);
+    }
 
     return this._request('/extract/pdfs', {
       method: 'POST',
@@ -76,6 +89,20 @@
   ApiClient.prototype.getCompletedExtractions = async function (limit) {
     var query = typeof limit === 'number' ? ('?limit=' + encodeURIComponent(limit)) : '';
     return this._request('/extract/completed' + query);
+  };
+
+  ApiClient.prototype.getExtractionProgress = async function (operationId) {
+    return this._request('/extract/progress/' + encodeURIComponent(operationId));
+  };
+
+  ApiClient.prototype.saveVerifiedStudents = async function (payload) {
+    return this._request('/verify/students/save', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload || {}),
+    });
   };
 
   global.DigitizationApiClient = ApiClient;

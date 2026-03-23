@@ -41,8 +41,9 @@ uvicorn src.Backend.api:app --reload
 
 Endpoints:
 - `GET /health`
-- `POST /extract/pdf` (multipart form-data with `file` as PDF)
-- `POST /extract/pdfs` (multipart form-data with `files` as multiple PDFs)
+- `POST /extract/pdf` (multipart form-data with `file` as PDF, optional `operation_id`)
+- `POST /extract/pdfs` (multipart form-data with `files` as multiple PDFs, optional `operation_id`)
+- `GET /extract/progress/{operation_id}` (live per-page extraction progress)
 - `GET /extract/completed?limit=50` (returns latest completed extracted files with per-page results)
 - `POST /verify/students/save` (JSON payload from human verification step)
 - `GET /matricules/pending/check` (find pending temporary matricules that can now be reconciled)
@@ -117,6 +118,7 @@ Sample response (`POST /extract/pdf`):
 ```json
 {
 	"batch_id": "batch_20260316_111111_ef56gh78",
+	"operation_id": "op_doc_...",
 	"total_files": 1,
 	"processed_files": 1,
 	"failed_files": 0,
@@ -139,6 +141,22 @@ Sample response (`POST /extract/pdf`):
 			}
 		}
 	]
+}
+```
+
+Sample response (`GET /extract/progress/op_doc_...`):
+```json
+{
+	"operation_id": "op_doc_1711111111111",
+	"status": "processing",
+	"stage": "extracting",
+	"file_name": "archive_1978.pdf",
+	"total_pages": 20,
+	"processed_pages": 12,
+	"failed_pages": 1,
+	"processed_percentage": 60.0,
+	"message": "60% pages processed (12/20)",
+	"updated_at": "2026-03-23T11:20:10"
 }
 ```
 
@@ -179,37 +197,39 @@ If not set, backend falls back to `GEMINI_API_KEY`.
 ## Frontend integration (Digitization + Validation)
 
 ### Shared API client
-- File: `Frontend/Js/apiClient.js`
-- Global object: `window.ArchiveApiClient`
+- File: `Front/Js/apiClient.js`
+- Global object: `window.DigitizationApiClient`
 - Methods:
-	- `getBaseUrl()` / `setBaseUrl(url)`
 	- `health()`
-	- `extractPdf(file)`
-	- `extractPdfs(files)`
+	- `extractPdf(file, operationId)`
+	- `extractPdfs(files, operationId)`
+	- `getExtractionProgress(operationId)`
 	- `getCompletedExtractions(limit)`
+	- `saveVerifiedStudents(payload)`
 
 Base URL behavior:
 - Stored in browser `localStorage` key: `apiBaseUrl`
 - Default: `http://127.0.0.1:8000`
 
 ### Digitization page
-- File: `Frontend/Js/Digitization.js`
+- File: `Front/Js/Digitization.js`
 - Validates selected files (PDF only, max 100MB each)
-- Calls `ArchiveApiClient.extractPdfs(files)`
+- Uploads files to backend and polls `/extract/progress/{operation_id}` for real page-synced progress
 - Saves completed extraction records to browser `localStorage` key: `completedExtractions`
 
 ### Validation page
-- File: `Frontend/Js/Validation.js`
+- File: `Front/Js/Validation.js`
 - Loads completed records from backend first (`GET /extract/completed`)
 - Falls back to local `completedExtractions` if backend is unavailable
 - Queue list shows completed files and per-file processed pages
-- Pagination updates per selected document using backend page count
+- Pagination updates per selected document using extracted page mapping
+- Edit mode allows correction of extracted rows, then saves to `POST /verify/students/save`
 
 ### Script order in HTML
-- `Frontend/Html/Digitization.html`:
+- `Front/Html/Digitization.html`:
 	- `../Js/apiClient.js`
 	- `../Js/Digitization.js`
-- `Frontend/Html/Validation.html`:
+- `Front/Html/Validation.html`:
 	- `../Js/apiClient.js`
 	- `../Js/Validation.js`
 
@@ -218,8 +238,8 @@ Base URL behavior:
 	 ```cmd
 	 uvicorn src.Backend.api:app --reload
 	 ```
-2. Open `Frontend/Html/Digitization.html` and upload PDFs.
-3. Open `Frontend/Html/Validation.html` to see completed files and page-level extracted results.
+2. Open `Front/Html/Digitization.html` and upload PDFs.
+3. Open `Front/Html/Validation.html` to review page-level extracted results and save validated students.
 
 ## Matricule strategy (missing matricule cases)
 Implemented helpers in [src/services/matricule_service.py](src/services/matricule_service.py).

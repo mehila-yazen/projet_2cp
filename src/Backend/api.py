@@ -1,13 +1,16 @@
 from __future__ import annotations
 
+import asyncio
 import json
+import logging
 import os
 from datetime import datetime
 from datetime import date
 from pathlib import Path
+from typing import Any
 from uuid import uuid4
 
-from fastapi import Body, FastAPI, File, HTTPException, Query, UploadFile
+from fastapi import Body, FastAPI, File, Form, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
@@ -26,7 +29,25 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 UPLOAD_ROOT = PROJECT_ROOT / "tmp" / "uploads"
 EXTRACTION_ROOT = PROJECT_ROOT / "tmp" / "extractions"
 COMPLETED_EXTRACTIONS_ROOT = PROJECT_ROOT / "tmp" / "completed_extractions"
-FRONTEND_ROOT = PROJECT_ROOT / "Frontend"
+
+
+def _resolve_frontend_root() -> Path | None:
+    candidates = [
+        PROJECT_ROOT / "Front",
+        PROJECT_ROOT / "Frontend",
+    ]
+    for candidate in candidates:
+        if candidate.exists() and candidate.is_dir():
+            return candidate
+    return None
+
+
+FRONTEND_ROOT = _resolve_frontend_root()
+EXTRACTION_REQUEST_TIMEOUT_SECONDS = int(os.getenv("EXTRACTION_REQUEST_TIMEOUT_SECONDS", "420"))
+
+logger = logging.getLogger(__name__)
+
+EXTRACTION_PROGRESS_STATE: dict[str, dict[str, Any]] = {}
 
 
 app = FastAPI(title="Archive Digitization API", version="0.1.0")
@@ -110,7 +131,127 @@ def _build_batch_processing_progress(results: list[dict]) -> dict:
     }
 
 
-async def _process_uploaded_pdf(file: UploadFile, batch_dir: Path) -> dict:
+def _upsert_operation_progress(operation_id: str, patch: dict[str, Any]) -> dict[str, Any]:
+    existing = EXTRACTION_PROGRESS_STATE.get(operation_id, {"operation_id": operation_id})
+    existing.update(patch)
+
+    total_pages = int(existing.get("total_pages", 0) or 0)
+    processed_pages = int(existing.get("processed_pages", 0) or 0)
+    failed_pages = int(existing.get("failed_pages", 0) or 0)
+    percentage = 0.0 if total_pages == 0 else round((processed_pages / total_pages) * 100, 2)
+
+    existing["processed_percentage"] = percentage
+    existing["message"] = f"{int(round(percentage))}% pages processed ({processed_pages}/{total_pages})"
+    existing["updated_at"] = datetime.now().isoformat(timespec="seconds")
+
+    EXTRACTION_PROGRESS_STATE[operation_id] = existing
+    return existing
+
+
+def _make_progress_callback(operation_id: str):
+    def _callback(progress: dict[str, Any]) -> None:
+        _upsert_operation_progress(operation_id, progress)
+
+    return _callback
+
+
+def _is_terminal_status(status: str | None) -> bool:
+    return status in {"ok", "failed"}
+
+
+def _find_extraction_payload_for_saved_pdf(saved_pdf: Path) -> dict | None:
+    stem = saved_pdf.stem
+    candidates = sorted(
+        EXTRACTION_ROOT.glob(f"{stem}_*/extraction_result.json"),
+        key=lambda p: p.stat().st_mtime,
+        reverse=True,
+    )
+
+    for path in candidates[:20]:
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+            if Path(payload.get("file_path", "")).resolve() == saved_pdf.resolve():
+                return payload
+        except Exception:
+            continue
+
+    return None
+
+
+def _build_result_from_extraction_payload(saved_pdf: Path, extraction: dict) -> dict:
+    progress = _build_processing_progress(extraction)
+    return {
+        "upload": {
+            "original_filename": saved_pdf.name,
+            "saved_path": str(saved_pdf),
+            "bytes": int(saved_pdf.stat().st_size if saved_pdf.exists() else 0),
+        },
+        "status": "ok",
+        "extraction": extraction,
+        "processing_progress": progress,
+        "error": None,
+    }
+
+
+def _persist_operation_completion_if_needed(operation_id: str, extraction: dict) -> None:
+    state = EXTRACTION_PROGRESS_STATE.get(operation_id)
+    if not state:
+        return
+    if state.get("completed_persisted"):
+        return
+
+    saved_path = state.get("saved_path")
+    batch_id = state.get("batch_id")
+    if not saved_path or not batch_id:
+        return
+
+    saved_pdf = Path(saved_path)
+    result = _build_result_from_extraction_payload(saved_pdf, extraction)
+    _persist_completed_batch(batch_id, [result])
+
+    _upsert_operation_progress(
+        operation_id,
+        {
+            "completed_persisted": True,
+        },
+    )
+
+
+def _refresh_operation_state_from_artifacts(operation_id: str) -> dict | None:
+    state = EXTRACTION_PROGRESS_STATE.get(operation_id)
+    if not state:
+        return None
+
+    if state.get("status") == "completed" and state.get("completed_persisted"):
+        return state
+
+    saved_path = state.get("saved_path")
+    if not saved_path:
+        return state
+
+    saved_pdf = Path(saved_path)
+    extraction = _find_extraction_payload_for_saved_pdf(saved_pdf)
+    if not extraction:
+        return state
+
+    progress = _build_processing_progress(extraction)
+    refreshed = _upsert_operation_progress(
+        operation_id,
+        {
+            "status": "completed",
+            "stage": "completed",
+            "total_pages": progress.get("total_pages", 0),
+            "processed_pages": progress.get("processed_pages", 0),
+            "failed_pages": progress.get("failed_pages", 0),
+            "error": None,
+        },
+    )
+
+    _persist_operation_completion_if_needed(operation_id, extraction)
+    return refreshed
+
+
+async def _process_uploaded_pdf(file: UploadFile, batch_dir: Path, operation_id: str | None = None) -> dict:
     if not file.filename:
         raise HTTPException(status_code=400, detail="Missing filename")
 
@@ -128,14 +269,85 @@ async def _process_uploaded_pdf(file: UploadFile, batch_dir: Path) -> dict:
     if not file_bytes:
         raise HTTPException(status_code=400, detail="Uploaded file is empty")
 
+    if operation_id:
+        _upsert_operation_progress(
+            operation_id,
+            {
+                "status": "processing",
+                "stage": "upload_received",
+                "file_name": file.filename,
+                "batch_dir": str(batch_dir),
+                "saved_path": str(saved_pdf),
+                "total_pages": 0,
+                "processed_pages": 0,
+                "failed_pages": 0,
+                "error": None,
+            },
+        )
+
     saved_pdf.write_bytes(file_bytes)
+    logger.info("Starting extraction for file '%s' (%s bytes)", file.filename, len(file_bytes))
 
     try:
-        extraction = await extract_pdf_with_page_mapping_async(
-            saved_pdf,
-            output_root=EXTRACTION_ROOT,
+        extraction = await asyncio.wait_for(
+            extract_pdf_with_page_mapping_async(
+                saved_pdf,
+                output_root=EXTRACTION_ROOT,
+                progress_callback=_make_progress_callback(operation_id) if operation_id else None,
+            ),
+            timeout=EXTRACTION_REQUEST_TIMEOUT_SECONDS,
         )
+        logger.info(
+            "Extraction finished for '%s': total=%s ok=%s failed=%s",
+            file.filename,
+            extraction.get("total_pages", 0),
+            extraction.get("ok_pages", 0),
+            extraction.get("failed_pages", 0),
+        )
+    except TimeoutError:
+        logger.error(
+            "Extraction timeout for '%s' after %s seconds",
+            file.filename,
+            EXTRACTION_REQUEST_TIMEOUT_SECONDS,
+        )
+        if operation_id:
+            _upsert_operation_progress(
+                operation_id,
+                {
+                    "status": "processing",
+                    "stage": "timeout_waiting",
+                    "error": (
+                        "Request timed out after "
+                        f"{EXTRACTION_REQUEST_TIMEOUT_SECONDS} seconds, "
+                        "but extraction is still running in background."
+                    ),
+                },
+            )
+        return {
+            "upload": {
+                "original_filename": file.filename,
+                "saved_path": str(saved_pdf),
+                "bytes": len(file_bytes),
+            },
+            "status": "processing",
+            "extraction": None,
+            "processing_progress": _build_processing_progress(None),
+            "error": (
+                "Request timed out, extraction continues in background. "
+                "Keep polling operation progress."
+            ),
+        }
     except Exception as exc:
+        logger.exception("Extraction failed for '%s': %s", file.filename, exc)
+        if operation_id:
+            _upsert_operation_progress(
+                operation_id,
+                {
+                    "status": "failed",
+                    "stage": "failed",
+                    "error": str(exc),
+                },
+            )
         return {
             "upload": {
                 "original_filename": file.filename,
@@ -149,6 +361,20 @@ async def _process_uploaded_pdf(file: UploadFile, batch_dir: Path) -> dict:
         }
 
     progress = _build_processing_progress(extraction)
+
+    if operation_id:
+        _upsert_operation_progress(
+            operation_id,
+            {
+                "status": "completed",
+                "stage": "completed",
+                "file_name": file.filename,
+                "total_pages": progress.get("total_pages", 0),
+                "processed_pages": progress.get("processed_pages", 0),
+                "failed_pages": progress.get("failed_pages", 0),
+                "error": None,
+            },
+        )
 
     return {
         "upload": {
@@ -164,9 +390,6 @@ async def _process_uploaded_pdf(file: UploadFile, batch_dir: Path) -> dict:
 
 
 def _build_completed_record(batch_id: str, item: dict, *, processed_at: str) -> dict | None:
-    if item.get("status") != "ok":
-        return None
-
     extraction = item.get("extraction") or {}
     upload = item.get("upload") or {}
     file_name = upload.get("original_filename") or Path(extraction.get("file_path", "unknown.pdf")).name
@@ -178,6 +401,7 @@ def _build_completed_record(batch_id: str, item: dict, *, processed_at: str) -> 
         "file_name": file_name,
         "processed_at": processed_at,
         "status": item.get("status"),
+        "error": item.get("error"),
         "total_pages": int(extraction.get("total_pages", 0) or 0),
         "ok_pages": int(extraction.get("ok_pages", 0) or 0),
         "failed_pages": int(extraction.get("failed_pages", 0) or 0),
@@ -244,14 +468,18 @@ def _load_completed_records(limit: int = 50) -> list[dict]:
 
 
 @app.post("/extract/pdf")
-async def extract_pdf(file: UploadFile = File(...)) -> dict:
+async def extract_pdf(file: UploadFile = File(...), operation_id: str | None = Form(default=None)) -> dict:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     batch_id = f"batch_{timestamp}_{uuid4().hex[:8]}"
     batch_dir = UPLOAD_ROOT / batch_id
     batch_dir.mkdir(parents=True, exist_ok=True)
 
-    result = await _process_uploaded_pdf(file, batch_dir)
-    _persist_completed_batch(batch_id, [result])
+    if operation_id:
+        _upsert_operation_progress(operation_id, {"batch_id": batch_id})
+
+    result = await _process_uploaded_pdf(file, batch_dir, operation_id=operation_id)
+    if _is_terminal_status(result.get("status")):
+        _persist_completed_batch(batch_id, [result])
     batch_progress = _build_batch_processing_progress([result])
     return {
         "batch_id": batch_id,
@@ -259,12 +487,13 @@ async def extract_pdf(file: UploadFile = File(...)) -> dict:
         "processed_files": 1 if result.get("status") == "ok" else 0,
         "failed_files": 0 if result.get("status") == "ok" else 1,
         "batch_processing_progress": batch_progress,
+        "operation_id": operation_id,
         "results": [result],
     }
 
 
 @app.post("/extract/pdfs")
-async def extract_pdfs(files: list[UploadFile] = File(...)) -> dict:
+async def extract_pdfs(files: list[UploadFile] = File(...), operation_id: str | None = Form(default=None)) -> dict:
     if not files:
         raise HTTPException(status_code=400, detail="No files provided")
 
@@ -273,14 +502,19 @@ async def extract_pdfs(files: list[UploadFile] = File(...)) -> dict:
     batch_dir = UPLOAD_ROOT / batch_id
     batch_dir.mkdir(parents=True, exist_ok=True)
 
+    if operation_id:
+        _upsert_operation_progress(operation_id, {"batch_id": batch_id})
+
     results: list[dict] = []
     for upload in files:
-        item = await _process_uploaded_pdf(upload, batch_dir)
+        item = await _process_uploaded_pdf(upload, batch_dir, operation_id=operation_id)
         results.append(item)
 
     processed = sum(1 for item in results if item.get("status") == "ok")
     failed = len(results) - processed
-    _persist_completed_batch(batch_id, results)
+    terminal_results = [item for item in results if _is_terminal_status(item.get("status"))]
+    if terminal_results:
+        _persist_completed_batch(batch_id, terminal_results)
     batch_progress = _build_batch_processing_progress(results)
 
     return {
@@ -289,8 +523,17 @@ async def extract_pdfs(files: list[UploadFile] = File(...)) -> dict:
         "processed_files": processed,
         "failed_files": failed,
         "batch_processing_progress": batch_progress,
+        "operation_id": operation_id,
         "results": results,
     }
+
+
+@app.get("/extract/progress/{operation_id}")
+async def get_extraction_progress(operation_id: str) -> dict:
+    progress = _refresh_operation_state_from_artifacts(operation_id)
+    if not progress:
+        raise HTTPException(status_code=404, detail="Unknown operation_id")
+    return progress
 
 
 @app.get("/extract/completed")
@@ -445,8 +688,18 @@ async def get_pending_matricule_conflicts() -> dict:
     }
 
 
-if FRONTEND_ROOT.exists():
+if FRONTEND_ROOT is not None:
     tmp_root = PROJECT_ROOT / "tmp"
     if tmp_root.exists():
         app.mount("/tmp", StaticFiles(directory=str(tmp_root)), name="tmp-static")
-    app.mount("/", StaticFiles(directory=str(FRONTEND_ROOT)), name="frontend")
+
+    html_dir = FRONTEND_ROOT / "Html"
+    js_dir = FRONTEND_ROOT / "Js"
+    css_dir = FRONTEND_ROOT / "Css"
+
+    if html_dir.exists():
+        app.mount("/Html", StaticFiles(directory=str(html_dir)), name="frontend-html")
+    if js_dir.exists():
+        app.mount("/Js", StaticFiles(directory=str(js_dir)), name="frontend-js")
+    if css_dir.exists():
+        app.mount("/Css", StaticFiles(directory=str(css_dir)), name="frontend-css")
