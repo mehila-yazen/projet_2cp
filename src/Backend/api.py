@@ -95,8 +95,9 @@ def _build_processing_progress(extraction: dict | None) -> dict:
     total_pages = int(extraction.get("total_pages", 0) or 0)
     processed_pages = int(extraction.get("ok_pages", 0) or 0)
     failed_pages = int(extraction.get("failed_pages", 0) or 0)
+    completed_pages = processed_pages + failed_pages
 
-    percentage = 0.0 if total_pages == 0 else round((processed_pages / total_pages) * 100, 2)
+    percentage = 0.0 if total_pages == 0 else round((completed_pages / total_pages) * 100, 2)
     display_percent = int(round(percentage))
 
     return {
@@ -119,7 +120,8 @@ def _build_batch_processing_progress(results: list[dict]) -> dict:
         processed_pages += int(progress.get("processed_pages", 0) or 0)
         failed_pages += int(progress.get("failed_pages", 0) or 0)
 
-    percentage = 0.0 if total_pages == 0 else round((processed_pages / total_pages) * 100, 2)
+    completed_pages = processed_pages + failed_pages
+    percentage = 0.0 if total_pages == 0 else round((completed_pages / total_pages) * 100, 2)
     display_percent = int(round(percentage))
 
     return {
@@ -138,7 +140,8 @@ def _upsert_operation_progress(operation_id: str, patch: dict[str, Any]) -> dict
     total_pages = int(existing.get("total_pages", 0) or 0)
     processed_pages = int(existing.get("processed_pages", 0) or 0)
     failed_pages = int(existing.get("failed_pages", 0) or 0)
-    percentage = 0.0 if total_pages == 0 else round((processed_pages / total_pages) * 100, 2)
+    completed_pages = processed_pages + failed_pages
+    percentage = 0.0 if total_pages == 0 else round((completed_pages / total_pages) * 100, 2)
 
     existing["processed_percentage"] = percentage
     existing["message"] = f"{int(round(percentage))}% pages processed ({processed_pages}/{total_pages})"
@@ -193,6 +196,53 @@ def _build_result_from_extraction_payload(saved_pdf: Path, extraction: dict) -> 
     }
 
 
+def _build_result_from_completed_record(saved_pdf: Path, record: dict) -> dict:
+    extraction = {
+        "file_path": str(saved_pdf),
+        "total_pages": int(record.get("total_pages", 0) or 0),
+        "ok_pages": int(record.get("ok_pages", 0) or 0),
+        "failed_pages": int(record.get("failed_pages", 0) or 0),
+        "pages": record.get("pages") or [],
+    }
+    progress = _build_processing_progress(extraction)
+
+    return {
+        "upload": {
+            "original_filename": saved_pdf.name,
+            "saved_path": str(saved_pdf),
+            "bytes": int(saved_pdf.stat().st_size if saved_pdf.exists() else 0),
+        },
+        "status": "ok",
+        "extraction": extraction,
+        "processing_progress": progress,
+        "error": None,
+    }
+
+
+def _find_completed_record(state: dict[str, Any]) -> dict | None:
+    batch_id = state.get("batch_id")
+    file_name = Path(state.get("saved_path") or "").name
+    if not file_name:
+        return None
+
+    if batch_id:
+        path = COMPLETED_EXTRACTIONS_ROOT / f"{batch_id}.json"
+        if path.exists():
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+                for record in payload.get("records") or []:
+                    if str(record.get("file_name") or "").strip().lower() == file_name.lower():
+                        return record
+            except Exception:
+                return None
+
+    for record in _load_completed_records(limit=200):
+        if str(record.get("file_name") or "").strip().lower() == file_name.lower():
+            return record
+
+    return None
+
+
 def _persist_operation_completion_if_needed(operation_id: str, extraction: dict) -> None:
     state = EXTRACTION_PROGRESS_STATE.get(operation_id)
     if not state:
@@ -231,23 +281,49 @@ def _refresh_operation_state_from_artifacts(operation_id: str) -> dict | None:
 
     saved_pdf = Path(saved_path)
     extraction = _find_extraction_payload_for_saved_pdf(saved_pdf)
-    if not extraction:
+    if extraction:
+        progress = _build_processing_progress(extraction)
+        refreshed = _upsert_operation_progress(
+            operation_id,
+            {
+                "status": "completed",
+                "stage": "completed",
+                "total_pages": progress.get("total_pages", 0),
+                "processed_pages": progress.get("processed_pages", 0),
+                "failed_pages": progress.get("failed_pages", 0),
+                "error": None,
+            },
+        )
+
+        _persist_operation_completion_if_needed(operation_id, extraction)
+        return refreshed
+
+    record = _find_completed_record(state)
+    if not record:
         return state
 
-    progress = _build_processing_progress(extraction)
+    total_pages = int(record.get("total_pages", 0) or 0)
+    ok_pages = int(record.get("ok_pages", 0) or 0)
+    failed_pages = int(record.get("failed_pages", 0) or 0)
+
     refreshed = _upsert_operation_progress(
         operation_id,
         {
             "status": "completed",
             "stage": "completed",
-            "total_pages": progress.get("total_pages", 0),
-            "processed_pages": progress.get("processed_pages", 0),
-            "failed_pages": progress.get("failed_pages", 0),
+            "total_pages": total_pages,
+            "processed_pages": ok_pages,
+            "failed_pages": failed_pages,
             "error": None,
+            "completed_persisted": True,
         },
     )
 
-    _persist_operation_completion_if_needed(operation_id, extraction)
+    # Ensure legacy operations still get a completed artifact if one was not persisted yet.
+    if not state.get("completed_persisted") and state.get("batch_id"):
+        synthesized = _build_result_from_completed_record(saved_pdf, record)
+        _persist_completed_batch(str(state.get("batch_id")), [synthesized])
+
     return refreshed
 
 

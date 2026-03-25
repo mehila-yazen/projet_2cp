@@ -2,7 +2,7 @@
 (function () {
   var MAX_FILE_BYTES = 100 * 1024 * 1024;
   var BACKEND_CHECK_TIMEOUT = 1800;
-  var EXTRACTION_TIMEOUT_MS = 15 * 60 * 1000;
+  var EXTRACTION_TIMEOUT_MS = 20 * 60 * 1000;
   var DOCUMENTS_STORAGE_KEY = 'digitizationDocuments';
   var COMPLETED_EXTRACTIONS_STORAGE_KEY = 'completedExtractions';
   var idCounter = 0;
@@ -337,6 +337,8 @@
     }
 
     var inFlight = false;
+    var pollingFailures = 0;
+    var timeoutNoticeShown = false;
 
     progressIntervals[docId] = setInterval(function () {
       if (inFlight) {
@@ -357,6 +359,7 @@
       inFlight = true;
       api.getExtractionProgress(operationId)
         .then(function (progress) {
+          pollingFailures = 0;
           if (!progress) {
             return;
           }
@@ -370,12 +373,18 @@
           var patch = {
             pages: Math.max(1, totalPages || doc.pages || 1),
             progress: nextProgress,
+            error: (progress.status === 'processing' && progress.error) ? progress.error : null,
             extractionSummary: Object.assign({}, doc.extractionSummary || {}, {
               totalPages: totalPages,
               okPages: processedPages,
               failedPages: failedPages,
             }),
           };
+
+          if (progress.status === 'processing' && progress.error && !timeoutNoticeShown) {
+            showToast(progress.error, 'info');
+            timeoutNoticeShown = true;
+          }
 
           if (progress.status === 'failed') {
             patch.status = 'failed';
@@ -392,8 +401,17 @@
 
           setDocumentState(docId, patch);
         })
-        .catch(function () {
-          // ignore transient polling failures
+        .catch(function (err) {
+          pollingFailures += 1;
+
+          if (pollingFailures >= 8) {
+            stopProgress(docId);
+            setDocumentState(docId, {
+              status: 'failed',
+              error: (err && err.message) || 'Unable to fetch extraction progress.',
+            });
+            showToast((err && err.message) || 'Unable to fetch extraction progress.', 'error');
+          }
         })
         .finally(function () {
           inFlight = false;
@@ -505,6 +523,9 @@
           status: 'processing',
           error: result.error || 'Extraction is still running in background.',
         });
+        if (result.error) {
+          showToast(result.error, 'info');
+        }
       } else {
         stopProgress(uploadItem.doc.id);
         setDocumentState(uploadItem.doc.id, {

@@ -1,0 +1,2716 @@
+{
+  "file_path": "C:\\Users\\kiki\\Desktop\\project2cpp\\tmp\\uploads\\batch_20260324_205423_79318c31\\1e5a1a9e42c2\\3-IS 1980-1981.pdf",
+  "run_dir": "C:\\Users\\kiki\\Desktop\\project2cpp\\tmp\\extractions\\3-IS 1980-1981_20260324_205423",
+  "pages_dir": "C:\\Users\\kiki\\Desktop\\project2cpp\\tmp\\extractions\\3-IS 1980-1981_20260324_205423\\pages",
+  "total_pages": 4,
+  "ok_pages": 4,
+  "failed_pages": 0,
+  "pages": [
+    {
+      "page_number": 1,
+      "image_path": "C:\\Users\\kiki\\Desktop\\project2cpp\\tmp\\extractions\\3-IS 1980-1981_20260324_205423\\pages\\page_0001.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "3I3U",
+      "result": {
+        "type": "table_de_matieres",
+        "sectionCode": null,
+        "annee": null,
+        "anneeEtude": null,
+        "matieres": [
+          {
+            "abrev": "SYS",
+            "libelle": "SYSTEME",
+            "coef": {
+              "S1": 3,
+              "S2": 4
+            },
+            "moyenne": {
+              "S1": null,
+              "S1_80pct": 7.84,
+              "S2": 10.86,
+              "S2_80pct": 8.68,
+              "annuel": 10.4,
+              "annuel_80pct": 8.32
+            }
+          },
+          {
+            "abrev": "STR",
+            "libelle": "STRUCTURE MACHINES",
+            "coef": {
+              "S1": 2,
+              "S2": 3
+            },
+            "moyenne": {
+              "S1": 0.14,
+              "S1_80pct": 7.31,
+              "S2": 12.01,
+              "S2_80pct": 9.6,
+              "annuel": 10.86,
+              "annuel_80pct": 8.68
+            }
+          },
+          {
+            "abrev": "MAT",
+            "libelle": "MATHEMATIQUES",
+            "coef": {
+              "S1": 2,
+              "S2": 2
+            },
+            "moyenne": {
+              "S1": 2.43,
+              "S1_80pct": 5.14,
+              "S2": 6.93,
+              "S2_80pct": 5.54,
+              "annuel": 6.68,
+              "annuel_80pct": 5.34
+            }
+          },
+          {
+            "abrev": "STA",
+            "libelle": "STATISTIQUES",
+            "coef": {
+              "S1": 2,
+              "S2": null
+            },
+            "moyenne": {
+              "S1": 0.56,
+              "S1_80pct": 6.84,
+              "S2": null,
+              "S2_80pct": null,
+              "annuel": 8.56,
+              "annuel_80pct": 6.84
+            }
+          },
+          {
+            "abrev": "ANG",
+            "libelle": "ANGLAIS",
+            "coef": {
+              "S1": 2,
+              "S2": 2
+            },
+            "moyenne": {
+              "S1": 11.78,
+              "S1_80pct": 9.42,
+              "S2": 12.5,
+              "S2_80pct": 10.0,
+              "annuel": 12.14,
+              "annuel_80pct": 9.71
+            }
+          },
+          {
+            "abrev": "STD",
+            "libelle": "STRUCTURE DE DONNEES",
+            "coef": {
+              "S1": 2,
+              "S2": null
+            },
+            "moyenne": {
+              "S1": 2.58,
+              "S1_80pct": 6.86,
+              "S2": null,
+              "S2_80pct": null,
+              "annuel": 8.58,
+              "annuel_80pct": 6.86
+            }
+          },
+          {
+            "abrev": "THL",
+            "libelle": "THEORIES ET ANAL SYN T",
+            "coef": {
+              "S1": 2,
+              "S2": 3
+            },
+            "moyenne": {
+              "S1": 0.57,
+              "S1_80pct": 6.85,
+              "S2": 9.76,
+              "S2_80pct": 7.8,
+              "annuel": 9.28,
+              "annuel_80pct": 7.42
+            }
+          },
+          {
+            "abrev": "RBP",
+            "libelle": "GRAPHES",
+            "coef": {
+              "S1": null,
+              "S2": 3
+            },
+            "moyenne": {
+              "S1": null,
+              "S1_80pct": null,
+              "S2": 11.0,
+              "S2_80pct": 8.8,
+              "annuel": 11.0,
+              "annuel_80pct": 8.8
+            }
+          },
+          {
+            "abrev": "FAT",
+            "libelle": "FILES D'ATTENTE",
+            "coef": {
+              "S1": null,
+              "S2": 2
+            },
+            "moyenne": {
+              "S1": null,
+              "S1_80pct": null,
+              "S2": 10.8,
+              "S2_80pct": 8.64,
+              "annuel": 10.8,
+              "annuel_80pct": 8.64
+            }
+          },
+          {
+            "abrev": "EXP",
+            "libelle": "EXPOSE",
+            "coef": {
+              "S1": null,
+              "S2": 2
+            },
+            "moyenne": {
+              "S1": null,
+              "S1_80pct": null,
+              "S2": 12.84,
+              "S2_80pct": 10.27,
+              "annuel": 12.84,
+              "annuel_80pct": 10.27
+            }
+          }
+        ],
+        "moyennePromotion": {
+          "S1": 0.03,
+          "S1_80pct": 7.22,
+          "S2": 10.85,
+          "S2_80pct": 8.68,
+          "annuel": 9.94,
+          "annuel_80pct": 7.95
+        },
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 2,
+      "image_path": "C:\\Users\\kiki\\Desktop\\project2cpp\\tmp\\extractions\\3-IS 1980-1981_20260324_205423\\pages\\page_0002.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "SupU",
+      "result": {
+        "type": "multiple_students",
+        "sectionCode": null,
+        "annee": "1980/1981",
+        "anneeEtude": "3",
+        "section": "INGENIEUR",
+        "option": "SYSTEME",
+        "students": [
+          {
+            "nom": "AZZBOUNE",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 10.66,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 9.73,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 3.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 9.75,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 14.87,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 9.4,
+                "noteS2": null
+              },
+              {
+                "code": "THL",
+                "noteS1": 8.5,
+                "noteS2": null
+              },
+              {
+                "code": "MEP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.4,
+              "S2": null,
+              "annuel": 10.15
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": 8
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "FL-HANI",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 13.0,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 14.75,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 12.5,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 13.6,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": null,
+                "noteS2": 9.2
+              },
+              {
+                "code": "THL",
+                "noteS1": null,
+                "noteS2": 12.0
+              },
+              {
+                "code": "MEP",
+                "noteS1": null,
+                "noteS2": 0.6
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": 12.0
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": null,
+              "S2": 10.9,
+              "annuel": 10.15
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": 9
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "GNAUBE",
+            "prenom": "N.IDER",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 8.66,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 13.75,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 8.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 11.5,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 13.58,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 12.83,
+                "noteS2": null
+              },
+              {
+                "code": "THL",
+                "noteS1": 10.5,
+                "noteS2": null
+              },
+              {
+                "code": "MEP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 11.08,
+              "S2": null,
+              "annuel": 12.2
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": 4
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "MED",
+            "prenom": "YAZID",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 13.12,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 14.25,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 17.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 13.48,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 12.7,
+                "noteS2": null
+              },
+              {
+                "code": "THL",
+                "noteS1": 13.0,
+                "noteS2": null
+              },
+              {
+                "code": "MEP",
+                "noteS1": 12.4,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": 14.0,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 13.33,
+              "S2": null,
+              "annuel": null
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": 2
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "GBOUAISSI",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 11.0,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 8.9,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 9.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 11.5,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 10.45,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 11.08,
+                "noteS2": null
+              },
+              {
+                "code": "THL",
+                "noteS1": 12.25,
+                "noteS2": null
+              },
+              {
+                "code": "MEP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.83,
+              "S2": null,
+              "annuel": 10.6
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": 6
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "RAHIM",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 9.58,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 11.25,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 11.5,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 12.81,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": null,
+                "noteS2": 9.8
+              },
+              {
+                "code": "THL",
+                "noteS1": null,
+                "noteS2": 10.5
+              },
+              {
+                "code": "MEP",
+                "noteS1": null,
+                "noteS2": 13.6
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": 15.0
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": null,
+              "S2": 11.37,
+              "annuel": 10.6
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": 6
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "HAMDI",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 8.66,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 5.6,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 2.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 6.5,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.52,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 8.58,
+                "noteS2": null
+              },
+              {
+                "code": "THL",
+                "noteS1": 7.5,
+                "noteS2": null
+              },
+              {
+                "code": "MEP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 7.24,
+              "S2": null,
+              "annuel": 8.04
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": 11
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "MED",
+            "prenom": "NEJIB",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 5.7,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 12.25,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 3.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.65,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": null,
+                "noteS2": 9.6
+              },
+              {
+                "code": "THL",
+                "noteS1": null,
+                "noteS2": 8.0
+              },
+              {
+                "code": "MEP",
+                "noteS1": null,
+                "noteS2": 7.4
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": 12.0
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": null,
+              "S2": 8.84,
+              "annuel": 8.04
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": 13
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "HATTAL",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 12.83,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 11.25,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 12.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 10.0,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 14.83,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 11.68,
+                "noteS2": null
+              },
+              {
+                "code": "THL",
+                "noteS1": 12.0,
+                "noteS2": null
+              },
+              {
+                "code": "MEP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 12.05,
+              "S2": null,
+              "annuel": 12.88
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": 1
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "DALILA",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 11.83,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 14.25,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 16.5,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 14.87,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": null,
+                "noteS2": 12.3
+              },
+              {
+                "code": "THL",
+                "noteS1": null,
+                "noteS2": 13.0
+              },
+              {
+                "code": "MEP",
+                "noteS1": null,
+                "noteS2": 12.8
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": 16.0
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": null,
+              "S2": 13.72,
+              "annuel": 12.88
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": 1
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "KASSAIL",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 8.0,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.0,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 8.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 8.0,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 12.58,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 9.66,
+                "noteS2": null
+              },
+              {
+                "code": "THL",
+                "noteS1": 8.0,
+                "noteS2": null
+              },
+              {
+                "code": "MEP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 8.43,
+              "S2": null,
+              "annuel": 9.79
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": 10
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "MIHAMED",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 12.25,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 11.5,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 11.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.24,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": null,
+                "noteS2": 11.5
+              },
+              {
+                "code": "THL",
+                "noteS1": null,
+                "noteS2": 9.16
+              },
+              {
+                "code": "MEP",
+                "noteS1": null,
+                "noteS2": 12.2
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": 12.0
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": null,
+              "S2": 11.16,
+              "annuel": 9.79
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": 10
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "KHENIESA",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 10.8,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 11.5,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 1.5,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 5.5,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 8.41,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 11.0,
+                "noteS2": null
+              },
+              {
+                "code": "THL",
+                "noteS1": 9.75,
+                "noteS2": null
+              },
+              {
+                "code": "MEP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 6.85,
+              "S2": null,
+              "annuel": 8.23
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": 14
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "ABDELLAFIO",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 10.62,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 11.5,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 3.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.36,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": null,
+                "noteS2": 10.0
+              },
+              {
+                "code": "THL",
+                "noteS1": null,
+                "noteS2": 11.33
+              },
+              {
+                "code": "MEP",
+                "noteS1": null,
+                "noteS2": 5.0
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": 10.0
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": null,
+              "S2": 9.62,
+              "annuel": 8.23
+            },
+            "rang": {
+              "S1": null,
+              "S2": null,
+              "annuel": 12
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          }
+        ],
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 3,
+      "image_path": "C:\\Users\\kiki\\Desktop\\project2cpp\\tmp\\extractions\\3-IS 1980-1981_20260324_205423\\pages\\page_0003.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "vicw",
+      "result": {
+        "type": "multiple_students",
+        "sectionCode": null,
+        "annee": "1980/1981",
+        "anneeEtude": "3",
+        "section": "INGENIEUR",
+        "option": "SYSTEME",
+        "students": [
+          {
+            "nom": "KHERFY",
+            "prenom": "KHALED",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 10.75,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 11.0,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 12.8,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 13.25,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 13.0,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 11.95,
+                "noteS2": null
+              },
+              {
+                "code": "TUL",
+                "noteS1": 10.25,
+                "noteS2": 9.6
+              },
+              {
+                "code": "RBP",
+                "noteS1": null,
+                "noteS2": 11.66
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": 12.2
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": 16.0
+              }
+            ],
+            "moyenne": {
+              "S1": 11.14,
+              "S2": null,
+              "annuel": 11.55
+            },
+            "rang": {
+              "S1": 3,
+              "S2": null,
+              "annuel": 4
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "DABUIA",
+            "prenom": "KHALED",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 11.66,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 13.52,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 12.58,
+                "noteS2": 12.0
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 13.02,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "TUL",
+                "noteS1": null,
+                "noteS2": 9.6
+              },
+              {
+                "code": "RBP",
+                "noteS1": null,
+                "noteS2": 11.66
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": 12.2
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": 16.0
+              }
+            ],
+            "moyenne": {
+              "S1": 11.96,
+              "S2": null,
+              "annuel": 11.55
+            },
+            "rang": {
+              "S1": 4,
+              "S2": null,
+              "annuel": 4
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "MESSALIH",
+            "prenom": "CHERIF",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 11.54,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 12.75,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 12.5,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 11.0,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.62,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 11.08,
+                "noteS2": null
+              },
+              {
+                "code": "TUL",
+                "noteS1": 10.5,
+                "noteS2": null
+              },
+              {
+                "code": "RBP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 11.56,
+              "S2": null,
+              "annuel": 12.07
+            },
+            "rang": {
+              "S1": 2,
+              "S2": null,
+              "annuel": 3
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "BELHADRI",
+            "prenom": "SALIM",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 11.75,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 13.75,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 13.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 12.62,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 11.5,
+                "noteS2": null
+              },
+              {
+                "code": "TUL",
+                "noteS1": 10.83,
+                "noteS2": null
+              },
+              {
+                "code": "RBP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": 12.45,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": 15.5,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 12.58,
+              "S2": null,
+              "annuel": 12.07
+            },
+            "rang": {
+              "S1": 3,
+              "S2": null,
+              "annuel": 3
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "MIHOURI",
+            "prenom": "FATIMA",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 7.33,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 8.5,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 9.5,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 6.85,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.08,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 8.03,
+                "noteS2": null
+              },
+              {
+                "code": "TUL",
+                "noteS1": 6.6,
+                "noteS2": null
+              },
+              {
+                "code": "RBP",
+                "noteS1": 5.75,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 8.49,
+              "S2": null,
+              "annuel": 8.29
+            },
+            "rang": {
+              "S1": 16,
+              "S2": null,
+              "annuel": 11
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "JAWAD",
+            "prenom": "ABDELHAMID",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 10.41,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.75,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 10.5,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 12.58,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 10.83,
+                "noteS2": null
+              },
+              {
+                "code": "TUL",
+                "noteS1": 8.7,
+                "noteS2": null
+              },
+              {
+                "code": "RBP",
+                "noteS1": 13.83,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": 10.7,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": 13.0,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 10.1,
+              "S2": null,
+              "annuel": 10.21
+            },
+            "rang": {
+              "S1": 11,
+              "S2": null,
+              "annuel": 7
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "NAFAA",
+            "prenom": "FAOUZI",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 10.5,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 11.5,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 10.5,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 8.25,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 13.04,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 8.45,
+                "noteS2": null
+              },
+              {
+                "code": "TUL",
+                "noteS1": 8.5,
+                "noteS2": null
+              },
+              {
+                "code": "RBP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.19,
+              "S2": null,
+              "annuel": 10.21
+            },
+            "rang": {
+              "S1": 9,
+              "S2": null,
+              "annuel": 7
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "ACINE",
+            "prenom": "YOUSSEF",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 13.2,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 13.75,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 12.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 12.45,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 9.1,
+                "noteS2": null
+              },
+              {
+                "code": "TUL",
+                "noteS1": 10.83,
+                "noteS2": null
+              },
+              {
+                "code": "RBP",
+                "noteS1": 11.6,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": 10.0,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 11.23,
+              "S2": null,
+              "annuel": 10.21
+            },
+            "rang": {
+              "S1": 7,
+              "S2": null,
+              "annuel": 7
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "OUARAB",
+            "prenom": "BRAHIM",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 11.16,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 11.25,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 12.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 7.0,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 14.37,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 7.16,
+                "noteS2": null
+              },
+              {
+                "code": "TUL",
+                "noteS1": 8.75,
+                "noteS2": null
+              },
+              {
+                "code": "RBP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.76,
+              "S2": null,
+              "annuel": 9.97
+            },
+            "rang": {
+              "S1": 7,
+              "S2": null,
+              "annuel": 9
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "RACHID",
+            "prenom": "AHMED",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 10.25,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 12.0,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 12.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 15.01,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 7.9,
+                "noteS2": null
+              },
+              {
+                "code": "TUL",
+                "noteS1": 10.16,
+                "noteS2": null
+              },
+              {
+                "code": "RBP",
+                "noteS1": 11.4,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": 12.0,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 10.19,
+              "S2": null,
+              "annuel": 9.97
+            },
+            "rang": {
+              "S1": 9,
+              "S2": null,
+              "annuel": 10
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "AUNIS",
+            "prenom": "ABDELKADER",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 9.16,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.25,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 9.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 5.0,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 6.83,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 8.47,
+                "noteS2": null
+              },
+              {
+                "code": "TUL",
+                "noteS1": 10.25,
+                "noteS2": null
+              },
+              {
+                "code": "RBP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 7.19,
+              "S2": null,
+              "annuel": 7.92
+            },
+            "rang": {
+              "S1": 12,
+              "S2": null,
+              "annuel": 15
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "MED LARBI",
+            "prenom": "ABDELAZIZ",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 11.0,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 7.5,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 7.5,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 8.93,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 8.6,
+                "noteS2": null
+              },
+              {
+                "code": "TUL",
+                "noteS1": 8.33,
+                "noteS2": null
+              },
+              {
+                "code": "RBP",
+                "noteS1": 8.0,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": 12.0,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 8.65,
+              "S2": null,
+              "annuel": 7.92
+            },
+            "rang": {
+              "S1": 15,
+              "S2": null,
+              "annuel": 16
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "SAIDI",
+            "prenom": "SIDI MOHAMED",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 7.83,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 7.25,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 9.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.16,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 3.79,
+                "noteS2": null
+              },
+              {
+                "code": "TUL",
+                "noteS1": 7.25,
+                "noteS2": null
+              },
+              {
+                "code": "RBP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 6.75,
+              "S2": null,
+              "annuel": 7.92
+            },
+            "rang": {
+              "S1": 15,
+              "S2": null,
+              "annuel": 15
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "NAUR EDDINE",
+            "prenom": "MOHAMED",
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 8.0,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.0,
+                "noteS2": null
+              },
+              {
+                "code": "MAT",
+                "noteS1": 9.5,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.28,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 8.8,
+                "noteS2": null
+              },
+              {
+                "code": "TUL",
+                "noteS1": 11.0,
+                "noteS2": null
+              },
+              {
+                "code": "RBP",
+                "noteS1": 10.0,
+                "noteS2": null
+              },
+              {
+                "code": "EAT",
+                "noteS1": 8.0,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.09,
+              "S2": null,
+              "annuel": 7.92
+            },
+            "rang": {
+              "S1": 13,
+              "S2": null,
+              "annuel": 13
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          }
+        ],
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 4,
+      "image_path": "C:\\Users\\kiki\\Desktop\\project2cpp\\tmp\\extractions\\3-IS 1980-1981_20260324_205423\\pages\\page_0004.png",
+      "status": "ok",
+      "attempt": 2,
+      "api_key_suffix": "m79o",
+      "result": {
+        "type": "multiple_students",
+        "sectionCode": null,
+        "annee": "1980/1981",
+        "anneeEtude": "3",
+        "section": "INGENIEUR",
+        "option": "SYSTEME",
+        "students": [
+          {
+            "nom": "TAJDINE",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 12.25,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 12.75,
+                "noteS2": null
+              },
+              {
+                "code": "MET",
+                "noteS1": 7.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 10.75,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 12.8,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 10.62,
+                "noteS2": null
+              },
+              {
+                "code": "TLL",
+                "noteS1": 7.5,
+                "noteS2": null
+              },
+              {
+                "code": "RBP",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "BAT",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 10.64,
+              "S2": 11.3,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 5,
+              "S2": 5,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "NBRA",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 10.12,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 13.0,
+                "noteS2": null
+              },
+              {
+                "code": "MET",
+                "noteS1": 8.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 14.06,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 9.6,
+                "noteS2": null
+              },
+              {
+                "code": "TLL",
+                "noteS1": 13.5,
+                "noteS2": null
+              },
+              {
+                "code": "RBP",
+                "noteS1": 1.2,
+                "noteS2": null
+              },
+              {
+                "code": "BAT",
+                "noteS1": 16.0,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 11.96,
+              "S2": null,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 4,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "EGEUD",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 7.66,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 7.4,
+                "noteS2": null
+              },
+              {
+                "code": "MET",
+                "noteS1": 3.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": 5.0,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 5.0,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 8.29,
+                "noteS2": null
+              },
+              {
+                "code": "TLL",
+                "noteS1": 6.62,
+                "noteS2": null
+              },
+              {
+                "code": "RBP",
+                "noteS1": 7.0,
+                "noteS2": null
+              },
+              {
+                "code": "BAT",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 6.92,
+              "S2": 7.93,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 13,
+              "S2": 14,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "MUSTAHA",
+            "prenom": null,
+            "matricule": null,
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": null,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "SYS",
+                "noteS1": 8.37,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 9.75,
+                "noteS2": null
+              },
+              {
+                "code": "MET",
+                "noteS1": 3.0,
+                "noteS2": null
+              },
+              {
+                "code": "STA",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.2,
+                "noteS2": null
+              },
+              {
+                "code": "STD",
+                "noteS1": 10.0,
+                "noteS2": null
+              },
+              {
+                "code": "TLL",
+                "noteS1": 9.0,
+                "noteS2": null
+              },
+              {
+                "code": "RBP",
+                "noteS1": 5.0,
+                "noteS2": null
+              },
+              {
+                "code": "BAT",
+                "noteS1": 8.0,
+                "noteS2": null
+              },
+              {
+                "code": "EXP",
+                "noteS1": 12.0,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 8.95,
+              "S2": null,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 14,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          }
+        ],
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    }
+  ]
+}
