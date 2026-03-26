@@ -18,6 +18,12 @@ from fastapi.staticfiles import StaticFiles
 from src.Backend.extraction_service import extract_pdf_with_page_mapping_async
 from src.Database.models import Etudiant
 from src.services.database import get_session
+from src.services.fuzzy_name_service import (
+    apply_student_search_keys,
+    rebuild_student_search_keys,
+    register_selected_suggestion,
+    suggest_student_candidates,
+)
 from src.services.matricule_service import (
     apply_pending_matricule_reconciliation,
     check_pending_cases_against_database,
@@ -673,6 +679,7 @@ async def save_verified_students(payload: dict = Body(...)) -> dict:
                 if existing:
                     existing.nom = nom
                     existing.prenom = prenom
+                    apply_student_search_keys(existing)
                     if item.get("sexe") is not None:
                         existing.sexe = item.get("sexe")
                     if item.get("lieu_naissance") is not None:
@@ -692,6 +699,7 @@ async def save_verified_students(payload: dict = Body(...)) -> dict:
                         lieu_naissance=item.get("lieu_naissance"),
                         date_naissance=_parse_date(item.get("date_naissance")),
                     )
+                    apply_student_search_keys(created)
                     db.add(created)
                     db.flush()
                     db.refresh(created)
@@ -761,6 +769,80 @@ async def get_pending_matricule_conflicts() -> dict:
         "total_pending": report.get("total_pending", 0),
         "conflicts_count": report.get("conflicts_count", 0),
         "conflicts": report.get("conflicts", []),
+    }
+
+
+@app.post("/students/suggestions")
+async def suggest_students(payload: dict = Body(...)) -> dict:
+    nom = (payload.get("nom") or "").strip()
+    prenom = (payload.get("prenom") or "").strip()
+    matricule = (payload.get("matricule") or "").strip() or None
+    limit = int(payload.get("limit") or 5)
+
+    if not nom and not prenom and not matricule:
+        raise HTTPException(
+            status_code=400,
+            detail="Provide at least one of nom, prenom, or matricule",
+        )
+
+    with get_session() as db:
+        result = suggest_student_candidates(
+            db,
+            nom=nom,
+            prenom=prenom,
+            matricule=matricule,
+            limit=limit,
+        )
+
+    return result
+
+
+@app.post("/students/suggestions/confirm")
+async def confirm_student_suggestion(payload: dict = Body(...)) -> dict:
+    selected_student_id = payload.get("selected_student_id")
+    searched_nom = (payload.get("searched_nom") or "").strip()
+    searched_prenom = (payload.get("searched_prenom") or "").strip()
+    searched_matricule = (payload.get("searched_matricule") or "").strip() or None
+    result_count = int(payload.get("result_count") or 0)
+
+    if not isinstance(selected_student_id, int):
+        raise HTTPException(status_code=400, detail="selected_student_id must be an integer")
+    if not searched_nom and not searched_prenom and not searched_matricule:
+        raise HTTPException(
+            status_code=400,
+            detail="Provide searched_nom/searched_prenom/searched_matricule for learning",
+        )
+
+    try:
+        with get_session() as db:
+            result = register_selected_suggestion(
+                db,
+                selected_student_id=selected_student_id,
+                searched_nom=searched_nom,
+                searched_prenom=searched_prenom,
+                searched_matricule=searched_matricule,
+                result_count=result_count,
+            )
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+    return result
+
+
+@app.post("/students/search-index/rebuild")
+async def rebuild_students_search_index(batch_size: int = Query(default=500, ge=50, le=5000)) -> dict:
+    if not _db_writes_enabled():
+        raise HTTPException(
+            status_code=403,
+            detail="Database writes are disabled for testing. Set ALLOW_DB_WRITES=true to enable this endpoint.",
+        )
+
+    with get_session() as db:
+        result = rebuild_student_search_keys(db, batch_size=batch_size)
+
+    return {
+        "status": "ok",
+        **result,
     }
 
 

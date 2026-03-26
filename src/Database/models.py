@@ -319,6 +319,8 @@ Index("idx_etudiant_nom_soundex", Etudiant.nom_soundex)
 Index("idx_etudiant_prenom_soundex", Etudiant.prenom_soundex)
 Index("idx_etudiant_nom_metaphone", Etudiant.nom_metaphone)
 Index("idx_etudiant_prenom_metaphone", Etudiant.prenom_metaphone)
+Index("idx_etudiant_nom_trigram", Etudiant.nom_trigram)
+Index("idx_etudiant_prenom_trigram", Etudiant.prenom_trigram)
 
 
 def init_db(engine):
