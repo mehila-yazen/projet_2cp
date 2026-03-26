@@ -1,0 +1,5272 @@
+{
+  "file_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\uploads\\batch_20260324_193614_942fabaf\\c84d1cc21c72\\1-I-TRC.pdf",
+  "run_dir": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\1-I-TRC_20260324_193614",
+  "pages_dir": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\1-I-TRC_20260324_193614\\pages",
+  "total_pages": 11,
+  "ok_pages": 11,
+  "failed_pages": 0,
+  "pages": [
+    {
+      "page_number": 1,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\1-I-TRC_20260324_193614\\pages\\page_0001.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "3I3U",
+      "result": {
+        "type": "resultats_annonce",
+        "annee": "1977/1978",
+        "anneeEtude": "1ère ANNEE INGENIEURS",
+        "sectionCode": null,
+        "students": [
+          {
+            "nom": "DRID",
+            "prenom": "Khaled",
+            "decision": "admis"
+          },
+          {
+            "nom": "LICHANI",
+            "prenom": "Djamel",
+            "decision": "admis"
+          },
+          {
+            "nom": "BENMANSOUR",
+            "prenom": "Med Nourry",
+            "decision": "admis"
+          },
+          {
+            "nom": "MAAMERI",
+            "prenom": "Zoubir",
+            "decision": "admis"
+          },
+          {
+            "nom": "CHERGUI",
+            "prenom": "Ali",
+            "decision": "admis"
+          },
+          {
+            "nom": "BAGHDADI",
+            "prenom": "Youcef",
+            "decision": "admis"
+          },
+          {
+            "nom": "GAGOU",
+            "prenom": "Ali",
+            "decision": "admis"
+          },
+          {
+            "nom": "AMKOUKENE",
+            "prenom": "Fodil",
+            "decision": "admis"
+          },
+          {
+            "nom": "OUARAB",
+            "prenom": "Rachid",
+            "decision": "admis"
+          },
+          {
+            "nom": "HADJADJ-AOUL",
+            "prenom": "Djilali",
+            "decision": "admis"
+          },
+          {
+            "nom": "ZAOUCHI",
+            "prenom": "Dalila",
+            "decision": "admis"
+          },
+          {
+            "nom": "MANSOURA",
+            "prenom": "Sid-Ahmed",
+            "decision": "admis"
+          },
+          {
+            "nom": "OUNIS",
+            "prenom": "Med Larbi",
+            "decision": "admis"
+          },
+          {
+            "nom": "YAHIAOUI",
+            "prenom": "Akli",
+            "decision": "admis"
+          },
+          {
+            "nom": "CHEBEL",
+            "prenom": "Abdelouahab",
+            "decision": "admis"
+          },
+          {
+            "nom": "IZEM",
+            "prenom": "Radia",
+            "decision": "admis"
+          },
+          {
+            "nom": "AYOUNE",
+            "prenom": "Fouzia",
+            "decision": "admis"
+          },
+          {
+            "nom": "CHERIF-OUAZANI",
+            "prenom": "Moulay-Youcef",
+            "decision": "admis"
+          },
+          {
+            "nom": "HAMRI",
+            "prenom": "Salah",
+            "decision": "admis"
+          },
+          {
+            "nom": "BENAMOU",
+            "prenom": "Samir",
+            "decision": "admis"
+          },
+          {
+            "nom": "LADLI",
+            "prenom": "Omar",
+            "decision": "admis"
+          },
+          {
+            "nom": "BOUDJOGHRA",
+            "prenom": "Ammar",
+            "decision": "admis"
+          },
+          {
+            "nom": "REHAILI",
+            "prenom": "Abed",
+            "decision": "admis"
+          },
+          {
+            "nom": "HADJIMI",
+            "prenom": "Aicha",
+            "decision": "admis"
+          },
+          {
+            "nom": "CHEIKH",
+            "prenom": "Ahmed",
+            "decision": "admis"
+          },
+          {
+            "nom": "KHENIFSA",
+            "prenom": "Abderrafiq",
+            "decision": "admis"
+          },
+          {
+            "nom": "SEKKAI",
+            "prenom": "Rachida",
+            "decision": "admis"
+          },
+          {
+            "nom": "KHERFI",
+            "prenom": "Saouda",
+            "decision": "admis"
+          },
+          {
+            "nom": "BOUNAR",
+            "prenom": "Azzedine",
+            "decision": "admis"
+          },
+          {
+            "nom": "BENAOUDA",
+            "prenom": "Djilali",
+            "decision": "admis"
+          },
+          {
+            "nom": "HAMID",
+            "prenom": "Med Nadjib",
+            "decision": "provisoirement_elimine"
+          },
+          {
+            "nom": "SRAIRI",
+            "prenom": "Mohammed",
+            "decision": "provisoirement_elimine"
+          },
+          {
+            "nom": "ZEGGOUR",
+            "prenom": "Mustapha",
+            "decision": "provisoirement_elimine"
+          }
+        ],
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 2,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\1-I-TRC_20260324_193614\\pages\\page_0002.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "SupU",
+      "result": {
+        "type": "resultats_annonce",
+        "annee": "1978",
+        "anneeEtude": "2ème ANNEE",
+        "sectionCode": null,
+        "students": [
+          {
+            "nom": "ANNAD",
+            "prenom": "Farida",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "BENGUEDOUAR",
+            "prenom": "Tahar",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "ALEM",
+            "prenom": "Rachid",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "BELKADI",
+            "prenom": "Tahar",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "DAHLI",
+            "prenom": "Mabrouk",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "BERMAD",
+            "prenom": "Youcef",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "BENBELIL",
+            "prenom": "Mansour",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "KIZAI",
+            "prenom": "Boudjemaa",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "ABBOUCHE",
+            "prenom": "Abdelaziz",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "HADJ-KOUIDER",
+            "prenom": "Abdelkader",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "YAHIA-AMAR",
+            "prenom": "Ahmed",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "BENAMEUR-BELKACEM",
+            "prenom": "Tamazouzt",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "CHIBOUT",
+            "prenom": "Mohamed",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "MAHDADI",
+            "prenom": "Khelifa",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "KADDOUR",
+            "prenom": "Ahmed",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "RAMOUL",
+            "prenom": "Kamel",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "KAHIL",
+            "prenom": "Djelloul",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "LADJICI",
+            "prenom": "Chabane",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "CHIHANI",
+            "prenom": "Mahmoud",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "BENKARA",
+            "prenom": "Ameur",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "AISSAOUI",
+            "prenom": "Med Akli",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "MERICHE",
+            "prenom": "Moad",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "BOUKACEM",
+            "prenom": "Boucif",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "CHERIF",
+            "prenom": "Nadia",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "BOUBZARI",
+            "prenom": "Nassim",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "BENTAHAR",
+            "prenom": "Rabah",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "OUARET",
+            "prenom": "Fatiha",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "FERHAT",
+            "prenom": "M'Hamed",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "BOUADJENEK",
+            "prenom": "Abdelhamid",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "DERGUINI",
+            "prenom": "Djamel",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "SENIA",
+            "prenom": "Mahfoud",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "GORINET",
+            "prenom": "Rahmane",
+            "decision": "non_admis"
+          },
+          {
+            "nom": "BENTAHAR",
+            "prenom": "Houria",
+            "decision": "non_admis"
+          }
+        ],
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 3,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\1-I-TRC_20260324_193614\\pages\\page_0003.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "vicw",
+      "result": {
+        "type": "cover",
+        "sectionCode": "77-1-I-TRC",
+        "annee": "1977-1978",
+        "anneeEtude": "1",
+        "section": "I",
+        "option": "TRC",
+        "institution": "CENTRE D'ETUDES ET DE RECHERCHES EN INFORMATIQUES",
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 4,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\1-I-TRC_20260324_193614\\pages\\page_0004.png",
+      "status": "ok",
+      "attempt": 2,
+      "api_key_suffix": "m79o",
+      "result": {
+        "type": "table_de_matieres",
+        "sectionCode": null,
+        "annee": null,
+        "anneeEtude": null,
+        "matieres": [
+          {
+            "abrev": "MAT",
+            "libelle": "MATHEMATIQUES",
+            "coef": {
+              "S1": 5,
+              "S2": 5
+            },
+            "moyenne": {
+              "S1": 8.98,
+              "S1_80pct": null,
+              "S2": 9.35,
+              "S2_80pct": null,
+              "annuel": null,
+              "annuel_80pct": null
+            }
+          },
+          {
+            "abrev": "FBR",
+            "libelle": "ALGB-FORTRAN",
+            "coef": {
+              "S1": 5,
+              "S2": 3
+            },
+            "moyenne": {
+              "S1": 10.18,
+              "S1_80pct": null,
+              "S2": 10.92,
+              "S2_80pct": null,
+              "annuel": null,
+              "annuel_80pct": null
+            }
+          },
+          {
+            "abrev": "PL1",
+            "libelle": "PL1",
+            "coef": {
+              "S1": null,
+              "S2": 3
+            },
+            "moyenne": {
+              "S1": null,
+              "S1_80pct": null,
+              "S2": 8.53,
+              "S2_80pct": null,
+              "annuel": null,
+              "annuel_80pct": null
+            }
+          },
+          {
+            "abrev": "GES",
+            "libelle": "GESTION",
+            "coef": {
+              "S1": 4,
+              "S2": 2
+            },
+            "moyenne": {
+              "S1": 9.93,
+              "S1_80pct": null,
+              "S2": 10.54,
+              "S2_80pct": null,
+              "annuel": null,
+              "annuel_80pct": null
+            }
+          },
+          {
+            "abrev": "ANG",
+            "libelle": "ANGLAIS",
+            "coef": {
+              "S1": 3,
+              "S2": 3
+            },
+            "moyenne": {
+              "S1": 9.3,
+              "S1_80pct": null,
+              "S2": 10.05,
+              "S2_80pct": null,
+              "annuel": null,
+              "annuel_80pct": null
+            }
+          },
+          {
+            "abrev": "STR",
+            "libelle": "STRUCTURE MACHINE",
+            "coef": {
+              "S1": null,
+              "S2": 3
+            },
+            "moyenne": {
+              "S1": null,
+              "S1_80pct": null,
+              "S2": 8.9,
+              "S2_80pct": null,
+              "annuel": null,
+              "annuel_80pct": null
+            }
+          }
+        ],
+        "moyennePromotion": {
+          "S1": null,
+          "S1_80pct": null,
+          "S2": null,
+          "S2_80pct": null,
+          "annuel": null,
+          "annuel_80pct": null
+        },
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 5,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\1-I-TRC_20260324_193614\\pages\\page_0005.png",
+      "status": "ok",
+      "attempt": 2,
+      "api_key_suffix": "ZT-g",
+      "result": {
+        "type": "multiple_students",
+        "sectionCode": "1-I-TRC",
+        "annee": "1977/1978",
+        "anneeEtude": "1I",
+        "section": "RECHERCHES ET INFORMATIQUE",
+        "option": "CYCLE LONG",
+        "students": [
+          {
+            "nom": "DRID",
+            "prenom": "KHALED",
+            "matricule": "770001",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 12.5,
+                "noteS2": 15.5
+              },
+              {
+                "code": "FOR",
+                "noteS1": 15.47,
+                "noteS2": 16.71
+              },
+              {
+                "code": "PLI",
+                "noteS1": null,
+                "noteS2": 14.08
+              },
+              {
+                "code": "GES",
+                "noteS1": 10.5,
+                "noteS2": 13.37
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 14.35,
+                "noteS2": 14.35
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "IST",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 12.63,
+              "S2": 14.35,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 1,
+              "S2": 1,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "LICHANI",
+            "prenom": "DJAMEL",
+            "matricule": "770002",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": null,
+                "noteS2": 12.3
+              },
+              {
+                "code": "FOR",
+                "noteS1": 15.4,
+                "noteS2": 13.04
+              },
+              {
+                "code": "PLI",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 10.12,
+                "noteS2": 12.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 16.38,
+                "noteS2": 16.38
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "IST",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 14.01,
+              "S2": 12.5,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 1,
+              "S2": 2,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "BEN MANSOUR",
+            "prenom": "MEDOURY",
+            "matricule": "770003",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 4.5,
+                "noteS2": 9.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 14.48,
+                "noteS2": 13.01
+              },
+              {
+                "code": "PLI",
+                "noteS1": 15.54,
+                "noteS2": 11.3
+              },
+              {
+                "code": "GES",
+                "noteS1": 7.12,
+                "noteS2": 12.5
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 16.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "IST",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 14.81,
+              "S2": 10.93,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 1,
+              "S2": 3,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "MAAMERI",
+            "prenom": "ZOUBIR",
+            "matricule": "770004",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 12.25,
+                "noteS2": 12.55
+              },
+              {
+                "code": "FOR",
+                "noteS1": 12.85,
+                "noteS2": 8.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 11.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 12.25,
+                "noteS2": 12.25
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 11.75,
+                "noteS2": 11.0
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "IST",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 11.44,
+              "S2": 13.62,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 1,
+              "S2": 4,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "CHERGUI",
+            "prenom": "ALI",
+            "matricule": "770005",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 14.75,
+                "noteS2": 25.13
+              },
+              {
+                "code": "FOR",
+                "noteS1": 16.21,
+                "noteS2": 13.97
+              },
+              {
+                "code": "PLI",
+                "noteS1": 14.88,
+                "noteS2": 12.11
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.5,
+                "noteS2": 10.5
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 14.0,
+                "noteS2": 14.0
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "IST",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 10.86,
+              "S2": 13.92,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 1,
+              "S2": 5,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "BAGHDADI",
+            "prenom": "YOUCEF",
+            "matricule": "770006",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 11.46,
+                "noteS2": 14.12
+              },
+              {
+                "code": "FOR",
+                "noteS1": 14.04,
+                "noteS2": 11.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 14.12,
+                "noteS2": 13.5
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.5,
+                "noteS2": 9.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 13.12,
+                "noteS2": 11.0
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "IST",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 11.68,
+              "S2": 12.74,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 1,
+              "S2": 6,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "GAGOU",
+            "prenom": "ALI",
+            "matricule": "770007",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.5,
+                "noteS2": 11.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 14.78,
+                "noteS2": 11.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 14.37,
+                "noteS2": 13.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 9.25,
+                "noteS2": 11.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "IST",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 11.9,
+              "S2": 11.83,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 1,
+              "S2": 7,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "AMKOUKENE",
+            "prenom": "FOUDI",
+            "matricule": "82/0455",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 14.1,
+                "noteS2": 11.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 10.13,
+                "noteS2": 11.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 12.62,
+                "noteS2": 11.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 8.75,
+                "noteS2": 11.0
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "IST",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 11.62,
+              "S2": 10.9,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 1,
+              "S2": 8,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "OUARAB",
+            "prenom": "RACHID",
+            "matricule": "770008",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 12.5,
+                "noteS2": 14.28
+              },
+              {
+                "code": "FOR",
+                "noteS1": 13.42,
+                "noteS2": 11.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 9.83,
+                "noteS2": 12.5
+              },
+              {
+                "code": "GES",
+                "noteS1": 12.5,
+                "noteS2": 11.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 12.3,
+                "noteS2": 11.0
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "IST",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 11.54,
+              "S2": 11.71,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 1,
+              "S2": 9,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "HADJADJ",
+            "prenom": "ABDUL DJILALI",
+            "matricule": "770009",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 11.12,
+                "noteS2": 11.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 9.38,
+                "noteS2": 11.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 10.75,
+                "noteS2": 11.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 12.5,
+                "noteS2": 11.0
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "IST",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 11.47,
+              "S2": 11.51,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 1,
+              "S2": 10,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          }
+        ],
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 6,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\1-I-TRC_20260324_193614\\pages\\page_0006.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "3I3U",
+      "result": {
+        "type": "multiple_students",
+        "sectionCode": null,
+        "annee": "1977/1978",
+        "anneeEtude": "1",
+        "section": "INFORMATIQUE",
+        "option": null,
+        "students": [
+          {
+            "nom": "ZABOUCHI",
+            "prenom": "DALILA",
+            "matricule": "770010",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 12.75,
+                "noteS2": 15.05
+              },
+              {
+                "code": "FOR",
+                "noteS1": 10.75,
+                "noteS2": 13.79
+              },
+              {
+                "code": "PLI",
+                "noteS1": null,
+                "noteS2": 8.5
+              },
+              {
+                "code": "GES",
+                "noteS1": 9.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": null
+              },
+              {
+                "code": "STR",
+                "noteS1": 9.5,
+                "noteS2": 10.5
+              }
+            ],
+            "moyenne": {
+              "S1": 11.02,
+              "S2": 11.9,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 11,
+              "S2": 11,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "MARSOURA",
+            "prenom": "SID-AHMED",
+            "matricule": "770011",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 12.75,
+                "noteS2": 13.32
+              },
+              {
+                "code": "FOR",
+                "noteS1": 12.38,
+                "noteS2": 12.29
+              },
+              {
+                "code": "PLI",
+                "noteS1": 13.79,
+                "noteS2": 10.83
+              },
+              {
+                "code": "GES",
+                "noteS1": 14.12,
+                "noteS2": 13.37
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 12.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.5,
+                "noteS2": 12.0
+              }
+            ],
+            "moyenne": {
+              "S1": 11.13,
+              "S2": 11.58,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 12,
+              "S2": 12,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "BUNIS",
+            "prenom": "MOHAMMED LARBI",
+            "matricule": "770800",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 11.75,
+                "noteS2": 12.98
+              },
+              {
+                "code": "FOR",
+                "noteS1": 11.75,
+                "noteS2": 12.98
+              },
+              {
+                "code": "PLI",
+                "noteS1": 15.13,
+                "noteS2": 8.5
+              },
+              {
+                "code": "GES",
+                "noteS1": 8.07,
+                "noteS2": 10.5
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 10.5
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.5,
+                "noteS2": 10.5
+              }
+            ],
+            "moyenne": {
+              "S1": 11.12,
+              "S2": 11.56,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 13,
+              "S2": 13,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "YAHIAOUI",
+            "prenom": "AKLI",
+            "matricule": "770012",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 12.41,
+                "noteS2": 16.41
+              },
+              {
+                "code": "FOR",
+                "noteS1": 13.08,
+                "noteS2": 14.07
+              },
+              {
+                "code": "PLI",
+                "noteS1": 11.53,
+                "noteS2": 9.75
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.9,
+                "noteS2": 12.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 9.5,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 9.0,
+                "noteS2": 14.75
+              }
+            ],
+            "moyenne": {
+              "S1": 10.17,
+              "S2": 12.3,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 14,
+              "S2": 14,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "ABDELLOUAHAB",
+            "prenom": "IZEN",
+            "matricule": "770013",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 2,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 8.2,
+                "noteS2": 13.05
+              },
+              {
+                "code": "FOR",
+                "noteS1": 10.47,
+                "noteS2": 9.5
+              },
+              {
+                "code": "PLI",
+                "noteS1": 11.15,
+                "noteS2": 12.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.62,
+                "noteS2": 11.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 9.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 14.75,
+                "noteS2": 9.5
+              }
+            ],
+            "moyenne": {
+              "S1": 11.99,
+              "S2": 10.4,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 15,
+              "S2": 15,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "KADIA",
+            "prenom": "RAULA",
+            "matricule": "770014",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 2,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 11.75,
+                "noteS2": 15.21
+              },
+              {
+                "code": "FOR",
+                "noteS1": 11.75,
+                "noteS2": 11.15
+              },
+              {
+                "code": "PLI",
+                "noteS1": 10.25,
+                "noteS2": 10.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 10.6,
+                "noteS2": 11.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 9.5,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.5,
+                "noteS2": 10.5
+              }
+            ],
+            "moyenne": {
+              "S1": 10.34,
+              "S2": 11.87,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 16,
+              "S2": 16,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "ATTOUIE",
+            "prenom": "FOUZIA",
+            "matricule": "770015",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 2,
+              "autresChamps": {
+                "noteStageDetails": "RL: 8.5 / PART: 04"
+              }
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 12.5,
+                "noteS2": 12.5
+              },
+              {
+                "code": "FOR",
+                "noteS1": 10.13,
+                "noteS2": 11.15
+              },
+              {
+                "code": "PLI",
+                "noteS1": 8.71,
+                "noteS2": 9.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.57,
+                "noteS2": 11.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 10.0,
+                "noteS2": 9.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 9.0,
+                "noteS2": 9.0
+              }
+            ],
+            "moyenne": {
+              "S1": 11.25,
+              "S2": 10.67,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 17,
+              "S2": 17,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "ANNAD",
+            "prenom": "FARIDA",
+            "matricule": "770016",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 2,
+              "autresChamps": {
+                "noteStageDetails": "STRQS: PL1:2.5 / FCR:2.5"
+              }
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 12.25,
+                "noteS2": 10.32
+              },
+              {
+                "code": "FOR",
+                "noteS1": 11.52,
+                "noteS2": 11.53
+              },
+              {
+                "code": "PLI",
+                "noteS1": 7.92,
+                "noteS2": 9.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.0,
+                "noteS2": 10.5
+              },
+              {
+                "code": "ANG",
+                "noteS1": 10.0,
+                "noteS2": 9.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 8.0,
+                "noteS2": 9.0
+              }
+            ],
+            "moyenne": {
+              "S1": 10.93,
+              "S2": 10.92,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 18,
+              "S2": 18,
+              "annuel": null
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "CHERIF OUAZANI",
+            "prenom": "MOULAY-YOUCEF",
+            "matricule": "770017",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 3,
+              "autresChamps": {
+                "noteStageDetails": "MATH: 10"
+              }
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 12.7,
+                "noteS2": 12.33
+              },
+              {
+                "code": "FOR",
+                "noteS1": 11.9,
+                "noteS2": 11.75
+              },
+              {
+                "code": "PLI",
+                "noteS1": 11.52,
+                "noteS2": 9.12
+              },
+              {
+                "code": "GES",
+                "noteS1": 7.92,
+                "noteS2": 11.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 9.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 11.75,
+                "noteS2": 11.75
+              }
+            ],
+            "moyenne": {
+              "S1": 10.81,
+              "S2": 10.99,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 19,
+              "S2": 19,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "HANNI",
+            "prenom": "SALAH",
+            "matricule": "770018",
+            "metadata": {
+              "semestre": null,
+              "sousGroupe": 1,
+              "autresChamps": {
+                "noteStageDetails": "FBR:06.5 / STR:11.5"
+              }
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.15,
+                "noteS2": 11.6
+              },
+              {
+                "code": "FOR",
+                "noteS1": 13.5,
+                "noteS2": 9.4
+              },
+              {
+                "code": "PLI",
+                "noteS1": 8.07,
+                "noteS2": 10.62
+              },
+              {
+                "code": "GES",
+                "noteS1": 6.07,
+                "noteS2": 11.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 9.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.5,
+                "noteS2": 9.0
+              }
+            ],
+            "moyenne": {
+              "S1": 10.73,
+              "S2": 10.24,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 20,
+              "S2": 20,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          }
+        ],
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 7,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\1-I-TRC_20260324_193614\\pages\\page_0007.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "SupU",
+      "result": {
+        "type": "multiple_students",
+        "sectionCode": "1-I-TRC",
+        "annee": "1977/1978",
+        "anneeEtude": "1",
+        "section": "INGENIEURS",
+        "option": "TRONC COMMUN",
+        "students": [
+          {
+            "nom": "BENAMMOU",
+            "prenom": "SAMIR",
+            "matricule": "770019",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 7.45,
+                "noteS2": 15.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 12.25,
+                "noteS2": 0.75
+              },
+              {
+                "code": "PLI",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 9.0,
+                "noteS2": 12.87
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 6.35,
+                "noteS2": 6.0
+              }
+            ],
+            "moyenne": {
+              "S1": 10.7,
+              "S2": 10.68,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 21,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "LADLI",
+            "prenom": "OMAR",
+            "matricule": "770020",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 3,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 1.75,
+                "noteS2": 15.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 10.6,
+                "noteS2": 15.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 15.0,
+                "noteS2": 12.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 9.04,
+                "noteS2": 15.12
+              },
+              {
+                "code": "ANG",
+                "noteS1": 12.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.5,
+                "noteS2": 10.5
+              }
+            ],
+            "moyenne": {
+              "S1": 10.04,
+              "S2": 11.27,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 22,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "BOULJOGHRA",
+            "prenom": "AMMAR",
+            "matricule": "770021",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 11.75,
+                "noteS2": 15.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 11.3,
+                "noteS2": 13.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 12.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 9.71,
+                "noteS2": 8.75
+              },
+              {
+                "code": "ANG",
+                "noteS1": 8.75,
+                "noteS2": 7.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 7.5,
+                "noteS2": 7.0
+              }
+            ],
+            "moyenne": {
+              "S1": 10.83,
+              "S2": 10.33,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 23,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "HAMDI",
+            "prenom": "MED HADJIB",
+            "matricule": "770023",
+            "metadata": {
+              "semestre": 2,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 12.5,
+                "noteS2": 12.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 12.0,
+                "noteS2": 12.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 13.0,
+                "noteS2": 12.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 10.79,
+                "noteS2": 11.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.62,
+                "noteS2": 9.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 9.5,
+                "noteS2": 9.5
+              }
+            ],
+            "moyenne": {
+              "S1": 9.73,
+              "S2": 11.37,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 24,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "REHAILI",
+            "prenom": "ABED",
+            "matricule": "770024",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 7.75,
+                "noteS2": 15.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 11.5,
+                "noteS2": 15.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 15.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 10.92,
+                "noteS2": 10.25
+              },
+              {
+                "code": "ANG",
+                "noteS1": 10.75,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.75,
+                "noteS2": 9.5
+              }
+            ],
+            "moyenne": {
+              "S1": 9.72,
+              "S2": 11.34,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 25,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "HADJIRI",
+            "prenom": "AICHA",
+            "matricule": "770025",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 1.75,
+                "noteS2": 14.5
+              },
+              {
+                "code": "FOR",
+                "noteS1": 9.82,
+                "noteS2": 9.46
+              },
+              {
+                "code": "PLI",
+                "noteS1": 9.46,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 5.67,
+                "noteS2": null
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.5,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 6.75,
+                "noteS2": 6.5
+              }
+            ],
+            "moyenne": {
+              "S1": 10.62,
+              "S2": 10.16,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 26,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "BERGUEDDOUR",
+            "prenom": "TAHER",
+            "matricule": "770026",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 3,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 12.29,
+                "noteS2": 11.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 11.43,
+                "noteS2": 9.93
+              },
+              {
+                "code": "PLI",
+                "noteS1": 9.5,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 8.29,
+                "noteS2": 9.5
+              },
+              {
+                "code": "ANG",
+                "noteS1": 9.87,
+                "noteS2": 9.18
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.35,
+                "noteS2": 9.75
+              }
+            ],
+            "moyenne": {
+              "S1": 10.7,
+              "S2": 9.58,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 27,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "CHEIKH",
+            "prenom": "AHMED",
+            "matricule": "770027",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 8.75,
+                "noteS2": 11.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 12.0,
+                "noteS2": 9.75
+              },
+              {
+                "code": "PLI",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 8.0,
+                "noteS2": 10.12
+              },
+              {
+                "code": "ANG",
+                "noteS1": 10.4,
+                "noteS2": 12.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 11.0,
+                "noteS2": 6.5
+              }
+            ],
+            "moyenne": {
+              "S1": 9.67,
+              "S2": 10.53,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 28,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "KHELIFSA",
+            "prenom": "ABDERRAFIQ",
+            "matricule": "770028",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 2,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 8.75,
+                "noteS2": 11.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 12.63,
+                "noteS2": 9.75
+              },
+              {
+                "code": "PLI",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 10.12,
+                "noteS2": 11.04
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 14.5,
+                "noteS2": 14.5
+              }
+            ],
+            "moyenne": {
+              "S1": 9.61,
+              "S2": 10.63,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 28,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "SEKKAI",
+            "prenom": "RACHIDA",
+            "matricule": "770029",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.75,
+                "noteS2": 11.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 11.25,
+                "noteS2": 11.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 10.12,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 10.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.25,
+                "noteS2": 10.25
+              }
+            ],
+            "moyenne": {
+              "S1": 9.33,
+              "S2": 10.92,
+              "annuel": null
+            },
+            "rang": {
+              "S1": 28,
+              "S2": null,
+              "annuel": null
+            },
+            "decisionDeJuin": "admis",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          }
+        ],
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 8,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\1-I-TRC_20260324_193614\\pages\\page_0008.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "vicw",
+      "result": {
+        "type": "multiple_students",
+        "sectionCode": "1-I-TRC",
+        "annee": "1977/1978",
+        "anneeEtude": "1",
+        "section": "INFORMATIQUE",
+        "option": null,
+        "students": [
+          {
+            "nom": "KHERFI",
+            "prenom": "SABOUHA",
+            "matricule": "770030",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.25,
+                "noteS2": 10.7
+              },
+              {
+                "code": "FOR",
+                "noteS1": 10.79,
+                "noteS2": 9.05
+              },
+              {
+                "code": "PLI",
+                "noteS1": 9.41,
+                "noteS2": 6.88
+              },
+              {
+                "code": "GES",
+                "noteS1": 9.0,
+                "noteS2": 12.57
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 6.5,
+                "noteS2": 9.35
+              },
+              {
+                "code": "DEC",
+                "noteS1": 9.24,
+                "noteS2": 7.33
+              },
+              {
+                "code": "STH",
+                "noteS1": 10.32,
+                "noteS2": 12.21
+              },
+              {
+                "code": "IST",
+                "noteS1": 10.7,
+                "noteS2": 10.7
+              },
+              {
+                "code": "STA",
+                "noteS1": 10.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "CBB",
+                "noteS1": 11.5,
+                "noteS2": 10.5
+              },
+              {
+                "code": "ASS",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STK",
+                "noteS1": 11.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIP",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANA",
+                "noteS1": 11.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIC",
+                "noteS1": 10.5,
+                "noteS2": 10.0
+              }
+            ],
+            "moyenne": {
+              "S1": 9.92,
+              "S2": 10.04,
+              "annuel": 10.16
+            },
+            "rang": {
+              "S1": 31,
+              "S2": 31,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": 8,
+            "noteDeStage": 7.75,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "BOULKAR",
+            "prenom": "AZZEDINE",
+            "matricule": "770031",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 2,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.75,
+                "noteS2": 12.21
+              },
+              {
+                "code": "FOR",
+                "noteS1": 9.7,
+                "noteS2": 9.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 7.33,
+                "noteS2": 9.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.5,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 10.7,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 7.5,
+                "noteS2": 9.5
+              },
+              {
+                "code": "DEC",
+                "noteS1": 11.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STH",
+                "noteS1": 10.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "IST",
+                "noteS1": 11.2,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STA",
+                "noteS1": 11.0,
+                "noteS2": 10.5
+              },
+              {
+                "code": "CBB",
+                "noteS1": 10.5,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ASS",
+                "noteS1": 11.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STK",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIP",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANA",
+                "noteS1": 11.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIC",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              }
+            ],
+            "moyenne": {
+              "S1": 10.0,
+              "S2": 9.83,
+              "annuel": 9.91
+            },
+            "rang": {
+              "S1": 32,
+              "S2": 32,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": 7,
+            "noteDeStage": 7.75,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "ALEM",
+            "prenom": "RACHID",
+            "matricule": "770032",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 2,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.25,
+                "noteS2": 11.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 9.77,
+                "noteS2": 11.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 6.88,
+                "noteS2": 8.92
+              },
+              {
+                "code": "GES",
+                "noteS1": 9.47,
+                "noteS2": 11.25
+              },
+              {
+                "code": "ANG",
+                "noteS1": 10.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 7.25,
+                "noteS2": 10.0
+              },
+              {
+                "code": "DEC",
+                "noteS1": 11.0,
+                "noteS2": 10.5
+              },
+              {
+                "code": "STH",
+                "noteS1": 10.5,
+                "noteS2": 10.0
+              },
+              {
+                "code": "IST",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STA",
+                "noteS1": 10.5,
+                "noteS2": 10.0
+              },
+              {
+                "code": "CBB",
+                "noteS1": 11.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ASS",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STK",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIP",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANA",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIC",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              }
+            ],
+            "moyenne": {
+              "S1": 9.91,
+              "S2": 9.74,
+              "annuel": 9.82
+            },
+            "rang": {
+              "S1": 33,
+              "S2": 33,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": 5,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "KAHIL",
+            "prenom": "DJELLOUL",
+            "matricule": "770033",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 3,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.5,
+                "noteS2": 9.5
+              },
+              {
+                "code": "FOR",
+                "noteS1": 10.0,
+                "noteS2": 8.2
+              },
+              {
+                "code": "PLI",
+                "noteS1": 9.47,
+                "noteS2": 5.04
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.5,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 10.87,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 7.0,
+                "noteS2": 7.75
+              },
+              {
+                "code": "DEC",
+                "noteS1": 9.24,
+                "noteS2": 9.47
+              },
+              {
+                "code": "STH",
+                "noteS1": 11.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "IST",
+                "noteS1": 10.5,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STA",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "CBB",
+                "noteS1": 10.5,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ASS",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STK",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIP",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANA",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIC",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              }
+            ],
+            "moyenne": {
+              "S1": 10.55,
+              "S2": 9.05,
+              "annuel": 9.8
+            },
+            "rang": {
+              "S1": 34,
+              "S2": 34,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": 7,
+            "noteDeStage": 9.95,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "LADJICI",
+            "prenom": "CHADANE",
+            "matricule": "770034",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 8.86,
+                "noteS2": 8.86
+              },
+              {
+                "code": "FOR",
+                "noteS1": 15.0,
+                "noteS2": 12.77
+              },
+              {
+                "code": "PLI",
+                "noteS1": 11.75,
+                "noteS2": 9.75
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.0,
+                "noteS2": 11.3
+              },
+              {
+                "code": "ANG",
+                "noteS1": 10.0,
+                "noteS2": 10.5
+              },
+              {
+                "code": "STR",
+                "noteS1": 7.75,
+                "noteS2": 7.75
+              },
+              {
+                "code": "DEC",
+                "noteS1": 8.17,
+                "noteS2": 9.0
+              },
+              {
+                "code": "STH",
+                "noteS1": 11.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "IST",
+                "noteS1": 10.5,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STA",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "CBB",
+                "noteS1": 10.5,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ASS",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STK",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIP",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANA",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIC",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              }
+            ],
+            "moyenne": {
+              "S1": 9.96,
+              "S2": 9.6,
+              "annuel": 9.78
+            },
+            "rang": {
+              "S1": 35,
+              "S2": 35,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": 5,
+            "noteDeStage": 9.85,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "CHIHANI",
+            "prenom": "MAHBOUD",
+            "matricule": "770035",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.75,
+                "noteS2": 9.75
+              },
+              {
+                "code": "FOR",
+                "noteS1": 11.3,
+                "noteS2": 9.67
+              },
+              {
+                "code": "PLI",
+                "noteS1": 11.42,
+                "noteS2": 9.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 10.5,
+                "noteS2": 12.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.0,
+                "noteS2": 8.6
+              },
+              {
+                "code": "DEC",
+                "noteS1": 12.12,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STH",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "IST",
+                "noteS1": 10.5,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STA",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "CBB",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ASS",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STK",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIP",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANA",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIC",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              }
+            ],
+            "moyenne": {
+              "S1": 10.51,
+              "S2": 8.8,
+              "annuel": 9.65
+            },
+            "rang": {
+              "S1": 36,
+              "S2": 36,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": 4,
+            "noteDeStage": 7.6,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "BENABUDA",
+            "prenom": "DJILLALI",
+            "matricule": "770056X1",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 2,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 13.91,
+                "noteS2": 9.62
+              },
+              {
+                "code": "FOR",
+                "noteS1": 11.17,
+                "noteS2": 7.75
+              },
+              {
+                "code": "PLI",
+                "noteS1": 7.96,
+                "noteS2": 8.94
+              },
+              {
+                "code": "GES",
+                "noteS1": 10.5,
+                "noteS2": 12.5
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 7.25,
+                "noteS2": 8.6
+              },
+              {
+                "code": "DEC",
+                "noteS1": 10.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STH",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "IST",
+                "noteS1": 10.5,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STA",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "CBB",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ASS",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STK",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIP",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANA",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIC",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              }
+            ],
+            "moyenne": {
+              "S1": 8.84,
+              "S2": 10.21,
+              "annuel": 9.52
+            },
+            "rang": {
+              "S1": 37,
+              "S2": 37,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": 6,
+            "noteDeStage": 8.5,
+            "decisionFinaleDuConseil": "admis"
+          },
+          {
+            "nom": "BELADI",
+            "prenom": "TAHAR",
+            "matricule": "770037",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 2,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 11.0,
+                "noteS2": 9.75
+              },
+              {
+                "code": "FOR",
+                "noteS1": 7.75,
+                "noteS2": 8.94
+              },
+              {
+                "code": "PLI",
+                "noteS1": 7.96,
+                "noteS2": 7.96
+              },
+              {
+                "code": "GES",
+                "noteS1": 10.0,
+                "noteS2": 10.5
+              },
+              {
+                "code": "ANG",
+                "noteS1": 12.12,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 10.5,
+                "noteS2": 10.0
+              },
+              {
+                "code": "DEC",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STH",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "IST",
+                "noteS1": 10.5,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STA",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "CBB",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ASS",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STK",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIP",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANA",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIC",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              }
+            ],
+            "moyenne": {
+              "S1": 10.39,
+              "S2": 8.45,
+              "annuel": 9.42
+            },
+            "rang": {
+              "S1": 38,
+              "S2": 38,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "BENARA",
+            "prenom": "AMEUR",
+            "matricule": "770038",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 3,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 12.15,
+                "noteS2": 9.75
+              },
+              {
+                "code": "FOR",
+                "noteS1": 9.88,
+                "noteS2": 10.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 7.12,
+                "noteS2": 9.79
+              },
+              {
+                "code": "GES",
+                "noteS1": 12.0,
+                "noteS2": 11.12
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 9.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 7.25,
+                "noteS2": 8.6
+              },
+              {
+                "code": "DEC",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STH",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "IST",
+                "noteS1": 10.5,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STA",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "CBB",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ASS",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STK",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIP",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANA",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIC",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              }
+            ],
+            "moyenne": {
+              "S1": 8.81,
+              "S2": 10.04,
+              "annuel": 9.42
+            },
+            "rang": {
+              "S1": 38,
+              "S2": 38,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "SKAÏRI",
+            "prenom": "MOHAMED",
+            "matricule": "770039",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 3,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 11.4,
+                "noteS2": 9.62
+              },
+              {
+                "code": "FOR",
+                "noteS1": 9.75,
+                "noteS2": 10.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 9.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 8.5,
+                "noteS2": 9.0
+              },
+              {
+                "code": "DEC",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STH",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "IST",
+                "noteS1": 10.5,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STA",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "CBB",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ASS",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STK",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIP",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "ANA",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FIC",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              }
+            ],
+            "moyenne": {
+              "S1": 8.03,
+              "S2": 10.76,
+              "annuel": 9.42
+            },
+            "rang": {
+              "S1": 38,
+              "S2": 38,
+              "annuel": null
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "admis"
+          }
+        ],
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 9,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\1-I-TRC_20260324_193614\\pages\\page_0009.png",
+      "status": "ok",
+      "attempt": 2,
+      "api_key_suffix": "m79o",
+      "result": {
+        "type": "multiple_students",
+        "sectionCode": null,
+        "annee": "1977/1978",
+        "anneeEtude": "1",
+        "section": "INFORMATIQUE",
+        "option": null,
+        "students": [
+          {
+            "nom": "ZEGGOUR",
+            "prenom": "MUSTAPHA",
+            "matricule": "770040",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 11.5,
+                "noteS2": 12.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 8.0,
+                "noteS2": 12.0
+              },
+              {
+                "code": "FBR",
+                "noteS1": 8.0,
+                "noteS2": 7.5
+              },
+              {
+                "code": "PLI",
+                "noteS1": 10.17,
+                "noteS2": 11.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 8.0,
+                "noteS2": 11.25
+              },
+              {
+                "code": "ANG",
+                "noteS1": 7.5,
+                "noteS2": 11.75
+              },
+              {
+                "code": "STR",
+                "noteS1": 11.75,
+                "noteS2": 11.75
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.14,
+              "S2": 9.69,
+              "annuel": 9.41
+            },
+            "rang": {
+              "S1": 41,
+              "S2": null,
+              "annuel": 41
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "DAHLI",
+            "prenom": "MABROUK",
+            "matricule": "770041",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 8.5,
+                "noteS2": 12.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 12.72,
+                "noteS2": 12.72
+              },
+              {
+                "code": "FBR",
+                "noteS1": 11.17,
+                "noteS2": 12.58
+              },
+              {
+                "code": "PLI",
+                "noteS1": 10.17,
+                "noteS2": 10.25
+              },
+              {
+                "code": "GES",
+                "noteS1": 12.0,
+                "noteS2": 10.25
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 10.5
+              },
+              {
+                "code": "STR",
+                "noteS1": 4.5,
+                "noteS2": 4.5
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.35,
+              "S2": 7.71,
+              "annuel": 9.47
+            },
+            "rang": {
+              "S1": 42,
+              "S2": null,
+              "annuel": 42
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "AISSADUI",
+            "prenom": "MOHAND AKLI",
+            "matricule": "770042",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 8.0,
+                "noteS2": 12.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 12.58,
+                "noteS2": 12.58
+              },
+              {
+                "code": "FBR",
+                "noteS1": null,
+                "noteS2": 10.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 7.54,
+                "noteS2": 11.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 8.62,
+                "noteS2": 5.5
+              },
+              {
+                "code": "ANG",
+                "noteS1": 8.0,
+                "noteS2": 8.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 9.6,
+                "noteS2": 9.6
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 8.95,
+              "S2": 8.35,
+              "annuel": 9.12
+            },
+            "rang": {
+              "S1": 43,
+              "S2": null,
+              "annuel": 43
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "MERICHE",
+            "prenom": "MAAD",
+            "matricule": "770043",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 7.75,
+                "noteS2": 12.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 10.7,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FBR",
+                "noteS1": 12.41,
+                "noteS2": 9.75
+              },
+              {
+                "code": "PLI",
+                "noteS1": 9.75,
+                "noteS2": 11.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.0,
+                "noteS2": 9.87
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 8.6,
+                "noteS2": 8.6
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 8.77,
+              "S2": 9.47,
+              "annuel": 9.12
+            },
+            "rang": {
+              "S1": 43,
+              "S2": null,
+              "annuel": 43
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "BERHAD",
+            "prenom": "YOULEF",
+            "matricule": "770044",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 2,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 11.5,
+                "noteS2": 11.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 6.86,
+                "noteS2": 9.9
+              },
+              {
+                "code": "FBR",
+                "noteS1": 8.77,
+                "noteS2": 9.5
+              },
+              {
+                "code": "PLI",
+                "noteS1": 9.5,
+                "noteS2": 11.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.0,
+                "noteS2": 9.5
+              },
+              {
+                "code": "ANG",
+                "noteS1": 9.5,
+                "noteS2": 10.5
+              },
+              {
+                "code": "STR",
+                "noteS1": 8.75,
+                "noteS2": 8.75
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.6,
+              "S2": 8.47,
+              "annuel": 9.03
+            },
+            "rang": {
+              "S1": 45,
+              "S2": null,
+              "annuel": 45
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "BOUKALFA",
+            "prenom": "BOUCIF",
+            "matricule": "770045",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 3,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 7.5,
+                "noteS2": 11.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 7.5,
+                "noteS2": 12.48
+              },
+              {
+                "code": "FBR",
+                "noteS1": 6.86,
+                "noteS2": 7.5
+              },
+              {
+                "code": "PLI",
+                "noteS1": 7.5,
+                "noteS2": 11.5
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 10.5
+              },
+              {
+                "code": "STR",
+                "noteS1": 6.35,
+                "noteS2": 6.35
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 8.73,
+              "S2": 9.15,
+              "annuel": 8.94
+            },
+            "rang": {
+              "S1": 46,
+              "S2": null,
+              "annuel": 46
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "BENBELIL",
+            "prenom": "MANSEUR",
+            "matricule": "770046",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.5,
+                "noteS2": 11.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 7.67,
+                "noteS2": 9.5
+              },
+              {
+                "code": "FBR",
+                "noteS1": 9.5,
+                "noteS2": 9.5
+              },
+              {
+                "code": "PLI",
+                "noteS1": 9.0,
+                "noteS2": 9.62
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 7.0,
+                "noteS2": 7.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 7.0,
+                "noteS2": 7.0
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.1,
+              "S2": 8.68,
+              "annuel": 8.89
+            },
+            "rang": {
+              "S1": 47,
+              "S2": null,
+              "annuel": 47
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "CHERIF",
+            "prenom": "NADIA",
+            "matricule": "770047",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 2,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 8.75,
+                "noteS2": 9.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 10.17,
+                "noteS2": 8.14
+              },
+              {
+                "code": "FBR",
+                "noteS1": 8.14,
+                "noteS2": 9.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 6.25,
+                "noteS2": 13.0
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.0,
+                "noteS2": 13.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 13.0,
+                "noteS2": 7.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 4.5,
+                "noteS2": 4.5
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 10.04,
+              "S2": 7.66,
+              "annuel": 8.85
+            },
+            "rang": {
+              "S1": 48,
+              "S2": null,
+              "annuel": 48
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "KIZAI",
+            "prenom": "BOUDJEMAA",
+            "matricule": "770048",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 3,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 5.93,
+                "noteS2": 13.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 8.67,
+                "noteS2": 13.14
+              },
+              {
+                "code": "FBR",
+                "noteS1": 5.13,
+                "noteS2": 2.54
+              },
+              {
+                "code": "PLI",
+                "noteS1": 8.77,
+                "noteS2": 8.22
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 9.35,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 9.35,
+                "noteS2": 9.35
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 8.75,
+              "S2": 8.73,
+              "annuel": 8.74
+            },
+            "rang": {
+              "S1": 49,
+              "S2": null,
+              "annuel": 49
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "BOUDEARI",
+            "prenom": "NASSIM",
+            "matricule": "770049",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 2,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 8.25,
+                "noteS2": 11.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 8.25,
+                "noteS2": 8.22
+              },
+              {
+                "code": "FBR",
+                "noteS1": 8.5,
+                "noteS2": 9.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": 10.13,
+                "noteS2": 6.25
+              },
+              {
+                "code": "GES",
+                "noteS1": 9.0,
+                "noteS2": 12.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 12.0,
+                "noteS2": 9.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 8.6,
+                "noteS2": 8.6
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 8.87,
+              "S2": 8.33,
+              "annuel": 8.6
+            },
+            "rang": {
+              "S1": 50,
+              "S2": null,
+              "annuel": 50
+            },
+            "decisionDeJuin": null,
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          }
+        ],
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 10,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\1-I-TRC_20260324_193614\\pages\\page_0010.png",
+      "status": "ok",
+      "attempt": 2,
+      "api_key_suffix": "ZT-g",
+      "result": {
+        "type": "multiple_students",
+        "sectionCode": null,
+        "annee": "1977/1978",
+        "anneeEtude": "1",
+        "section": "Informatique",
+        "option": "Cycle Long",
+        "students": [
+          {
+            "nom": "ABBOUCHE",
+            "prenom": "Khaled",
+            "matricule": "770050",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.27,
+                "noteS2": 11.25
+              },
+              {
+                "code": "FOR",
+                "noteS1": 1.33,
+                "noteS2": 0.83
+              },
+              {
+                "code": "PLI",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 9.0,
+                "noteS2": 4.5
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 6.5
+              },
+              {
+                "code": "STR",
+                "noteS1": null,
+                "noteS2": 7.5
+              },
+              {
+                "code": "DEC",
+                "noteS1": 3.25,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.71,
+              "S2": 5.4,
+              "annuel": 8.53
+            },
+            "rang": {
+              "S1": 51,
+              "S2": null,
+              "annuel": 51
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "ABDELAZIZ",
+            "prenom": "Rabah",
+            "matricule": "770051",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 2,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 8.25,
+                "noteS2": 5.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 9.55,
+                "noteS2": 8.25
+              },
+              {
+                "code": "PLI",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 9.5,
+                "noteS2": 7.5
+              },
+              {
+                "code": "ANG",
+                "noteS1": 9.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 7.5,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.05,
+              "S2": 7.92,
+              "annuel": 8.48
+            },
+            "rang": {
+              "S1": 52,
+              "S2": null,
+              "annuel": 52
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "BENTAHAR",
+            "prenom": "Hadj-Kouider",
+            "matricule": "770052",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 7.0,
+                "noteS2": 7.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 11.32,
+                "noteS2": 7.54
+              },
+              {
+                "code": "PLI",
+                "noteS1": null,
+                "noteS2": 2.58
+              },
+              {
+                "code": "GES",
+                "noteS1": 8.0,
+                "noteS2": 11.22
+              },
+              {
+                "code": "ANG",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 6.6,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.03,
+              "S2": 7.76,
+              "annuel": 8.39
+            },
+            "rang": {
+              "S1": 53,
+              "S2": null,
+              "annuel": 53
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "ABDELKADER",
+            "prenom": "Fatia",
+            "matricule": "770053",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 2,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.5,
+                "noteS2": 5.5
+              },
+              {
+                "code": "FOR",
+                "noteS1": 9.27,
+                "noteS2": 11.0
+              },
+              {
+                "code": "PLI",
+                "noteS1": null,
+                "noteS2": 5.33
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.0,
+                "noteS2": 9.74
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 10.5
+              },
+              {
+                "code": "STR",
+                "noteS1": 7.6,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 9.16,
+              "S2": 7.52,
+              "annuel": 8.34
+            },
+            "rang": {
+              "S1": 54,
+              "S2": null,
+              "annuel": 54
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "AMIHED",
+            "prenom": "Benameur",
+            "matricule": "770054",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.5,
+                "noteS2": 5.5
+              },
+              {
+                "code": "FOR",
+                "noteS1": 10.12,
+                "noteS2": 9.45
+              },
+              {
+                "code": "PLI",
+                "noteS1": null,
+                "noteS2": 6.33
+              },
+              {
+                "code": "GES",
+                "noteS1": 10.66,
+                "noteS2": 8.5
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 9.0,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 8.32,
+              "S2": 8.32,
+              "annuel": 8.32
+            },
+            "rang": {
+              "S1": 55,
+              "S2": null,
+              "annuel": 55
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "FERHAT",
+            "prenom": "Belkalem-Tamazouzt",
+            "matricule": "770055",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 3,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 7.25,
+                "noteS2": 7.5
+              },
+              {
+                "code": "FOR",
+                "noteS1": 7.54,
+                "noteS2": 4.42
+              },
+              {
+                "code": "PLI",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 8.87,
+                "noteS2": 11.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 12.0,
+                "noteS2": 12.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 6.6,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 8.7,
+              "S2": 7.57,
+              "annuel": 8.13
+            },
+            "rang": {
+              "S1": 57,
+              "S2": null,
+              "annuel": 57
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "BOUADUNEK",
+            "prenom": "Abdelhamid",
+            "matricule": "770056",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.25,
+                "noteS2": 5.25
+              },
+              {
+                "code": "FOR",
+                "noteS1": 9.23,
+                "noteS2": 9.71
+              },
+              {
+                "code": "PLI",
+                "noteS1": null,
+                "noteS2": 5.94
+              },
+              {
+                "code": "GES",
+                "noteS1": 9.37,
+                "noteS2": 5.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 11.0,
+                "noteS2": 7.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 5.8,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 8.43,
+              "S2": 7.75,
+              "annuel": 8.09
+            },
+            "rang": {
+              "S1": 58,
+              "S2": null,
+              "annuel": 58
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "CHIBOUT",
+            "prenom": "Mohammed",
+            "matricule": "770057",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 2,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.5,
+                "noteS2": 7.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 9.18,
+                "noteS2": 5.93
+              },
+              {
+                "code": "PLI",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "GES",
+                "noteS1": 8.75,
+                "noteS2": 5.33
+              },
+              {
+                "code": "ANG",
+                "noteS1": 8.75,
+                "noteS2": 7.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 5.16,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 7.97,
+              "S2": 7.29,
+              "annuel": 7.63
+            },
+            "rang": {
+              "S1": 59,
+              "S2": null,
+              "annuel": 59
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          },
+          {
+            "nom": "DERGUINI",
+            "prenom": "Djamel",
+            "matricule": "770058",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 3,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 9.75,
+                "noteS2": 5.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 6.4,
+                "noteS2": 7.33
+              },
+              {
+                "code": "PLI",
+                "noteS1": null,
+                "noteS2": 1.29
+              },
+              {
+                "code": "GES",
+                "noteS1": 8.77,
+                "noteS2": 9.47
+              },
+              {
+                "code": "ANG",
+                "noteS1": 9.75,
+                "noteS2": 5.75
+              },
+              {
+                "code": "STR",
+                "noteS1": 5.6,
+                "noteS2": null
+              },
+              {
+                "code": "DEC",
+                "noteS1": null,
+                "noteS2": null
+              },
+              {
+                "code": "STH",
+                "noteS1": null,
+                "noteS2": null
+              }
+            ],
+            "moyenne": {
+              "S1": 6.8,
+              "S2": 7.85,
+              "annuel": 7.32
+            },
+            "rang": {
+              "S1": 60,
+              "S2": null,
+              "annuel": 60
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": null,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": "elimine"
+          }
+        ],
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    },
+    {
+      "page_number": 11,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\1-I-TRC_20260324_193614\\pages\\page_0011.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "3I3U",
+      "result": {
+        "type": "multiple_students",
+        "sectionCode": null,
+        "annee": "1977/1978",
+        "anneeEtude": "1",
+        "section": "ETUDES ET DE RECHERCHES EN INFORMATIQUE",
+        "option": null,
+        "students": [
+          {
+            "nom": "MAHUADI",
+            "prenom": "KHELIF A",
+            "matricule": "770059",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 2,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 7.25,
+                "noteS2": 4.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 9.47,
+                "noteS2": 2.25
+              },
+              {
+                "code": "PLI",
+                "noteS1": 1.88,
+                "noteS2": 1.38
+              },
+              {
+                "code": "GES",
+                "noteS1": 5.0,
+                "noteS2": 6.37
+              },
+              {
+                "code": "ANG",
+                "noteS1": 10.5,
+                "noteS2": 4.5
+              },
+              {
+                "code": "STR",
+                "noteS1": 5.75,
+                "noteS2": 5.75
+              }
+            ],
+            "moyenne": {
+              "S1": 7.04,
+              "S2": 5.57,
+              "annuel": 6.75
+            },
+            "rang": {
+              "S1": 62,
+              "S2": null,
+              "annuel": 62
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": 1,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "SENIA",
+            "prenom": "MAHFOUD",
+            "matricule": "770060",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 7.75,
+                "noteS2": 5.5
+              },
+              {
+                "code": "FOR",
+                "noteS1": 8.17,
+                "noteS2": 3.54
+              },
+              {
+                "code": "PLI",
+                "noteS1": 8.17,
+                "noteS2": 2.75
+              },
+              {
+                "code": "GES",
+                "noteS1": 10.0,
+                "noteS2": 8.62
+              },
+              {
+                "code": "ANG",
+                "noteS1": 6.0,
+                "noteS2": 9.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 4.1,
+                "noteS2": 4.1
+              }
+            ],
+            "moyenne": {
+              "S1": 8.53,
+              "S2": 4.94,
+              "annuel": 6.73
+            },
+            "rang": {
+              "S1": 68,
+              "S2": null,
+              "annuel": 68
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": 1,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "KADDOUR",
+            "prenom": "AHMED",
+            "matricule": "77006A",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 3,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 7.0,
+                "noteS2": 7.75
+              },
+              {
+                "code": "FOR",
+                "noteS1": 5.42,
+                "noteS2": 2.1
+              },
+              {
+                "code": "PLI",
+                "noteS1": 3.3,
+                "noteS2": 3.3
+              },
+              {
+                "code": "GES",
+                "noteS1": 10.0,
+                "noteS2": 9.87
+              },
+              {
+                "code": "ANG",
+                "noteS1": 9.0,
+                "noteS2": 9.5
+              },
+              {
+                "code": "STR",
+                "noteS1": 2.25,
+                "noteS2": 2.25
+              }
+            ],
+            "moyenne": {
+              "S1": 7.81,
+              "S2": 5.59,
+              "annuel": 6.7
+            },
+            "rang": {
+              "S1": 64,
+              "S2": null,
+              "annuel": 64
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": 1,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "QORINET",
+            "prenom": "RAHBANE",
+            "matricule": "770062",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 7.5,
+                "noteS2": 3.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 9.83,
+                "noteS2": 2.92
+              },
+              {
+                "code": "PLI",
+                "noteS1": 3.04,
+                "noteS2": 3.04
+              },
+              {
+                "code": "GES",
+                "noteS1": 7.0,
+                "noteS2": 7.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 8.0,
+                "noteS2": 5.5
+              },
+              {
+                "code": "STR",
+                "noteS1": 5.0,
+                "noteS2": 5.0
+              }
+            ],
+            "moyenne": {
+              "S1": 8.12,
+              "S2": 4.99,
+              "annuel": 6.53
+            },
+            "rang": {
+              "S1": 65,
+              "S2": null,
+              "annuel": 65
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": 1,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "KAMEL",
+            "prenom": "KAPEL",
+            "matricule": "770063",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 3.0,
+                "noteS2": 3.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 5.74,
+                "noteS2": 3.72
+              },
+              {
+                "code": "PLI",
+                "noteS1": 2.68,
+                "noteS2": 3.75
+              },
+              {
+                "code": "GES",
+                "noteS1": 13.0,
+                "noteS2": 13.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 9.25,
+                "noteS2": 5.0
+              },
+              {
+                "code": "STR",
+                "noteS1": 3.25,
+                "noteS2": 3.25
+              }
+            ],
+            "moyenne": {
+              "S1": 6.31,
+              "S2": 5.04,
+              "annuel": 6.67
+            },
+            "rang": {
+              "S1": 60,
+              "S2": null,
+              "annuel": 60
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": 1,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          },
+          {
+            "nom": "BENTAHAR",
+            "prenom": "HOUNIA",
+            "matricule": "770064",
+            "metadata": {
+              "semestre": 1,
+              "sousGroupe": 1,
+              "autresChamps": {}
+            },
+            "modules": [
+              {
+                "code": "MAT",
+                "noteS1": 10.0,
+                "noteS2": 10.0
+              },
+              {
+                "code": "FOR",
+                "noteS1": 5.38,
+                "noteS2": 5.38
+              },
+              {
+                "code": "PLI",
+                "noteS1": 2.02,
+                "noteS2": 2.02
+              },
+              {
+                "code": "GES",
+                "noteS1": 11.0,
+                "noteS2": 11.0
+              },
+              {
+                "code": "ANG",
+                "noteS1": 9.5,
+                "noteS2": 9.5
+              },
+              {
+                "code": "STR",
+                "noteS1": 9.6,
+                "noteS2": 9.6
+              }
+            ],
+            "moyenne": {
+              "S1": 8.97,
+              "S2": 9.02,
+              "annuel": 8.19
+            },
+            "rang": {
+              "S1": 56,
+              "S2": null,
+              "annuel": 56
+            },
+            "decisionDeJuin": "elimine",
+            "nbrAbs": 1,
+            "noteDeStage": null,
+            "decisionFinaleDuConseil": null
+          }
+        ],
+        "error": null,
+        "summary": {
+          "semestre1_moyenne": null,
+          "semestre2_moyenne": null,
+          "general_moyenne": null,
+          "semestre1_rang": null,
+          "semestre2_rang": null,
+          "general_rang": null
+        }
+      },
+      "error": null
+    }
+  ]
+}

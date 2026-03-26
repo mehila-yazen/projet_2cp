@@ -76,7 +76,7 @@ Used when the page is a cover/title page with a section code and no student grad
     "type": "cover",
     "sectionCode": "...",
     "annee": "...",
-    "anneeEtude": "...",
+    "anneeEtude": "ttttt...",
     "section": "...",
     "option": "...",
     "institution": "...",
@@ -294,6 +294,32 @@ RULES FOR READING MODULE GRADES:
   (module taught in S2 only)
 - NEVER assign a bottom-row value to noteS1, or a top-row value to noteS2
 - NEVER shift grades horizontally — each grade belongs strictly to its column
+
+## CRITICAL: STUDENT ROW BOUNDARY RULE
+
+The *** asterisk line is the SEPARATOR BETWEEN STUDENTS.
+Everything between two *** lines = ONE single student.
+
+Within one student block (between two *** lines):
+- TOP ROW:    nom    + S1 grades + MOY S1 + RANG S1
+- BOTTOM ROW: prenom + S2 grades + MOY S2 + RANG S2
+
+The *** separator line is your ONLY reliable indicator that a new student begins.
+DO NOT start a new student on every new line.
+DO NOT treat the prenom row as a separate student.
+
+Example — this entire block is ONE student:
+  * AZZBOULE  * 10.66 * 9.73 * 3.00 * ...  * 09.40 *  8 *
+  * FL-HANI   * ...S2 grades...             * 10.15 *  9 *  ← THIS IS THE PRENOM ROW
+  ************************************************...
+
+Correct output:
+  nom: "AZZBOULE", prenom: "FL-HANI",
+  modules: [ { noteS1: 10.66, noteS2: ... }, ... ]
+
+WRONG output (what to avoid):
+  Student 1: nom: "AZZBOULE", prenom: null
+  Student 2: nom: "FL-HANI",  prenom: null  ← FL-HANI is NOT a student, it's a prenom
 
 This two-row-per-student layout is the source of most extraction errors.
 Read each student's two rows completely and independently before moving to the next student.
