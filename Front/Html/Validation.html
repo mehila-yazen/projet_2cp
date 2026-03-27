@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../Css/Validation.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Archive Management — Data Validation</title>
+<title>Archive Management - Data Validation</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
 <body>
 <div class="app">
 
-  <!-- ── SIDEBAR ── -->
+  <!-- -- SIDEBAR -- -->
   <div class="sidebar" id="sidebar">
     <div class="sidebar-logo">
        
@@ -36,7 +36,7 @@
 </svg>
 </div>
       <span class="sidebar-logo-title">ESI NEXUS</span>
-      <div class="sidebar-logo-btn" id="collapseBtn" title="Réduire">
+      <div class="sidebar-logo-btn" id="collapseBtn" title="R&eacute;duire">
    <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="white"><path d="m291-240-51-51 189-189-189-189 51-51 189 189 189-189 51 51-189 189 189 189-51 51-189-189-189 189Z"/></svg>
 
 
@@ -126,7 +126,7 @@
     </div>
   </div>
 
-  <!-- ── MAIN ── -->
+  <!-- -- MAIN -- -->
   <div class="main">
 
     <!-- Header -->
@@ -141,12 +141,13 @@
     <!-- Content -->
     <div class="content-area">
 
-      <!-- TOP: Validation Queue full width — vertical list -->
+      <!-- TOP: Validation Queue full width - vertical list -->
       <div class="queue-panel-wrap">
         <div class="panel">
           <div class="panel-header">Validation Queue</div>
-          <div class="panel-body" id="queueList">
-            
+          <div class="queue-scroll" id="queueScroll">
+            <div class="panel-body" id="queueList">
+            </div>
           </div>
         </div>
       </div>
@@ -170,16 +171,22 @@
 </g>
 </svg>
 
-                <div class="pdf-placeholder-label" id="pageLabel">PDF Preview — Page 1</div>
+                <div class="pdf-placeholder-label" id="pageLabel">PDF Preview - Page 1</div>
               </div>
               <div class="pagination-row">
                 <button class="btn-page" onclick="changePage(-1)">Previous</button>
                 <span id="pageInfo">Page 1 / 45</span>
                 <button class="btn-page" onclick="changePage(1)">Next</button>
               </div>
+              <div class="zoom-controls">
+                <button class="btn-page" onclick="adjustPreviewZoom(-0.1)">-</button>
+                <span id="zoomValue">100%</span>
+                <button class="btn-page" onclick="adjustPreviewZoom(0.1)">+</button>
+                <button class="btn-page" onclick="resetPreviewZoom()">Reset</button>
+              </div>
               <div class="action-row">
-                <button class="btn-validate">✓ Validate &amp; Save</button>
-                <button class="btn-reject">✕ Reject</button>
+                <button class="btn-validate">&#10003; Validate &amp; Save</button>
+                <button class="btn-reject">&#10005; Reject</button>
               </div>
             </div>
           </div>
@@ -201,7 +208,7 @@
         <!-- Edit banner -->
         <div class="edit-banner" id="editBanner">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          Mode édition actif — modifiez les champs puis cliquez sur <strong style="margin-left:3px;">Save Changes</strong>
+          Mode &eacute;dition actif - modifiez les champs puis cliquez sur <strong style="margin-left:3px;">Save Changes</strong>
         </div>
 
         <!-- Metadata -->
@@ -213,7 +220,7 @@
             </div>
             <div class="meta-field">
               <div class="meta-label">Level</div>
-              <div class="meta-value" id="meta-level">3ème Année</div>
+              <div class="meta-value" id="meta-level">3&egrave;me Ann&eacute;e</div>
             </div>
             <div class="meta-field">
               <div class="meta-label">Specialization</div>
@@ -232,43 +239,13 @@
         </div>
 
         <!-- Warning -->
-        <div class="warning-box">⚠️ Extracted automatically — please verify all data</div>
+        <div class="warning-box">&#9888;&#65039; Extracted automatically - please verify all data</div>
+        <div class="warning-box" id="pageExtractionInfo" style="margin-top:6px;background:#EFF6FF;border-color:#BFDBFE;color:#1E3A8A;"></div>
 
         <!-- Table -->
         <div class="table-wrap">
           <table id="dataTable">
-            <thead>
-              <tr>
-                <th class="th-group" colspan="3" style="color:#5F049C;">Student Information</th>
-                <th class="th-group" style="color:#07A1A1;">Period</th>
-                <th class="th-group" style="color:#085454;min-width:52px;font-size:9.5px;">Algorithmique<div style="color:#8B0101;font-size:8.5px;font-weight:700;margin-top:1px;">Coef: 3</div></th>
-                <th class="th-group" style="color:#085454;min-width:52px;font-size:9.5px;">Base de Données<div style="color:#8B0101;font-size:8.5px;font-weight:700;margin-top:1px;">Coef: 2.5</div></th>
-                <th class="th-group" style="color:#085454;min-width:52px;font-size:9.5px;">Réseaux<div style="color:#8B0101;font-size:8.5px;font-weight:700;margin-top:1px;">Coef: 2</div></th>
-                <th class="th-group" style="color:#085454;min-width:52px;font-size:9.5px;">Architecture<div style="color:#8B0101;font-size:8.5px;font-weight:700;margin-top:1px;">Coef: 2.5</div></th>
-                <th class="th-group" style="color:#085454;min-width:52px;font-size:9.5px;">Mathématiques<div style="color:#8B0101;font-size:8.5px;font-weight:700;margin-top:1px;">Coef: 3</div></th>
-                <th class="th-group" style="color:#085454;min-width:52px;font-size:9.5px;">Physique<div style="color:#8B0101;font-size:8.5px;font-weight:700;margin-top:1px;">Coef: 2</div></th>
-                <th class="th-group" style="color:#085454;min-width:52px;font-size:9.5px;">Anglais<div style="color:#8B0101;font-size:8.5px;font-weight:700;margin-top:1px;">Coef: 1.5</div></th>
-                <th class="th-group" style="color:#085454;min-width:52px;font-size:9.5px;">Gestion<div style="color:#8B0101;font-size:8.5px;font-weight:700;margin-top:1px;">Coef: 1</div></th>
-                <th class="th-group" style="color:#25436B;min-width:48px;">Avg</th>
-                <th class="th-group" style="color:#901684;min-width:38px;">Rank</th>
-                <th class="th-group" style="color:#25436B;min-width:58px;">Annual Avg</th>
-                <th class="th-group" style="color:#901684;min-width:52px;">Annual Rank</th>
-                <th class="th-group" colspan="4" style="color:#085454;">Administrative Decisions</th>
-              </tr>
-              <tr>
-                <th class="th-sub" style="color:#0F5E9E;">Last Name</th>
-                <th class="th-sub" style="color:#0A3A81;">First Name</th>
-                <th class="th-sub" style="color:#840A94;">Matricule</th>
-                <th class="th-sub"></th>
-                <th class="th-sub"></th><th class="th-sub"></th><th class="th-sub"></th><th class="th-sub"></th>
-                <th class="th-sub"></th><th class="th-sub"></th><th class="th-sub"></th><th class="th-sub"></th>
-                <th class="th-sub"></th><th class="th-sub"></th><th class="th-sub"></th><th class="th-sub"></th>
-                <th class="th-sub" style="color:#02112A;">June Decision</th>
-                <th class="th-sub" style="color:#02112A;">Stage</th>
-                <th class="th-sub" style="color:#02112A;">Final Decision</th>
-                <th class="th-sub" style="color:#02112A;">Diploma</th>
-              </tr>
-            </thead>
+            <thead id="tableHead"></thead>
             <tbody id="tableBody">
             </tbody>
           </table>

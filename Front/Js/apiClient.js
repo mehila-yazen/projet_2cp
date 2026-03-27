@@ -91,12 +91,38 @@
     return this._request('/extract/completed' + query);
   };
 
+  ApiClient.prototype.deleteCompletedExtraction = async function (recordId) {
+    return this._request('/extract/completed/' + encodeURIComponent(recordId), {
+      method: 'DELETE',
+    });
+  };
+
   ApiClient.prototype.getExtractionProgress = async function (operationId) {
     return this._request('/extract/progress/' + encodeURIComponent(operationId));
   };
 
   ApiClient.prototype.saveVerifiedStudents = async function (payload) {
     return this._request('/verify/students/save', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload || {}),
+    });
+  };
+
+  ApiClient.prototype.suggestStudents = async function (payload) {
+    return this._request('/students/suggestions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload || {}),
+    });
+  };
+
+  ApiClient.prototype.confirmStudentSuggestion = async function (payload) {
+    return this._request('/students/suggestions/confirm', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

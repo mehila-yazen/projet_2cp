@@ -14,6 +14,7 @@ from fastapi import Body, FastAPI, File, Form, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
+from sqlalchemy import func
 
 from src.Backend.extraction_service import extract_pdf_with_page_mapping_async
 from src.Database.models import Etudiant
@@ -185,6 +186,54 @@ def _find_extraction_payload_for_saved_pdf(saved_pdf: Path) -> dict | None:
             continue
 
     return None
+
+
+def _simple_student_suggestions(
+    db,
+    *,
+    nom: str,
+    prenom: str,
+    matricule: str | None,
+    limit: int,
+) -> dict:
+    q = db.query(Etudiant.id, Etudiant.nom, Etudiant.prenom, Etudiant.matricule)
+
+    filters = []
+    if nom:
+        filters.append(func.lower(Etudiant.nom).like(f"%{nom.lower()}%"))
+    if prenom:
+        filters.append(func.lower(Etudiant.prenom).like(f"%{prenom.lower()}%"))
+    if matricule:
+        filters.append(func.lower(Etudiant.matricule).like(f"%{matricule.lower()}%"))
+
+    if filters:
+        from sqlalchemy import or_
+        q = q.filter(or_(*filters))
+
+    rows = q.order_by(Etudiant.nom.asc(), Etudiant.prenom.asc()).limit(max(1, min(limit, 20))).all()
+    suggestions = [
+        {
+            "student_id": int(row.id),
+            "full_name": f"{row.nom} {row.prenom}".strip(),
+            "nom": row.nom,
+            "prenom": row.prenom,
+            "matricule": row.matricule,
+            "score": 0.0,
+            "reasons": ["fallback simple search"],
+        }
+        for row in rows
+    ]
+
+    return {
+        "query": {
+            "nom": nom,
+            "prenom": prenom,
+            "matricule": matricule,
+        },
+        "total_candidates_considered": len(suggestions),
+        "suggestions": suggestions,
+        "mode": "fallback",
+    }
 
 
 def _build_result_from_extraction_payload(saved_pdf: Path, extraction: dict) -> dict:
@@ -549,6 +598,31 @@ def _load_completed_records(limit: int = 50) -> list[dict]:
     return records
 
 
+def _delete_completed_record(record_id: str) -> bool:
+    if not COMPLETED_EXTRACTIONS_ROOT.exists():
+        return False
+
+    for file in COMPLETED_EXTRACTIONS_ROOT.glob("*.json"):
+        try:
+            payload = json.loads(file.read_text(encoding="utf-8"))
+            batch_records = payload.get("records") or []
+            kept_records = [item for item in batch_records if str(item.get("id")) != record_id]
+            if len(kept_records) == len(batch_records):
+                continue
+
+            if kept_records:
+                payload["records"] = kept_records
+                payload["count"] = len(kept_records)
+                file.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+            else:
+                file.unlink(missing_ok=True)
+            return True
+        except Exception:
+            continue
+
+    return False
+
+
 @app.post("/extract/pdf")
 async def extract_pdf(file: UploadFile = File(...), operation_id: str | None = Form(default=None)) -> dict:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -625,6 +699,14 @@ async def get_completed_extractions(limit: int = Query(default=50, ge=1, le=500)
         "count": len(records),
         "records": records,
     }
+
+
+@app.delete("/extract/completed/{record_id}")
+async def delete_completed_extraction(record_id: str) -> dict:
+    deleted = _delete_completed_record(record_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Completed extraction record not found")
+    return {"status": "ok", "deleted_id": record_id}
 
 
 @app.post("/verify/students/save")
@@ -785,14 +867,38 @@ async def suggest_students(payload: dict = Body(...)) -> dict:
             detail="Provide at least one of nom, prenom, or matricule",
         )
 
-    with get_session() as db:
-        result = suggest_student_candidates(
-            db,
-            nom=nom,
-            prenom=prenom,
-            matricule=matricule,
-            limit=limit,
-        )
+    try:
+        with get_session() as db:
+            try:
+                result = suggest_student_candidates(
+                    db,
+                    nom=nom,
+                    prenom=prenom,
+                    matricule=matricule,
+                    limit=limit,
+                )
+            except Exception as exc:
+                logger.exception("Advanced student suggestion failed, using fallback search: %s", exc)
+                db.rollback()
+                result = _simple_student_suggestions(
+                    db,
+                    nom=nom,
+                    prenom=prenom,
+                    matricule=matricule,
+                    limit=limit,
+                )
+    except Exception as exc:
+        logger.exception("Student suggestion endpoint hard failure, returning safe empty response: %s", exc)
+        result = {
+            "query": {
+                "nom": nom,
+                "prenom": prenom,
+                "matricule": matricule,
+            },
+            "total_candidates_considered": 0,
+            "suggestions": [],
+            "mode": "safe-empty",
+        }
 
     return result
 
