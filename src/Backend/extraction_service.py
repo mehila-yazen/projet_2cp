@@ -324,6 +324,17 @@ WRONG output (what to avoid):
 This two-row-per-student layout is the source of most extraction errors.
 Read each student's two rows completely and independently before moving to the next student.
 Do NOT confuse the bottom row of one student with the top row of the next student.
+
+## RANG COLUMN STRUCTURE RULE — SINGLE COLUMN WITH THREE VALUES PER STUDENT:
+
+NOTE : this is a special column in multi-student grade tables with **** separators, there is ONE RANG COLUMN that contains 
+THREE values per student rang.S1, rang.S2, and rang.annuel, distributed across three rows of each student block.
+
+EXTRACTION RULE FOR RANG VALUES:
+ For EACH student block (between **** separators):
+   - TOP ROW :    Extract ONE number → rang.S1
+   - MIDDLE ROW : Extract ONE number → rang.S2
+   - BOTTOM ROW : Extract ONE number → rang.annuel
 """.strip()
 
 

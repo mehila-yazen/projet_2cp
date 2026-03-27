@@ -358,7 +358,7 @@
         annual_rank: toFiniteNumberOrNull(pickFirstNonEmpty([student.general_rang, result.general_rang])),
         decision_june: pickFirstNonEmpty([student.decisionDeJuin, (result.summary && result.summary.observation)]),
         final_decision: pickFirstNonEmpty([student.decisionFinaleDuConseil, (result.summary && result.summary.observation)]),
-        stage: pickFirstNonEmpty([student.stage, student.stageEligible, student.stage_eligible]),
+        stage: pickFirstNonEmpty([student.noteDeStage, student.stage, student.stageEligible, student.stage_eligible]),
         diploma: pickFirstNonEmpty([student.diploma, student.diplome]),
       }];
     }
@@ -373,15 +373,15 @@
           matricule: student.matricule || null,
           modules: Array.isArray(student.modules) ? student.modules : [],
           decision: pickFirstNonEmpty([student.decisionFinaleDuConseil, student.decisionDeJuin, student.decision]),
-          avg_s1: toFiniteNumberOrNull(pickFirstNonEmpty([moyenne.s1, moyenne.semestre1, student.semestre1_moyenne])),
-          avg_s2: toFiniteNumberOrNull(pickFirstNonEmpty([moyenne.s2, moyenne.semestre2, student.semestre2_moyenne])),
+          avg_s1: toFiniteNumberOrNull(pickFirstNonEmpty([moyenne.S1, moyenne.s1, moyenne.semestre1, student.semestre1_moyenne])),
+          avg_s2: toFiniteNumberOrNull(pickFirstNonEmpty([moyenne.S2, moyenne.s2, moyenne.semestre2, student.semestre2_moyenne])),
           annual_avg: toFiniteNumberOrNull(pickFirstNonEmpty([moyenne.annuel, moyenne.general, student.general_moyenne])),
-          rank_s1: toFiniteNumberOrNull(pickFirstNonEmpty([rang.s1, rang.semestre1, student.semestre1_rang])),
-          rank_s2: toFiniteNumberOrNull(pickFirstNonEmpty([rang.s2, rang.semestre2, student.semestre2_rang])),
+          rank_s1: toFiniteNumberOrNull(pickFirstNonEmpty([rang.S1, rang.s1, rang.semestre1, student.semestre1_rang])),
+          rank_s2: toFiniteNumberOrNull(pickFirstNonEmpty([rang.S2, rang.s2, rang.semestre2, student.semestre2_rang])),
           annual_rank: toFiniteNumberOrNull(pickFirstNonEmpty([rang.annuel, rang.general, student.general_rang])),
           decision_june: pickFirstNonEmpty([student.decisionDeJuin, student.decision]),
           final_decision: pickFirstNonEmpty([student.decisionFinaleDuConseil, student.decision]),
-          stage: pickFirstNonEmpty([student.stage, student.stageEligible, student.stage_eligible]),
+          stage: pickFirstNonEmpty([student.noteDeStage, student.stage, student.stageEligible, student.stage_eligible]),
           diploma: pickFirstNonEmpty([student.diploma, student.diplome]),
         };
       });
@@ -938,7 +938,7 @@
       annualRank.rowSpan = 2;
       var juneDecision = createEditableCell(academic.decisionJune, 'decision_june');
       juneDecision.rowSpan = 2;
-      var stage = createEditableCell(academic.stage, 'stage');
+      var stage = createEditableCell(formatAcademicValue(academic.stage, 2), 'stage');
       stage.rowSpan = 2;
       var finalDecision = createEditableCell(academic.finalDecision, 'decision_finale');
       finalDecision.rowSpan = 2;
