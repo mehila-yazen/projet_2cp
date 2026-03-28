@@ -1,5 +1,7 @@
 (function () {
   var api = new window.DigitizationApiClient();
+  var COMPLETED_EXTRACTIONS_STORAGE_KEY = 'completedExtractions';
+  var VALIDATION_SELECTION_STORAGE_KEY = 'validationSelection';
   var records = [];
   var selectedRecordIndex = 0;
   var currentPageIndex = 0;
@@ -152,11 +154,115 @@
 
   function readLocalRecords() {
     try {
-      var raw = localStorage.getItem('completedExtractions');
+      var raw = localStorage.getItem(COMPLETED_EXTRACTIONS_STORAGE_KEY);
       var parsed = raw ? JSON.parse(raw) : [];
       return Array.isArray(parsed) ? parsed : [];
     } catch (_err) {
       return [];
+    }
+  }
+
+  function writeLocalRecords(nextRecords) {
+    try {
+      localStorage.setItem(COMPLETED_EXTRACTIONS_STORAGE_KEY, JSON.stringify(Array.isArray(nextRecords) ? nextRecords : []));
+    } catch (_err) {
+      // ignore storage errors
+    }
+  }
+
+  function readValidationSelection() {
+    try {
+      var raw = window.sessionStorage.getItem(VALIDATION_SELECTION_STORAGE_KEY);
+      if (!raw) {
+        return null;
+      }
+      var parsed = JSON.parse(raw);
+      return parsed && typeof parsed === 'object' ? parsed : null;
+    } catch (_err) {
+      return null;
+    }
+  }
+
+  function clearValidationSelection() {
+    try {
+      window.sessionStorage.removeItem(VALIDATION_SELECTION_STORAGE_KEY);
+    } catch (_err) {
+      // ignore storage errors
+    }
+  }
+
+  function findRecordIndexBySelection(selection) {
+    if (!selection || !records.length) {
+      return -1;
+    }
+
+    var recordId = String(selection.recordId || '').trim();
+    var fileName = String(selection.fileName || '').trim().toLowerCase();
+    var batchId = String(selection.batchId || '').trim();
+
+    return records.findIndex(function (record) {
+      var currentId = String(record && record.id || '').trim();
+      var currentFileName = String(record && record.file_name || '').trim().toLowerCase();
+      var currentBatchId = String(record && record.batch_id || '').trim();
+
+      if (recordId && currentId === recordId) {
+        return true;
+      }
+      if (fileName && currentFileName && fileName === currentFileName) {
+        return true;
+      }
+      if (batchId && fileName && currentBatchId === batchId && currentFileName === fileName) {
+        return true;
+      }
+      return false;
+    });
+  }
+
+  function applyRecordSelectionFromQuery() {
+    if (!records.length) {
+      return;
+    }
+
+    try {
+      var params = new URLSearchParams(window.location.search || '');
+      var requestedRecordId = String(params.get('record_id') || '').trim();
+      var requestedFileName = String(params.get('file_name') || '').trim().toLowerCase();
+      var matchedIndex = -1;
+
+      if (requestedRecordId) {
+        matchedIndex = records.findIndex(function (record) {
+          return String(record && record.id || '') === requestedRecordId;
+        });
+      }
+
+      if (matchedIndex < 0 && requestedFileName) {
+        matchedIndex = records.findIndex(function (record) {
+          return String(record && record.file_name || '').trim().toLowerCase() === requestedFileName;
+        });
+      }
+
+      if (matchedIndex < 0 && (requestedRecordId || requestedFileName)) {
+        var selection = readValidationSelection();
+        if (selection) {
+          matchedIndex = findRecordIndexBySelection(selection);
+
+          if (matchedIndex < 0 && selection.record) {
+            records.unshift(selection.record);
+            matchedIndex = 0;
+          }
+
+          if (matchedIndex >= 0) {
+            clearValidationSelection();
+          }
+        }
+      }
+
+      if (matchedIndex >= 0) {
+        selectedRecordIndex = matchedIndex;
+        currentPageIndex = 0;
+      }
+    } catch (_err) {
+      // ignore malformed query strings
     }
   }
 
@@ -166,6 +272,7 @@
       var backendRecords = Array.isArray(response.records) ? response.records : [];
       if (backendRecords.length) {
         records = backendRecords;
+        writeLocalRecords(records);
         return;
       }
     } catch (_err) {
@@ -556,6 +663,86 @@
     tableHead.appendChild(subRow);
   }
 
+  function renderTableDeMatieresHeader() {
+    if (!tableHead) {
+      return;
+    }
+
+    tableHead.innerHTML = '';
+
+    var row = document.createElement('tr');
+    appendHeadCell(row, 'th-group', 'Abrev', { style: { color: '#0F5E9E', minWidth: '70px' } });
+    appendHeadCell(row, 'th-group', 'Matiere', { style: { color: '#085454', minWidth: '220px' } });
+    appendHeadCell(row, 'th-group', 'Coef S1', { style: { color: '#8B0101', minWidth: '64px' } });
+    appendHeadCell(row, 'th-group', 'Coef S2', { style: { color: '#8B0101', minWidth: '64px' } });
+    appendHeadCell(row, 'th-group', 'Moy S1', { style: { color: '#25436B', minWidth: '64px' } });
+    appendHeadCell(row, 'th-group', 'Moy S1 (80%)', { style: { color: '#25436B', minWidth: '84px' } });
+    appendHeadCell(row, 'th-group', 'Moy S2', { style: { color: '#25436B', minWidth: '64px' } });
+    appendHeadCell(row, 'th-group', 'Moy S2 (80%)', { style: { color: '#25436B', minWidth: '84px' } });
+    appendHeadCell(row, 'th-group', 'Moy Annuel', { style: { color: '#25436B', minWidth: '84px' } });
+    appendHeadCell(row, 'th-group', 'Moy Annuel (80%)', { style: { color: '#25436B', minWidth: '102px' } });
+    tableHead.appendChild(row);
+  }
+
+  function parseMatieresFromResult(resultObj) {
+    var result = resultObj || {};
+    return (Array.isArray(result.matieres) ? result.matieres : []).map(function (matiere) {
+      var coef = matiere && matiere.coef ? matiere.coef : {};
+      var moyenne = matiere && matiere.moyenne ? matiere.moyenne : {};
+      return {
+        abrev: matiere && matiere.abrev != null ? matiere.abrev : '',
+        libelle: matiere && matiere.libelle != null ? matiere.libelle : '',
+        coefS1: coef.S1,
+        coefS2: coef.S2,
+        moyS1: moyenne.S1,
+        moyS180: moyenne.S1_80pct,
+        moyS2: moyenne.S2,
+        moyS280: moyenne.S2_80pct,
+        moyAnnuel: moyenne.annuel,
+        moyAnnuel80: moyenne.annuel_80pct,
+      };
+    });
+  }
+
+  function renderTableDeMatieresRows(result, pageStatus) {
+    var matieres = parseMatieresFromResult(result);
+
+    renderTableDeMatieresHeader();
+    tableBody.innerHTML = '';
+
+    if (pageExtractionInfo) {
+      pageExtractionInfo.textContent = 'Extraction type: table_de_matieres | Page status: ' + pageStatus + ' | Matieres found: ' + matieres.length;
+    }
+
+    if (!matieres.length) {
+      var emptyRow = document.createElement('tr');
+      var emptyCell = document.createElement('td');
+      emptyCell.colSpan = 10;
+      emptyCell.textContent = 'No matieres found for this table_de_matieres page.';
+      emptyCell.style.textAlign = 'center';
+      emptyCell.style.padding = '16px';
+      emptyRow.appendChild(emptyCell);
+      tableBody.appendChild(emptyRow);
+      return;
+    }
+
+    matieres.forEach(function (matiere, index) {
+      var row = document.createElement('tr');
+      row.dataset.matiereIndex = String(index);
+      row.appendChild(createEditableCell(matiere.abrev, 'matiere_abrev', 'cell-matiere-abrev'));
+      row.appendChild(createEditableCell(matiere.libelle, 'matiere_libelle', 'cell-matiere-libelle'));
+      row.appendChild(createEditableCell(formatAcademicValue(matiere.coefS1, 2), 'matiere_coef_s1'));
+      row.appendChild(createEditableCell(formatAcademicValue(matiere.coefS2, 2), 'matiere_coef_s2'));
+      row.appendChild(createEditableCell(formatAcademicValue(matiere.moyS1, 2), 'matiere_moy_s1'));
+      row.appendChild(createEditableCell(formatAcademicValue(matiere.moyS180, 2), 'matiere_moy_s1_80'));
+      row.appendChild(createEditableCell(formatAcademicValue(matiere.moyS2, 2), 'matiere_moy_s2'));
+      row.appendChild(createEditableCell(formatAcademicValue(matiere.moyS280, 2), 'matiere_moy_s2_80'));
+      row.appendChild(createEditableCell(formatAcademicValue(matiere.moyAnnuel, 2), 'matiere_moy_annuel'));
+      row.appendChild(createEditableCell(formatAcademicValue(matiere.moyAnnuel80, 2), 'matiere_moy_annuel_80'));
+      tableBody.appendChild(row);
+    });
+  }
+
   function getTableColumnCount(moduleCount) {
     return 12 + Number(moduleCount || 0);
   }
@@ -776,6 +963,16 @@
   }
 
   async function validateStudentNameRows() {
+    var page = getCurrentPage();
+    var pageType = getPageType(page);
+    if (pageType === 'table_de_matieres') {
+      var matieresBox = ensureNameValidationBox();
+      if (matieresBox) {
+        matieresBox.style.display = 'none';
+      }
+      return { invalidRows: 0, totalRows: 0 };
+    }
+
     var rows = Array.prototype.slice.call(tableBody.querySelectorAll('tr[data-student-index][data-sem="S1"]'));
     if (!rows.length) {
       var noRowsBox = ensureNameValidationBox();
@@ -862,6 +1059,19 @@
   function renderStudentsTable() {
     var page = getCurrentPage();
     var result = page && page.result ? page.result : {};
+    var pageType = String(result.type || 'unknown');
+    var pageStatus = page && page.status ? String(page.status) : 'unknown';
+
+    if (pageType === 'table_de_matieres') {
+      renderTableDeMatieresRows(result, pageStatus);
+      closeActiveSuggestionDropdown();
+      var tableMatieresBox = ensureNameValidationBox();
+      if (tableMatieresBox) {
+        tableMatieresBox.style.display = 'none';
+      }
+      return;
+    }
+
     var students = parseStudentsFromResult(result);
     var moduleDefs = getPageModuleDefinitions(result, students);
     var moduleCount = moduleDefs.length;
@@ -869,8 +1079,6 @@
       return /^Module\s+\d+$/i.test(String(def.label || '').trim());
     }).length;
     var totalColumns = getTableColumnCount(moduleCount);
-    var pageType = String(result.type || 'unknown');
-    var pageStatus = page && page.status ? String(page.status) : 'unknown';
 
     renderTableHeader(moduleDefs);
     tableBody.innerHTML = '';
@@ -1140,30 +1348,91 @@
     });
   }
 
+  function collectMatieresFromTable() {
+    var rows = tableBody.querySelectorAll('tr[data-matiere-index]');
+
+    return Array.prototype.slice.call(rows).map(function (row) {
+      function getCellValue(field) {
+        var cell = row.querySelector('td[data-field="' + field + '"]');
+        return cell ? cell.textContent.trim() : '';
+      }
+
+      function toNumberOrNull(value) {
+        if (value == null || value === '') {
+          return null;
+        }
+        var normalized = String(value).replace(',', '.');
+        var num = Number(normalized);
+        return Number.isFinite(num) ? num : null;
+      }
+
+      return {
+        abrev: getCellValue('matiere_abrev'),
+        libelle: getCellValue('matiere_libelle'),
+        coef: {
+          S1: toNumberOrNull(getCellValue('matiere_coef_s1')),
+          S2: toNumberOrNull(getCellValue('matiere_coef_s2')),
+        },
+        moyenne: {
+          S1: toNumberOrNull(getCellValue('matiere_moy_s1')),
+          S1_80pct: toNumberOrNull(getCellValue('matiere_moy_s1_80')),
+          S2: toNumberOrNull(getCellValue('matiere_moy_s2')),
+          S2_80pct: toNumberOrNull(getCellValue('matiere_moy_s2_80')),
+          annuel: toNumberOrNull(getCellValue('matiere_moy_annuel')),
+          annuel_80pct: toNumberOrNull(getCellValue('matiere_moy_annuel_80')),
+        },
+      };
+    }).filter(function (matiere) {
+      return matiere.abrev || matiere.libelle;
+    });
+  }
+
+  function saveCurrentRecordLocally() {
+    writeLocalRecords(records);
+  }
+
   async function saveValidatedStudents() {
     var nameCheck = await validateStudentNameRows();
     if (nameCheck.invalidRows > 0) {
-      alert('Impossible de sauvegarder: ' + nameCheck.invalidRows + ' etudiant(s) ont un nom/prenom introuvable en BDD. Corrigez-les via les suggestions.');
+      var proceed = confirm(
+        nameCheck.invalidRows + ' etudiant(s) ont un nom/prenom introuvable en BDD.\n' +
+        'Voulez-vous enregistrer les changements quand meme ?'
+      );
+      if (!proceed) {
+        return;
+      }
+    }
+
+    var page = getCurrentPage();
+    if (!page || !page.result) {
+      alert('No current page selected.');
+      return;
+    }
+
+    var result = page.result;
+    result.annee = metaYear.textContent.trim() || result.annee || null;
+    result.anneeEtude = metaLevel.textContent.trim() || result.anneeEtude || null;
+    result.section = metaSpec.textContent.trim() || result.section || null;
+
+    if (String(result.type || '') === 'table_de_matieres') {
+      result.matieres = collectMatieresFromTable();
+      alert('Changes saved locally for table_de_matieres page.');
+      saveCurrentRecordLocally();
       return;
     }
 
     var students = collectStudentsFromTable();
     if (!students.length) {
-      alert('No valid student rows to save.');
-      return;
+      var emptyProceed = confirm('No valid student rows found. Save metadata changes only?');
+      if (!emptyProceed) {
+        return;
+      }
+    } else {
+      result.students = students;
     }
 
-    var payload = {
-      annee_univ: metaYear.textContent.trim() || null,
-      students: students,
-    };
-
-    try {
-      var result = await api.saveVerifiedStudents(payload);
-      alert('Saved: ' + Number(result.saved_count || 0) + ' | Failed: ' + Number(result.failed_count || 0));
-    } catch (err) {
-      alert((err && err.message) || 'Failed to save validated students.');
-    }
+    alert('Changes saved locally. No database write was performed.');
+    saveCurrentRecordLocally();
   }
 
   function changePage(dir) {
@@ -1273,6 +1542,7 @@
     setupActions();
     setupQueueScroll();
     await loadRecords();
+    applyRecordSelectionFromQuery();
     renderQueue();
   }
 

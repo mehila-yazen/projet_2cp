@@ -101,6 +101,22 @@
     return this._request('/extract/progress/' + encodeURIComponent(operationId));
   };
 
+  ApiClient.prototype.cancelExtraction = async function (operationId) {
+    return this._request('/extract/cancel/' + encodeURIComponent(operationId), {
+      method: 'POST',
+    });
+  };
+
+  ApiClient.prototype.reprocessExtraction = async function (payload) {
+    return this._request('/extract/reprocess', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload || {}),
+    });
+  };
+
   ApiClient.prototype.saveVerifiedStudents = async function (payload) {
     return this._request('/verify/students/save', {
       method: 'POST',
