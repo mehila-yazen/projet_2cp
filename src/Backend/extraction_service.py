@@ -72,6 +72,15 @@ If a column header does not match a known subject abbreviation (MAT, FOR, FBR, P
 GES, ANG, STR, DEC, STH, IST, STA, CBB, ASS, STK, FIP, ANA, FIC, etc.), 
 do NOT include it as a module. Place it in `metadata` instead.
 
+### In Case of Structure 5  - Table de Matieres:
+If the column of coef S1 or coef S2 has nothing in it , it means you should give that coef the null value .
+If the coef of s1 is null then moyenne.S1 and moyenne.S1_80pct for that module must be null , don't shift the values. 
+Same thing for the case where coef S2 is null
+
+### Rule for multiple students and single student tables :
+If the student's anual average "general moyenne , moyenne annuel" is greater than or equal to 10.00 then if you can't find decision "decisionFinaleDuConseil ,decisionDeJuin , summary.decision " give them the value "admis" .
+Else if you can't find "decisionFinaleDuConseil ,decisionDeJuin , summary.decision " and "general moyenne , moyenne annuel" is strictly less than 10.00 , give them the value "non_admis" .
+
 ---
 
 ## STRUCTURE 1 — Cover page:
@@ -80,7 +89,7 @@ Used when the page is a cover/title page with a section code and no student grad
     "type": "cover",
     "sectionCode": "...",
     "annee": "...",
-    "anneeEtude": "ttttt...",
+    "anneeEtude": "...",
     "section": "...",
     "option": "...",
     "institution": "...",
@@ -141,7 +150,8 @@ Used when the page contains named lists of admitted or eliminated students (not 
         "semestre2_rang": number|null,
         "general_moyenne": number|null,
         "general_rang": number|null,
-        "observation": string|null
+        "observation": string|null,
+        "decision": string|null
     },
     "error": string|null
 }

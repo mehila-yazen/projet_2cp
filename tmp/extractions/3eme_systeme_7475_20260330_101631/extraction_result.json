@@ -1,0 +1,1210 @@
+{
+  "file_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\uploads\\batch_20260330_101631_71459acb\\12d84aa9a4ee\\3eme_systeme_7475.pdf",
+  "run_dir": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\3eme_systeme_7475_20260330_101631",
+  "pages_dir": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\3eme_systeme_7475_20260330_101631\\pages",
+  "total_pages": 12,
+  "ok_pages": 12,
+  "failed_pages": 0,
+  "pages": [
+    {
+      "page_number": 1,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\3eme_systeme_7475_20260330_101631\\pages\\page_0001.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "3I3U",
+      "result": {
+        "type": "single_student",
+        "sectionCode": null,
+        "student": {
+          "name": "EL FARTAS ABDERRAHIM",
+          "group": "35",
+          "section": "3EME ANNEE SYSTEME",
+          "year": "1974/75",
+          "matricule": null,
+          "moyenneAnterieur": 11.07
+        },
+        "modules": [
+          {
+            "name": "ANGLAIS",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "STRUC-MACHINE",
+            "coef_s1": 2.0,
+            "note_s1": 15.5,
+            "coef_s2": 2.0,
+            "note_s2": 11.75
+          },
+          {
+            "name": "MATH",
+            "coef_s1": 2.0,
+            "note_s1": 16.0,
+            "coef_s2": 2.0,
+            "note_s2": 12.0
+          },
+          {
+            "name": "STAT",
+            "coef_s1": 2.0,
+            "note_s1": 8.5,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "SYSTEME",
+            "coef_s1": 3.0,
+            "note_s1": 12.25,
+            "coef_s2": 3.0,
+            "note_s2": 13.0
+          },
+          {
+            "name": "EXPOSE",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 12.5
+          },
+          {
+            "name": "R-B",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 8.0
+          },
+          {
+            "name": "COMPILATION",
+            "coef_s1": 3.0,
+            "note_s1": 14.5,
+            "coef_s2": 3.0,
+            "note_s2": 8.75
+          },
+          {
+            "name": "STRUC-DONNEES",
+            "coef_s1": 2.0,
+            "note_s1": 13.0,
+            "coef_s2": 2.0,
+            "note_s2": 12.33
+          }
+        ],
+        "notesConcours": {
+          "mathematique": null,
+          "cultureGenerale": null,
+          "testPsychologique": null
+        },
+        "summary": {
+          "semestre1_moyenne": 12.45,
+          "semestre1_rang": 4,
+          "semestre2_moyenne": 11.15,
+          "semestre2_rang": 7,
+          "general_moyenne": 11.8,
+          "general_rang": 4,
+          "observation": null
+        },
+        "error": null
+      },
+      "error": null
+    },
+    {
+      "page_number": 2,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\3eme_systeme_7475_20260330_101631\\pages\\page_0002.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "SupU",
+      "result": {
+        "type": "single_student",
+        "sectionCode": null,
+        "student": {
+          "name": "BOUZEFRANE REZKI",
+          "group": "35",
+          "section": "3EME ANNEE SYSTEME",
+          "year": "1974/75",
+          "matricule": null,
+          "moyenneAnterieur": 12.29
+        },
+        "modules": [
+          {
+            "name": "ANGLAIS",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "STRUC-MACHINE",
+            "coef_s1": 2.0,
+            "note_s1": 17.5,
+            "coef_s2": 2.0,
+            "note_s2": 10.0
+          },
+          {
+            "name": "MATH",
+            "coef_s1": 2.0,
+            "note_s1": 12.0,
+            "coef_s2": 2.0,
+            "note_s2": 12.0
+          },
+          {
+            "name": "STAT",
+            "coef_s1": 2.0,
+            "note_s1": 11.75,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "SYSTEME",
+            "coef_s1": 3.0,
+            "note_s1": 9.5,
+            "coef_s2": 3.0,
+            "note_s2": 9.4
+          },
+          {
+            "name": "EXPOSE",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 12.0
+          },
+          {
+            "name": "R-8",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 10.0
+          },
+          {
+            "name": "COMPILATION",
+            "coef_s1": 3.0,
+            "note_s1": 12.0,
+            "coef_s2": 3.0,
+            "note_s2": 13.5
+          },
+          {
+            "name": "STRUC-DONNEES",
+            "coef_s1": 2.0,
+            "note_s1": 10.0,
+            "coef_s2": 2.0,
+            "note_s2": 11.67
+          }
+        ],
+        "notesConcours": {
+          "mathematique": null,
+          "cultureGenerale": null,
+          "testPsychologique": null
+        },
+        "summary": {
+          "semestre1_moyenne": 11.93,
+          "semestre1_rang": 6,
+          "semestre2_moyenne": 11.25,
+          "semestre2_rang": 5,
+          "general_moyenne": 11.59,
+          "general_rang": 6,
+          "observation": null
+        },
+        "error": null
+      },
+      "error": null
+    },
+    {
+      "page_number": 3,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\3eme_systeme_7475_20260330_101631\\pages\\page_0003.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "vicw",
+      "result": {
+        "type": "single_student",
+        "sectionCode": null,
+        "student": {
+          "name": "SOUZEFRANE REZKI",
+          "group": "35",
+          "section": "3EME ANNEE SYSTEME",
+          "year": "1974/75",
+          "matricule": null,
+          "moyenneAnterieur": 12.29
+        },
+        "modules": [
+          {
+            "name": "ANGLAIS",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "STRUC-MACHINE",
+            "coef_s1": 2.0,
+            "note_s1": 17.5,
+            "coef_s2": 2.0,
+            "note_s2": 10.0
+          },
+          {
+            "name": "MATH",
+            "coef_s1": 2.0,
+            "note_s1": 12.0,
+            "coef_s2": 2.0,
+            "note_s2": 12.0
+          },
+          {
+            "name": "STAT",
+            "coef_s1": 2.0,
+            "note_s1": 11.75,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "SYSTEME",
+            "coef_s1": 3.0,
+            "note_s1": 9.5,
+            "coef_s2": 3.0,
+            "note_s2": 9.4
+          },
+          {
+            "name": "EXPOSE",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 12.0
+          },
+          {
+            "name": "R-G",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 10.0
+          },
+          {
+            "name": "COMPILATION",
+            "coef_s1": 3.0,
+            "note_s1": 12.0,
+            "coef_s2": 3.0,
+            "note_s2": 13.5
+          },
+          {
+            "name": "STRUC-DONNEES",
+            "coef_s1": 2.0,
+            "note_s1": 10.0,
+            "coef_s2": 2.0,
+            "note_s2": 11.67
+          }
+        ],
+        "notesConcours": {
+          "mathematique": null,
+          "cultureGenerale": null,
+          "testPsychologique": null
+        },
+        "summary": {
+          "semestre1_moyenne": 11.93,
+          "semestre1_rang": 6,
+          "semestre2_moyenne": 11.25,
+          "semestre2_rang": 5,
+          "general_moyenne": 11.59,
+          "general_rang": 6,
+          "observation": null
+        },
+        "error": null
+      },
+      "error": null
+    },
+    {
+      "page_number": 4,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\3eme_systeme_7475_20260330_101631\\pages\\page_0004.png",
+      "status": "ok",
+      "attempt": 2,
+      "api_key_suffix": "m79o",
+      "result": {
+        "type": "single_student",
+        "sectionCode": null,
+        "student": {
+          "name": "BBOURQKBA ABDELKADER",
+          "group": "95",
+          "section": "3EME ANNEE SYSTEME",
+          "year": "1974/75",
+          "matricule": null,
+          "moyenneAnterieur": 11.59
+        },
+        "modules": [
+          {
+            "name": "ANGLAIS",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "STRUC-MACHINE",
+            "coef_s1": 2.0,
+            "note_s1": 17.0,
+            "coef_s2": 2.0,
+            "note_s2": 10.75
+          },
+          {
+            "name": "MATH",
+            "coef_s1": 2.0,
+            "note_s1": 11.5,
+            "coef_s2": 2.0,
+            "note_s2": 15.0
+          },
+          {
+            "name": "STAT",
+            "coef_s1": 2.0,
+            "note_s1": 16.5,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "SYSTEME",
+            "coef_s1": 3.0,
+            "note_s1": 11.5,
+            "coef_s2": 3.0,
+            "note_s2": 9.2
+          },
+          {
+            "name": "EXPOSE",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 15.0
+          },
+          {
+            "name": "R-B",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 8.0
+          },
+          {
+            "name": "COMPILATION",
+            "coef_s1": 3.0,
+            "note_s1": 9.0,
+            "coef_s2": 3.0,
+            "note_s2": 8.75
+          },
+          {
+            "name": "STRUC-DONNEES",
+            "coef_s1": 2.0,
+            "note_s1": 16.0,
+            "coef_s2": 2.0,
+            "note_s2": 12.33
+          }
+        ],
+        "notesConcours": {
+          "mathematique": null,
+          "cultureGenerale": null,
+          "testPsychologique": null
+        },
+        "summary": {
+          "semestre1_moyenne": 11.39,
+          "semestre1_rang": 8,
+          "semestre2_moyenne": 11.0,
+          "semestre2_rang": 8,
+          "general_moyenne": 11.19,
+          "general_rang": 9,
+          "observation": null
+        },
+        "error": null
+      },
+      "error": null
+    },
+    {
+      "page_number": 5,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\3eme_systeme_7475_20260330_101631\\pages\\page_0005.png",
+      "status": "ok",
+      "attempt": 2,
+      "api_key_suffix": "ZT-g",
+      "result": {
+        "type": "single_student",
+        "sectionCode": null,
+        "student": {
+          "name": "BOUNAB SAID",
+          "group": "35",
+          "section": "3EME ANNEE SYSTEME",
+          "year": "1974/75",
+          "matricule": null,
+          "moyenneAnterieur": 10.88
+        },
+        "modules": [
+          {
+            "name": "ANGLAIS",
+            "coef_s1": 1.0,
+            "note_s1": null,
+            "coef_s2": 1.0,
+            "note_s2": null
+          },
+          {
+            "name": "STRUC-MACHINE",
+            "coef_s1": 2.0,
+            "note_s1": 16.5,
+            "coef_s2": 2.0,
+            "note_s2": 12.5
+          },
+          {
+            "name": "MATH",
+            "coef_s1": 2.0,
+            "note_s1": 9.5,
+            "coef_s2": 2.0,
+            "note_s2": 7.5
+          },
+          {
+            "name": "STAT",
+            "coef_s1": 2.0,
+            "note_s1": 5.25,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "SYSTEME",
+            "coef_s1": 3.0,
+            "note_s1": 9.5,
+            "coef_s2": 3.0,
+            "note_s2": 8.0
+          },
+          {
+            "name": "EXPOSE",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 12.0
+          },
+          {
+            "name": "R-B",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 8.0
+          },
+          {
+            "name": "COMPILATION",
+            "coef_s1": 3.0,
+            "note_s1": 9.0,
+            "coef_s2": 3.0,
+            "note_s2": 9.0
+          },
+          {
+            "name": "STRUC-DONNEES",
+            "coef_s1": 2.0,
+            "note_s1": 11.0,
+            "coef_s2": 2.0,
+            "note_s2": 12.33
+          }
+        ],
+        "notesConcours": {
+          "mathematique": null,
+          "cultureGenerale": null,
+          "testPsychologique": null
+        },
+        "summary": {
+          "semestre1_moyenne": 10.0,
+          "semestre1_rang": 11,
+          "semestre2_moyenne": 9.73,
+          "semestre2_rang": 11,
+          "general_moyenne": 9.86,
+          "general_rang": 11,
+          "observation": null
+        },
+        "error": null
+      },
+      "error": null
+    },
+    {
+      "page_number": 6,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\3eme_systeme_7475_20260330_101631\\pages\\page_0006.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "3I3U",
+      "result": {
+        "type": "single_student",
+        "sectionCode": null,
+        "student": {
+          "name": "SEFSAF BELKACEM",
+          "group": "35",
+          "section": "3EME ANNEE SYSTEME",
+          "year": "1974/75",
+          "matricule": null,
+          "moyenneAnterieur": 14.2
+        },
+        "modules": [
+          {
+            "name": "ANGLAIS",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "STRUC-MACHINE",
+            "coef_s1": 2.0,
+            "note_s1": 18.0,
+            "coef_s2": 2.0,
+            "note_s2": 15.25
+          },
+          {
+            "name": "MATH",
+            "coef_s1": 2.0,
+            "note_s1": 14.5,
+            "coef_s2": 2.0,
+            "note_s2": 12.5
+          },
+          {
+            "name": "STAT",
+            "coef_s1": 2.0,
+            "note_s1": 9.75,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "SYSTEME",
+            "coef_s1": 3.0,
+            "note_s1": 14.0,
+            "coef_s2": 3.0,
+            "note_s2": 10.8
+          },
+          {
+            "name": "EXPOSE",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 15.0
+          },
+          {
+            "name": "R-6",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 10.0
+          },
+          {
+            "name": "COMPILATION",
+            "coef_s1": 3.0,
+            "note_s1": 12.0,
+            "coef_s2": 3.0,
+            "note_s2": 13.5
+          },
+          {
+            "name": "STRUC-DONNEES",
+            "coef_s1": 2.0,
+            "note_s1": 13.0,
+            "coef_s2": 2.0,
+            "note_s2": 14.33
+          }
+        ],
+        "notesConcours": {
+          "mathematique": null,
+          "cultureGenerale": null,
+          "testPsychologique": null
+        },
+        "summary": {
+          "semestre1_moyenne": 13.46,
+          "semestre1_rang": 1,
+          "semestre2_moyenne": 12.94,
+          "semestre2_rang": 2,
+          "general_moyenne": 13.2,
+          "general_rang": 1,
+          "observation": null
+        },
+        "error": null
+      },
+      "error": null
+    },
+    {
+      "page_number": 7,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\3eme_systeme_7475_20260330_101631\\pages\\page_0007.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "SupU",
+      "result": {
+        "type": "single_student",
+        "sectionCode": null,
+        "student": {
+          "name": "SUAR WAHIBA",
+          "group": "35",
+          "section": "3EME ANNEE SYSTEME",
+          "year": "1974/75",
+          "matricule": null,
+          "moyenneAnterieur": 12.36
+        },
+        "modules": [
+          {
+            "name": "ANGLAIS",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "STRUC-MACHINE",
+            "coef_s1": 2.0,
+            "note_s1": 16.5,
+            "coef_s2": 2.0,
+            "note_s2": 11.0
+          },
+          {
+            "name": "MATH",
+            "coef_s1": 2.0,
+            "note_s1": 12.0,
+            "coef_s2": 2.0,
+            "note_s2": 11.0
+          },
+          {
+            "name": "STAT",
+            "coef_s1": 2.0,
+            "note_s1": 7.25,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "SYSTEME",
+            "coef_s1": 3.0,
+            "note_s1": 11.0,
+            "coef_s2": 3.0,
+            "note_s2": 12.4
+          },
+          {
+            "name": "EXPOSE",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 11.0
+          },
+          {
+            "name": "R-B",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 12.0
+          },
+          {
+            "name": "COMPILATION",
+            "coef_s1": 3.0,
+            "note_s1": 13.5,
+            "coef_s2": 3.0,
+            "note_s2": 12.5
+          },
+          {
+            "name": "STRUC-DONNEES",
+            "coef_s1": 2.0,
+            "note_s1": 13.5,
+            "coef_s2": 2.0,
+            "note_s2": 14.67
+          }
+        ],
+        "notesConcours": {
+          "mathematique": null,
+          "cultureGenerale": null,
+          "testPsychologique": null
+        },
+        "summary": {
+          "semestre1_moyenne": 12.29,
+          "semestre1_rang": 5,
+          "semestre2_moyenne": 12.13,
+          "semestre2_rang": 3,
+          "general_moyenne": 12.21,
+          "general_rang": 3,
+          "observation": null
+        },
+        "error": null
+      },
+      "error": null
+    },
+    {
+      "page_number": 8,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\3eme_systeme_7475_20260330_101631\\pages\\page_0008.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "vicw",
+      "result": {
+        "type": "single_student",
+        "sectionCode": null,
+        "student": {
+          "name": "MAHIEDDINE BOUMEDIENE",
+          "group": "35",
+          "section": "3EME ANNEE SYSTEME",
+          "year": "1974/75",
+          "matricule": null,
+          "moyenneAnterieur": 12.46
+        },
+        "modules": [
+          {
+            "name": "ANGLAIS",
+            "coef_s1": 1.0,
+            "note_s1": null,
+            "coef_s2": 1.0,
+            "note_s2": null
+          },
+          {
+            "name": "STRUC-MACHINE",
+            "coef_s1": 2.0,
+            "note_s1": 18.5,
+            "coef_s2": 2.0,
+            "note_s2": 12.5
+          },
+          {
+            "name": "MATH",
+            "coef_s1": 2.0,
+            "note_s1": 11.5,
+            "coef_s2": 2.0,
+            "note_s2": 11.5
+          },
+          {
+            "name": "STAT",
+            "coef_s1": 2.0,
+            "note_s1": 9.75,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "SYSTEME",
+            "coef_s1": 3.0,
+            "note_s1": 12.0,
+            "coef_s2": 3.0,
+            "note_s2": 10.2
+          },
+          {
+            "name": "EXPOSE",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 15.0
+          },
+          {
+            "name": "R-B",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 8.0
+          },
+          {
+            "name": "COMPILATION",
+            "coef_s1": 3.0,
+            "note_s1": 11.0,
+            "coef_s2": 3.0,
+            "note_s2": 9.5
+          },
+          {
+            "name": "STRUC-DONNEES",
+            "coef_s1": 2.0,
+            "note_s1": 8.0,
+            "coef_s2": 2.0,
+            "note_s2": 13.33
+          }
+        ],
+        "notesConcours": {
+          "mathematique": null,
+          "cultureGenerale": null,
+          "testPsychologique": null
+        },
+        "summary": {
+          "semestre1_moyenne": 11.75,
+          "semestre1_rang": 7,
+          "semestre2_moyenne": 11.24,
+          "semestre2_rang": 6,
+          "general_moyenne": 11.49,
+          "general_rang": 7,
+          "observation": null
+        },
+        "error": null
+      },
+      "error": null
+    },
+    {
+      "page_number": 9,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\3eme_systeme_7475_20260330_101631\\pages\\page_0009.png",
+      "status": "ok",
+      "attempt": 2,
+      "api_key_suffix": "m79o",
+      "result": {
+        "type": "single_student",
+        "sectionCode": null,
+        "student": {
+          "name": "MADDI ABMAR",
+          "group": "25",
+          "section": "3EME ANNEE SYSTEME",
+          "year": "1974/75",
+          "matricule": null,
+          "moyenneAnterieur": 10.96
+        },
+        "modules": [
+          {
+            "name": "ANGLAIS",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "STRUC-MACHINE",
+            "coef_s1": 2.0,
+            "note_s1": 17.0,
+            "coef_s2": 2.0,
+            "note_s2": 13.25
+          },
+          {
+            "name": "MATH",
+            "coef_s1": 2.0,
+            "note_s1": 9.5,
+            "coef_s2": 2.0,
+            "note_s2": 13.5
+          },
+          {
+            "name": "STAT",
+            "coef_s1": 2.0,
+            "note_s1": 7.0,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "SYSTEME",
+            "coef_s1": 3.0,
+            "note_s1": 11.5,
+            "coef_s2": 3.0,
+            "note_s2": 9.8
+          },
+          {
+            "name": "EXPOSE",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 12.5
+          },
+          {
+            "name": "R-B",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 8.0
+          },
+          {
+            "name": "COMPILATION",
+            "coef_s1": 3.0,
+            "note_s1": 9.5,
+            "coef_s2": 3.0,
+            "note_s2": 9.0
+          },
+          {
+            "name": "STRUC-DONNEES",
+            "coef_s1": 2.0,
+            "note_s1": 11.0,
+            "coef_s2": 2.0,
+            "note_s2": 12.0
+          }
+        ],
+        "notesConcours": {
+          "mathematique": null,
+          "cultureGenerale": null,
+          "testPsychologique": null
+        },
+        "summary": {
+          "semestre1_moyenne": 10.86,
+          "semestre1_rang": 10,
+          "semestre2_moyenne": 10.93,
+          "semestre2_rang": 9,
+          "general_moyenne": 10.89,
+          "general_rang": 10,
+          "observation": null
+        },
+        "error": null
+      },
+      "error": null
+    },
+    {
+      "page_number": 10,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\3eme_systeme_7475_20260330_101631\\pages\\page_0010.png",
+      "status": "ok",
+      "attempt": 2,
+      "api_key_suffix": "ZT-g",
+      "result": {
+        "type": "single_student",
+        "sectionCode": null,
+        "student": {
+          "name": "KADA ATHMANE",
+          "group": "35",
+          "section": "3EME ANNEE SYSTEME",
+          "year": "1974/75",
+          "matricule": null,
+          "moyenneAnterieur": 11.18
+        },
+        "modules": [
+          {
+            "name": "ANGLAIS",
+            "coef_s1": 1.0,
+            "note_s1": null,
+            "coef_s2": 1.0,
+            "note_s2": null
+          },
+          {
+            "name": "STRUC-MACHINE",
+            "coef_s1": 2.0,
+            "note_s1": 19.5,
+            "coef_s2": 2.0,
+            "note_s2": 15.5
+          },
+          {
+            "name": "MATH",
+            "coef_s1": 2.0,
+            "note_s1": 12.5,
+            "coef_s2": 2.0,
+            "note_s2": 9.0
+          },
+          {
+            "name": "STAT",
+            "coef_s1": 2.0,
+            "note_s1": 12.25,
+            "coef_s2": 1.0,
+            "note_s2": null
+          },
+          {
+            "name": "SYSTEME",
+            "coef_s1": 3.0,
+            "note_s1": 12.0,
+            "coef_s2": 3.0,
+            "note_s2": 9.8
+          },
+          {
+            "name": "EXPOSE",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 15.0
+          },
+          {
+            "name": "R-B",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 8.0
+          },
+          {
+            "name": "COMPILATION",
+            "coef_s1": 3.0,
+            "note_s1": 11.0,
+            "coef_s2": 3.0,
+            "note_s2": 8.0
+          },
+          {
+            "name": "STRUC-DONNEES",
+            "coef_s1": 2.0,
+            "note_s1": 11.0,
+            "coef_s2": 2.0,
+            "note_s2": 12.0
+          }
+        ],
+        "notesConcours": {
+          "mathematique": null,
+          "cultureGenerale": null,
+          "testPsychologique": null
+        },
+        "summary": {
+          "semestre1_moyenne": 12.82,
+          "semestre1_rang": 3,
+          "semestre2_moyenne": 10.78,
+          "semestre2_rang": 10,
+          "general_moyenne": 11.8,
+          "general_rang": 4,
+          "observation": null
+        },
+        "error": null
+      },
+      "error": null
+    },
+    {
+      "page_number": 11,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\3eme_systeme_7475_20260330_101631\\pages\\page_0011.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "3I3U",
+      "result": {
+        "type": "single_student",
+        "sectionCode": null,
+        "student": {
+          "name": "IMFKRAZ ABDELKADER",
+          "group": "35",
+          "section": "SYSTEME",
+          "year": "3EME ANNEE",
+          "matricule": null,
+          "moyenneAnterieur": 11.29
+        },
+        "modules": [
+          {
+            "name": "ANGLAIS",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "STRUC-MACHINE",
+            "coef_s1": 2.0,
+            "note_s1": 16.0,
+            "coef_s2": 2.0,
+            "note_s2": 12.5
+          },
+          {
+            "name": "MATH",
+            "coef_s1": 2.0,
+            "note_s1": 16.5,
+            "coef_s2": 2.0,
+            "note_s2": 11.0
+          },
+          {
+            "name": "STAT",
+            "coef_s1": 2.0,
+            "note_s1": 6.25,
+            "coef_s2": null,
+            "note_s2": null
+          },
+          {
+            "name": "SYSTEME",
+            "coef_s1": 3.0,
+            "note_s1": 11.5,
+            "coef_s2": 3.0,
+            "note_s2": 10.6
+          },
+          {
+            "name": "EXPOSE",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 15.0
+          },
+          {
+            "name": "R-B",
+            "coef_s1": null,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 10.0
+          },
+          {
+            "name": "COMPILATION",
+            "coef_s1": 3.0,
+            "note_s1": 12.0,
+            "coef_s2": 3.0,
+            "note_s2": 10.5
+          },
+          {
+            "name": "STRUC-DONNEES",
+            "coef_s1": 2.0,
+            "note_s1": 16.0,
+            "coef_s2": 2.0,
+            "note_s2": 13.67
+          }
+        ],
+        "notesConcours": {
+          "mathematique": null,
+          "cultureGenerale": null,
+          "testPsychologique": null
+        },
+        "summary": {
+          "semestre1_moyenne": 11.0,
+          "semestre1_rang": 9,
+          "semestre2_moyenne": 11.73,
+          "semestre2_rang": 4,
+          "general_moyenne": 11.36,
+          "general_rang": 8,
+          "observation": null
+        },
+        "error": null
+      },
+      "error": null
+    },
+    {
+      "page_number": 12,
+      "image_path": "C:\\Users\\dell\\Desktop\\GitHub\\Projet\\tmp\\extractions\\3eme_systeme_7475_20260330_101631\\pages\\page_0012.png",
+      "status": "ok",
+      "attempt": 1,
+      "api_key_suffix": "SupU",
+      "result": {
+        "type": "single_student",
+        "sectionCode": null,
+        "student": {
+          "name": "HECHCHAD MOHAMED",
+          "group": "35",
+          "section": "3EME ANNEE SYSTEME",
+          "year": "1974/75",
+          "matricule": null,
+          "moyenneAnterieur": 0.0
+        },
+        "modules": [
+          {
+            "name": "ANGLAIS",
+            "coef_s1": 1.0,
+            "note_s1": null,
+            "coef_s2": 1.0,
+            "note_s2": null
+          },
+          {
+            "name": "STRUC-MACHINE",
+            "coef_s1": 2.0,
+            "note_s1": 17.5,
+            "coef_s2": 2.0,
+            "note_s2": 15.5
+          },
+          {
+            "name": "MATH",
+            "coef_s1": 2.0,
+            "note_s1": 13.0,
+            "coef_s2": 2.0,
+            "note_s2": 11.0
+          },
+          {
+            "name": "STAT",
+            "coef_s1": 2.0,
+            "note_s1": 12.25,
+            "coef_s2": 1.0,
+            "note_s2": null
+          },
+          {
+            "name": "SYSTEME",
+            "coef_s1": 3.0,
+            "note_s1": 13.0,
+            "coef_s2": 3.0,
+            "note_s2": 11.6
+          },
+          {
+            "name": "EXPOSE",
+            "coef_s1": 1.0,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 15.0
+          },
+          {
+            "name": "R-B",
+            "coef_s1": 1.0,
+            "note_s1": null,
+            "coef_s2": 2.0,
+            "note_s2": 12.0
+          },
+          {
+            "name": "COMPILATION",
+            "coef_s1": 3.0,
+            "note_s1": 10.5,
+            "coef_s2": 3.0,
+            "note_s2": 14.0
+          },
+          {
+            "name": "STRUC-DONNEES",
+            "coef_s1": 2.0,
+            "note_s1": 13.5,
+            "coef_s2": 2.0,
+            "note_s2": 14.0
+          }
+        ],
+        "notesConcours": {
+          "mathematique": null,
+          "cultureGenerale": null,
+          "testPsychologique": null
+        },
+        "summary": {
+          "semestre1_moyenne": 13.07,
+          "semestre1_rang": 2,
+          "semestre2_moyenne": 13.24,
+          "semestre2_rang": 1,
+          "general_moyenne": 13.15,
+          "general_rang": 2,
+          "observation": null
+        },
+        "error": null
+      },
+      "error": null
+    }
+  ]
+}

@@ -15,7 +15,7 @@
   var metaYear = document.getElementById('meta-year');
   var metaLevel = document.getElementById('meta-level');
   var metaSpec = document.getElementById('meta-spec');
-  var metaSystem = document.getElementById('meta-system');
+  var metaTitle = document.getElementById('meta-title');
   var editBtn = document.getElementById('editBtn');
   var editBtnLabel = document.getElementById('editBtnLabel');
   var editBanner = document.getElementById('editBanner');
@@ -316,6 +316,197 @@
       currentPageIndex = pages.length - 1;
     }
     return pages[currentPageIndex];
+  }
+
+  function toCleanMetaValue(value) {
+    if (value == null) {
+      return '';
+    }
+    var cleaned = String(value).trim();
+    if (/^n\/?a$/i.test(cleaned)) {
+      return '';
+    }
+    return cleaned;
+  }
+
+  function pickMetaValue(candidates) {
+    for (var i = 0; i < candidates.length; i += 1) {
+      var clean = toCleanMetaValue(candidates[i]);
+      if (clean) {
+        return clean;
+      }
+    }
+    return '';
+  }
+
+  function emptySharedMeta() {
+    return {
+      year: '',
+      level: '',
+      spec: '',
+      title: '',
+    };
+  }
+
+  function mergeMissingSharedMeta(targetMeta, sourceMeta) {
+    ['year', 'level', 'spec', 'title'].forEach(function (key) {
+      if (!toCleanMetaValue(targetMeta[key])) {
+        targetMeta[key] = toCleanMetaValue(sourceMeta[key]);
+      }
+    });
+    return targetMeta;
+  }
+
+  function extractSharedMetaFromResult(resultObj) {
+    var result = resultObj || {};
+    var student = result.student || {};
+
+    return {
+      year: pickMetaValue([
+        result.annee,
+        result.year,
+        student.year,
+      ]),
+      level: pickMetaValue([
+        result.anneeEtude,
+        result.level,
+      ]),
+      spec: pickMetaValue([
+        result.section,
+        result.option,
+        result.sectionCode,
+      ]),
+      title: pickMetaValue([
+        result.title,
+        student.section,
+        result.section,
+        result.option,
+        result.sectionCode,
+      ]),
+    };
+  }
+
+  function buildSharedMetaFromRecord(record) {
+    var pages = getSortedPages(record);
+    var groupedPages = {
+      cover: [],
+      multiple_students: [],
+      single_student: [],
+      other: [],
+    };
+
+    pages.forEach(function (page) {
+      var type = String((page && page.result && page.result.type) || '').toLowerCase();
+      if (type === 'cover' || type === 'first_cover') {
+        groupedPages.cover.push(page);
+        return;
+      }
+      if (type === 'multiple_students') {
+        groupedPages.multiple_students.push(page);
+        return;
+      }
+      if (type === 'single_student') {
+        groupedPages.single_student.push(page);
+        return;
+      }
+      groupedPages.other.push(page);
+    });
+
+    var sharedMeta = emptySharedMeta();
+    var hasCoverPages = groupedPages.cover.length > 0;
+    var priorityGroups = hasCoverPages
+      ? [groupedPages.cover]
+      : [
+        groupedPages.multiple_students,
+        groupedPages.single_student,
+        groupedPages.other,
+      ];
+
+    priorityGroups.forEach(function (group) {
+      group.forEach(function (page) {
+        mergeMissingSharedMeta(sharedMeta, extractSharedMetaFromResult(page && page.result));
+      });
+    });
+
+    return sharedMeta;
+  }
+
+  function getRecordSharedMeta(record) {
+    if (!record) {
+      return emptySharedMeta();
+    }
+
+    if (record.shared_meta && typeof record.shared_meta === 'object') {
+      return {
+        year: toCleanMetaValue(record.shared_meta.year),
+        level: toCleanMetaValue(record.shared_meta.level),
+        spec: toCleanMetaValue(record.shared_meta.spec),
+        title: toCleanMetaValue(record.shared_meta.title),
+      };
+    }
+
+    var computed = buildSharedMetaFromRecord(record);
+    record.shared_meta = computed;
+    return computed;
+  }
+
+  function collectSharedMetaFromUI() {
+    return {
+      year: toCleanMetaValue(metaYear && metaYear.textContent),
+      level: toCleanMetaValue(metaLevel && metaLevel.textContent),
+      spec: toCleanMetaValue(metaSpec && metaSpec.textContent),
+      title: toCleanMetaValue(metaTitle && metaTitle.textContent),
+    };
+  }
+
+  function setMetaElementText(el, value) {
+    if (!el) {
+      return;
+    }
+    el.textContent = value || 'N/A';
+  }
+
+  function applySharedMetaToResult(resultObj, sharedMeta) {
+    var result = resultObj || {};
+    result.annee = sharedMeta.year || null;
+    result.anneeEtude = sharedMeta.level || null;
+    result.section = sharedMeta.spec || null;
+    result.title = sharedMeta.title || null;
+  }
+
+  function applySharedMetaToRecord(record, sharedMeta) {
+    if (!record) {
+      return;
+    }
+
+    record.shared_meta = {
+      year: sharedMeta.year || '',
+      level: sharedMeta.level || '',
+      spec: sharedMeta.spec || '',
+      title: sharedMeta.title || '',
+    };
+
+    var pages = getSortedPages(record);
+    pages.forEach(function (page) {
+      if (!page) {
+        return;
+      }
+      if (!page.result || typeof page.result !== 'object') {
+        page.result = {};
+      }
+      applySharedMetaToResult(page.result, record.shared_meta);
+    });
+  }
+
+  function syncSharedMetaFromInputsToRecord() {
+    if (!editMode) {
+      return;
+    }
+    var record = getSelectedRecord();
+    if (!record) {
+      return;
+    }
+    applySharedMetaToRecord(record, collectSharedMetaFromUI());
   }
 
   function toTmpUrl(imagePath) {
@@ -822,21 +1013,13 @@
   }
 
   function renderMetadata() {
-    var page = getCurrentPage();
-    var result = page && page.result ? page.result : {};
+    var record = getSelectedRecord();
+    var sharedMeta = getRecordSharedMeta(record);
 
-    var year = result.annee || '';
-    var level = result.anneeEtude || '';
-    var spec = result.section || result.option || result.sectionCode || result.type || '';
-
-    metaYear.textContent = year || 'N/A';
-    metaLevel.textContent = level || 'N/A';
-    metaSpec.textContent = spec || 'N/A';
-
-    var systemSpan = metaSystem.querySelector('span');
-    if (systemSpan) {
-      systemSpan.textContent = 'Semester System';
-    }
+    setMetaElementText(metaYear, sharedMeta.year);
+    setMetaElementText(metaLevel, sharedMeta.level);
+    setMetaElementText(metaSpec, sharedMeta.spec);
+    setMetaElementText(metaTitle, sharedMeta.title);
   }
 
   function createEditableCell(value, field, extraClass) {
@@ -1186,7 +1369,11 @@
 
   function renderSelectedPage() {
     renderPreview();
-    renderMetadata();
+    try {
+      renderMetadata();
+    } catch (_err) {
+      // Keep the validation table visible even if metadata mapping fails.
+    }
     renderStudentsTable();
     if (editMode) {
       applyEditMode(true);
@@ -1274,7 +1461,13 @@
       cell.classList.toggle('edit-mode', enabled);
     });
 
-    [metaYear, metaLevel, metaSpec].forEach(function (el) {
+    [metaYear, metaLevel, metaSpec, metaTitle].forEach(function (el) {
+      if (!el) {
+        return;
+      }
+      if (enabled && el && toCleanMetaValue(el.textContent) === '') {
+        el.textContent = '';
+      }
       el.contentEditable = enabled ? 'true' : 'false';
       el.classList.toggle('editing', enabled);
     });
@@ -1404,15 +1597,20 @@
     }
 
     var page = getCurrentPage();
+    var record = getSelectedRecord();
     if (!page || !page.result) {
       alert('No current page selected.');
       return;
     }
 
+    if (!record) {
+      alert('No current record selected.');
+      return;
+    }
+
     var result = page.result;
-    result.annee = metaYear.textContent.trim() || result.annee || null;
-    result.anneeEtude = metaLevel.textContent.trim() || result.anneeEtude || null;
-    result.section = metaSpec.textContent.trim() || result.section || null;
+    var sharedMeta = collectSharedMetaFromUI();
+    applySharedMetaToRecord(record, sharedMeta);
 
     if (String(result.type || '') === 'table_de_matieres') {
       result.matieres = collectMatieresFromTable();
@@ -1474,6 +1672,13 @@
         alert('Document rejected. Upload a corrected scan from Digitization.');
       });
     }
+
+    [metaYear, metaLevel, metaSpec, metaTitle].forEach(function (el) {
+      if (!el) {
+        return;
+      }
+      el.addEventListener('input', syncSharedMetaFromInputsToRecord);
+    });
   }
 
   function setupQueueScroll() {
