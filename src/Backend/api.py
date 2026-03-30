@@ -4,6 +4,7 @@ import asyncio
 import json
 import logging
 import os
+import threading
 from datetime import datetime
 from datetime import date
 from pathlib import Path
@@ -16,7 +17,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy import func
 
-from src.Backend.extraction_service import extract_pdf_with_page_mapping_async
+from src.Backend.extraction_service import ExtractionCancelledError, extract_pdf_with_page_mapping_async
 from src.Database.models import Etudiant
 from src.services.database import get_session
 from src.services.fuzzy_name_service import (
@@ -51,10 +52,12 @@ def _resolve_frontend_root() -> Path | None:
 
 FRONTEND_ROOT = _resolve_frontend_root()
 EXTRACTION_REQUEST_TIMEOUT_SECONDS = int(os.getenv("EXTRACTION_REQUEST_TIMEOUT_SECONDS", "420"))
+EXTRACTION_STALE_SECONDS = int(os.getenv("EXTRACTION_STALE_SECONDS", "43200"))
 
 logger = logging.getLogger(__name__)
 
 EXTRACTION_PROGRESS_STATE: dict[str, dict[str, Any]] = {}
+EXTRACTION_CANCEL_FLAGS: dict[str, threading.Event] = {}
 
 
 app = FastAPI(title="Archive Digitization API", version="0.1.0")
@@ -142,6 +145,8 @@ def _build_batch_processing_progress(results: list[dict]) -> dict:
 
 def _upsert_operation_progress(operation_id: str, patch: dict[str, Any]) -> dict[str, Any]:
     existing = EXTRACTION_PROGRESS_STATE.get(operation_id, {"operation_id": operation_id})
+    if "started_at" not in existing:
+        existing["started_at"] = datetime.now().isoformat(timespec="seconds")
     existing.update(patch)
 
     total_pages = int(existing.get("total_pages", 0) or 0)
@@ -155,21 +160,53 @@ def _upsert_operation_progress(operation_id: str, patch: dict[str, Any]) -> dict
     existing["updated_at"] = datetime.now().isoformat(timespec="seconds")
 
     EXTRACTION_PROGRESS_STATE[operation_id] = existing
+    if _is_terminal_status(existing.get("status")):
+        EXTRACTION_CANCEL_FLAGS.pop(operation_id, None)
     return existing
 
 
 def _make_progress_callback(operation_id: str):
     def _callback(progress: dict[str, Any]) -> None:
+        current = EXTRACTION_PROGRESS_STATE.get(operation_id) or {}
+        current_status = str(current.get("status") or "").strip().lower()
+        if current_status in {"cancelled", "canceled"}:
+            return
         _upsert_operation_progress(operation_id, progress)
 
     return _callback
 
 
 def _is_terminal_status(status: str | None) -> bool:
+    return status in {"ok", "failed", "completed", "cancelled", "canceled"}
+
+
+def _should_persist_completed_result(status: str | None) -> bool:
     return status in {"ok", "failed"}
 
 
-def _find_extraction_payload_for_saved_pdf(saved_pdf: Path) -> dict | None:
+def _get_cancel_event(operation_id: str) -> threading.Event:
+    event = EXTRACTION_CANCEL_FLAGS.get(operation_id)
+    if event is None:
+        event = threading.Event()
+        EXTRACTION_CANCEL_FLAGS[operation_id] = event
+    return event
+
+
+def _cancel_requested(operation_id: str) -> bool:
+    event = EXTRACTION_CANCEL_FLAGS.get(operation_id)
+    return bool(event and event.is_set())
+
+
+def _iso_to_timestamp(value: str | None) -> float | None:
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(str(value)).timestamp()
+    except Exception:
+        return None
+
+
+def _find_extraction_payload_for_saved_pdf(saved_pdf: Path, min_mtime: float | None = None) -> dict | None:
     stem = saved_pdf.stem
     candidates = sorted(
         EXTRACTION_ROOT.glob(f"{stem}_*/extraction_result.json"),
@@ -178,6 +215,12 @@ def _find_extraction_payload_for_saved_pdf(saved_pdf: Path) -> dict | None:
     )
 
     for path in candidates[:20]:
+        if min_mtime is not None:
+            try:
+                if path.stat().st_mtime < min_mtime:
+                    continue
+            except Exception:
+                continue
         try:
             payload = json.loads(path.read_text(encoding="utf-8"))
             if Path(payload.get("file_path", "")).resolve() == saved_pdf.resolve():
@@ -290,12 +333,36 @@ def _find_completed_record(state: dict[str, Any]) -> dict | None:
                         return record
             except Exception:
                 return None
+        return None
 
     for record in _load_completed_records(limit=200):
         if str(record.get("file_name") or "").strip().lower() == file_name.lower():
             return record
 
     return None
+
+
+def _find_saved_pdf_for_completed_record(record: dict[str, Any]) -> Path | None:
+    batch_id = str(record.get("batch_id") or "").strip()
+    file_name = str(record.get("file_name") or "").strip()
+    if not file_name:
+        return None
+
+    candidates: list[Path] = []
+
+    if batch_id:
+        batch_dir = UPLOAD_ROOT / batch_id
+        if batch_dir.exists():
+            candidates.extend([path for path in batch_dir.glob(f"**/{file_name}") if path.is_file()])
+
+    if not candidates:
+        candidates.extend([path for path in UPLOAD_ROOT.glob(f"**/{file_name}") if path.is_file()])
+
+    if not candidates:
+        return None
+
+    candidates.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+    return candidates[0]
 
 
 def _persist_operation_completion_if_needed(operation_id: str, extraction: dict) -> None:
@@ -327,6 +394,9 @@ def _refresh_operation_state_from_artifacts(operation_id: str) -> dict | None:
     if not state:
         return None
 
+    if state.get("status") in {"cancelled", "canceled", "failed"}:
+        return state
+
     if state.get("status") == "completed" and state.get("completed_persisted"):
         return state
 
@@ -335,7 +405,8 @@ def _refresh_operation_state_from_artifacts(operation_id: str) -> dict | None:
         return state
 
     saved_pdf = Path(saved_path)
-    extraction = _find_extraction_payload_for_saved_pdf(saved_pdf)
+    operation_started_ts = _iso_to_timestamp(state.get("started_at"))
+    extraction = _find_extraction_payload_for_saved_pdf(saved_pdf, min_mtime=operation_started_ts)
     if extraction:
         progress = _build_processing_progress(extraction)
         refreshed = _upsert_operation_progress(
@@ -355,6 +426,24 @@ def _refresh_operation_state_from_artifacts(operation_id: str) -> dict | None:
 
     record = _find_completed_record(state)
     if not record:
+        if state.get("status") == "processing":
+            if state.get("stage") == "timeout_waiting":
+                return state
+
+            updated_ts = _iso_to_timestamp(state.get("updated_at"))
+            now_ts = datetime.now().timestamp()
+            if updated_ts is not None and (now_ts - updated_ts) >= EXTRACTION_STALE_SECONDS:
+                return _upsert_operation_progress(
+                    operation_id,
+                    {
+                        "status": "failed",
+                        "stage": "stale",
+                        "error": (
+                            "Extraction was marked failed because it stopped updating for "
+                            f"more than {EXTRACTION_STALE_SECONDS} seconds."
+                        ),
+                    },
+                )
         return state
 
     total_pages = int(record.get("total_pages", 0) or 0)
@@ -401,6 +490,7 @@ async def _process_uploaded_pdf(file: UploadFile, batch_dir: Path, operation_id:
         raise HTTPException(status_code=400, detail="Uploaded file is empty")
 
     if operation_id:
+        _get_cancel_event(operation_id).clear()
         _upsert_operation_progress(
             operation_id,
             {
@@ -425,6 +515,7 @@ async def _process_uploaded_pdf(file: UploadFile, batch_dir: Path, operation_id:
                 saved_pdf,
                 output_root=EXTRACTION_ROOT,
                 progress_callback=_make_progress_callback(operation_id) if operation_id else None,
+                cancel_check=(lambda: _cancel_requested(operation_id)) if operation_id else None,
             ),
             timeout=EXTRACTION_REQUEST_TIMEOUT_SECONDS,
         )
@@ -467,6 +558,28 @@ async def _process_uploaded_pdf(file: UploadFile, batch_dir: Path, operation_id:
                 "Request timed out, extraction continues in background. "
                 "Keep polling operation progress."
             ),
+        }
+    except ExtractionCancelledError as exc:
+        logger.info("Extraction cancelled for '%s': %s", file.filename, exc)
+        if operation_id:
+            _upsert_operation_progress(
+                operation_id,
+                {
+                    "status": "cancelled",
+                    "stage": "cancelled",
+                    "error": str(exc),
+                },
+            )
+        return {
+            "upload": {
+                "original_filename": file.filename,
+                "saved_path": str(saved_pdf),
+                "bytes": len(file_bytes),
+            },
+            "status": "cancelled",
+            "extraction": None,
+            "processing_progress": _build_processing_progress(None),
+            "error": str(exc),
         }
     except Exception as exc:
         logger.exception("Extraction failed for '%s': %s", file.filename, exc)
@@ -512,6 +625,132 @@ async def _process_uploaded_pdf(file: UploadFile, batch_dir: Path, operation_id:
             "original_filename": file.filename,
             "saved_path": str(saved_pdf),
             "bytes": len(file_bytes),
+        },
+        "status": "ok",
+        "extraction": extraction,
+        "processing_progress": progress,
+        "error": None,
+    }
+
+
+async def _reprocess_saved_pdf(saved_pdf: Path, operation_id: str) -> dict:
+    if not saved_pdf.exists() or not saved_pdf.is_file():
+        raise HTTPException(status_code=404, detail="Saved PDF file for reprocess was not found")
+
+    _upsert_operation_progress(
+        operation_id,
+        {
+            "status": "processing",
+            "stage": "reprocess_started",
+            "file_name": saved_pdf.name,
+            "saved_path": str(saved_pdf),
+            "total_pages": 0,
+            "processed_pages": 0,
+            "failed_pages": 0,
+            "error": None,
+        },
+    )
+    _get_cancel_event(operation_id).clear()
+
+    try:
+        extraction = await asyncio.wait_for(
+            extract_pdf_with_page_mapping_async(
+                saved_pdf,
+                output_root=EXTRACTION_ROOT,
+                progress_callback=_make_progress_callback(operation_id),
+                cancel_check=lambda: _cancel_requested(operation_id),
+            ),
+            timeout=EXTRACTION_REQUEST_TIMEOUT_SECONDS,
+        )
+    except TimeoutError:
+        _upsert_operation_progress(
+            operation_id,
+            {
+                "status": "processing",
+                "stage": "timeout_waiting",
+                "error": (
+                    "Request timed out after "
+                    f"{EXTRACTION_REQUEST_TIMEOUT_SECONDS} seconds, "
+                    "but extraction is still running in background."
+                ),
+            },
+        )
+        return {
+            "upload": {
+                "original_filename": saved_pdf.name,
+                "saved_path": str(saved_pdf),
+                "bytes": int(saved_pdf.stat().st_size),
+            },
+            "status": "processing",
+            "extraction": None,
+            "processing_progress": _build_processing_progress(None),
+            "error": (
+                "Request timed out, extraction continues in background. "
+                "Keep polling operation progress."
+            ),
+        }
+    except ExtractionCancelledError as exc:
+        _upsert_operation_progress(
+            operation_id,
+            {
+                "status": "cancelled",
+                "stage": "cancelled",
+                "error": str(exc),
+            },
+        )
+        return {
+            "upload": {
+                "original_filename": saved_pdf.name,
+                "saved_path": str(saved_pdf),
+                "bytes": int(saved_pdf.stat().st_size),
+            },
+            "status": "cancelled",
+            "extraction": None,
+            "processing_progress": _build_processing_progress(None),
+            "error": str(exc),
+        }
+    except Exception as exc:
+        logger.exception("Reprocess failed for '%s': %s", saved_pdf.name, exc)
+        _upsert_operation_progress(
+            operation_id,
+            {
+                "status": "failed",
+                "stage": "failed",
+                "error": str(exc),
+            },
+        )
+        return {
+            "upload": {
+                "original_filename": saved_pdf.name,
+                "saved_path": str(saved_pdf),
+                "bytes": int(saved_pdf.stat().st_size),
+            },
+            "status": "failed",
+            "extraction": None,
+            "processing_progress": _build_processing_progress(None),
+            "error": str(exc),
+        }
+
+    progress = _build_processing_progress(extraction)
+    _upsert_operation_progress(
+        operation_id,
+        {
+            "status": "completed",
+            "stage": "completed",
+            "file_name": saved_pdf.name,
+            "saved_path": str(saved_pdf),
+            "total_pages": progress.get("total_pages", 0),
+            "processed_pages": progress.get("processed_pages", 0),
+            "failed_pages": progress.get("failed_pages", 0),
+            "error": None,
+        },
+    )
+
+    return {
+        "upload": {
+            "original_filename": saved_pdf.name,
+            "saved_path": str(saved_pdf),
+            "bytes": int(saved_pdf.stat().st_size),
         },
         "status": "ok",
         "extraction": extraction,
@@ -634,7 +873,7 @@ async def extract_pdf(file: UploadFile = File(...), operation_id: str | None = F
         _upsert_operation_progress(operation_id, {"batch_id": batch_id})
 
     result = await _process_uploaded_pdf(file, batch_dir, operation_id=operation_id)
-    if _is_terminal_status(result.get("status")):
+    if _should_persist_completed_result(result.get("status")):
         _persist_completed_batch(batch_id, [result])
     batch_progress = _build_batch_processing_progress([result])
     return {
@@ -668,7 +907,7 @@ async def extract_pdfs(files: list[UploadFile] = File(...), operation_id: str | 
 
     processed = sum(1 for item in results if item.get("status") == "ok")
     failed = len(results) - processed
-    terminal_results = [item for item in results if _is_terminal_status(item.get("status"))]
+    terminal_results = [item for item in results if _should_persist_completed_result(item.get("status"))]
     if terminal_results:
         _persist_completed_batch(batch_id, terminal_results)
     batch_progress = _build_batch_processing_progress(results)
@@ -684,12 +923,95 @@ async def extract_pdfs(files: list[UploadFile] = File(...), operation_id: str | 
     }
 
 
+@app.post("/extract/reprocess")
+async def reprocess_extraction(payload: dict = Body(...)) -> dict:
+    record_id = str(payload.get("record_id") or "").strip()
+    operation_id = str(payload.get("operation_id") or "").strip() or f"op_reprocess_{uuid4().hex[:10]}"
+
+    if not record_id:
+        raise HTTPException(status_code=400, detail="record_id is required")
+
+    records = _load_completed_records(limit=500)
+    record = next((item for item in records if str(item.get("id") or "") == record_id), None)
+    if not record:
+        raise HTTPException(status_code=404, detail="Completed extraction record not found")
+
+    saved_pdf = _find_saved_pdf_for_completed_record(record)
+    if not saved_pdf:
+        raise HTTPException(status_code=404, detail="Original uploaded PDF for this record was not found")
+
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    batch_id = f"batch_{timestamp}_{uuid4().hex[:8]}"
+
+    _upsert_operation_progress(
+        operation_id,
+        {
+            "batch_id": batch_id,
+            "status": "processing",
+            "stage": "queued",
+            "file_name": saved_pdf.name,
+            "saved_path": str(saved_pdf),
+            "total_pages": 0,
+            "processed_pages": 0,
+            "failed_pages": 0,
+            "error": None,
+        },
+    )
+
+    result = await _reprocess_saved_pdf(saved_pdf, operation_id)
+
+    if _should_persist_completed_result(result.get("status")):
+        _persist_completed_batch(batch_id, [result])
+
+    batch_progress = _build_batch_processing_progress([result])
+    return {
+        "batch_id": batch_id,
+        "total_files": 1,
+        "processed_files": 1 if result.get("status") == "ok" else 0,
+        "failed_files": 0 if result.get("status") == "ok" else 1,
+        "batch_processing_progress": batch_progress,
+        "operation_id": operation_id,
+        "results": [result],
+    }
+
+
 @app.get("/extract/progress/{operation_id}")
 async def get_extraction_progress(operation_id: str) -> dict:
     progress = _refresh_operation_state_from_artifacts(operation_id)
     if not progress:
         raise HTTPException(status_code=404, detail="Unknown operation_id")
     return progress
+
+
+@app.post("/extract/cancel/{operation_id}")
+async def cancel_extraction(operation_id: str) -> dict:
+    state = EXTRACTION_PROGRESS_STATE.get(operation_id)
+    if not state:
+        raise HTTPException(status_code=404, detail="Unknown operation_id")
+
+    status = str(state.get("status") or "").strip().lower()
+    if _is_terminal_status(status):
+        return {
+            "operation_id": operation_id,
+            "status": status or "completed",
+            "message": "Operation is already in a terminal state.",
+        }
+
+    _get_cancel_event(operation_id).set()
+    progress = _upsert_operation_progress(
+        operation_id,
+        {
+            "status": "cancelled",
+            "stage": "cancelled",
+            "error": "Cancellation requested by user.",
+        },
+    )
+
+    return {
+        "operation_id": operation_id,
+        "status": progress.get("status"),
+        "message": "Cancellation requested.",
+    }
 
 
 @app.get("/extract/completed")

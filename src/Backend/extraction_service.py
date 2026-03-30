@@ -30,6 +30,10 @@ DEFAULT_KEY_COOLDOWN_SECONDS = 20
 
 logger = logging.getLogger(__name__)
 
+
+class ExtractionCancelledError(Exception):
+    """Raised when a running extraction is cancelled by the caller."""
+
 PROMPT = """
 You are a text extractor of old scanned documents containing student academic records.
 Some documents are not clear and some fields can be empty. Extract data as accurately as possible.
@@ -551,6 +555,7 @@ def extract_pdf_with_page_mapping(
     dpi: int = DEFAULT_DPI,
     max_retries_per_page: int = DEFAULT_MAX_RETRIES_PER_PAGE,
     progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    cancel_check: Callable[[], bool] | None = None,
 ) -> dict[str, Any]:
     pdf_path = Path(file_path)
     if not pdf_path.exists():
@@ -583,6 +588,9 @@ def extract_pdf_with_page_mapping(
         processed_pages = 0
         failed_pages = 0
         for page_number, image_path in enumerate(page_images, start=1):
+            if cancel_check is not None and cancel_check():
+                raise ExtractionCancelledError("Extraction was cancelled by user request")
+
             logger.info("Processing page %s/%s for %s", page_number, len(page_images), pdf_path.name)
             extraction = _extract_one_page(
                 image_path=image_path,
@@ -666,6 +674,17 @@ def extract_pdf_with_page_mapping(
             )
 
         return payload
+    except ExtractionCancelledError as exc:
+        if progress_callback is not None:
+            progress_callback(
+                {
+                    "status": "cancelled",
+                    "stage": "cancelled",
+                    "error": str(exc),
+                }
+            )
+        logger.info("Extraction cancelled for %s", pdf_path)
+        raise
     except Exception as exc:
         error_payload = {
             "file_path": str(pdf_path),
@@ -697,6 +716,7 @@ async def extract_pdf_with_page_mapping_async(
     dpi: int = DEFAULT_DPI,
     max_retries_per_page: int = DEFAULT_MAX_RETRIES_PER_PAGE,
     progress_callback: Callable[[dict[str, Any]], None] | None = None,
+    cancel_check: Callable[[], bool] | None = None,
 ) -> dict[str, Any]:
     return await asyncio.to_thread(
         extract_pdf_with_page_mapping,
@@ -706,4 +726,5 @@ async def extract_pdf_with_page_mapping_async(
         dpi=dpi,
         max_retries_per_page=max_retries_per_page,
         progress_callback=progress_callback,
+        cancel_check=cancel_check,
     )
