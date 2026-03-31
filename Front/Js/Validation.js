@@ -12,6 +12,7 @@
   var pageInfo = document.getElementById('pageInfo');
   var tableHead = document.getElementById('tableHead');
   var tableBody = document.getElementById('tableBody');
+  var dataTable = document.getElementById('dataTable');
   var metaYear = document.getElementById('meta-year');
   var metaLevel = document.getElementById('meta-level');
   var metaSpec = document.getElementById('meta-spec');
@@ -19,6 +20,9 @@
   var editBtn = document.getElementById('editBtn');
   var editBtnLabel = document.getElementById('editBtnLabel');
   var editBanner = document.getElementById('editBanner');
+  var tableActions = document.getElementById('tableActions');
+  var addModuleBtn = document.getElementById('addModuleBtn');
+  var addMatiereBtn = document.getElementById('addMatiereBtn');
   var previewCard = document.querySelector('.pdf-placeholder');
   var warningBox = document.querySelector('.warning-box');
   var pageExtractionInfo = document.getElementById('pageExtractionInfo');
@@ -33,6 +37,7 @@
   var previewDragging = false;
   var previewDragStartX = 0;
   var previewDragStartY = 0;
+  var currentPageType = 'unknown';
 
   function normalizeText(value) {
     return String(value || '')
@@ -797,6 +802,83 @@
     row.appendChild(th);
   }
 
+  function buildModuleHeaderCell(moduleDef, index) {
+    var th = document.createElement('th');
+    th.className = 'th-group';
+    th.style.color = '#085454';
+    th.style.minWidth = '52px';
+    th.style.fontSize = '9.5px';
+    th.dataset.moduleIndex = String(index);
+    th.dataset.moduleCoefficient = moduleDef && moduleDef.coefficient != null ? String(moduleDef.coefficient) : '';
+
+    var labelSpan = document.createElement('span');
+    labelSpan.className = 'module-label';
+    labelSpan.dataset.editable = '1';
+    labelSpan.dataset.moduleIndex = String(index);
+    labelSpan.textContent = moduleDef && moduleDef.label != null ? String(moduleDef.label) : ('Module ' + (index + 1));
+    th.appendChild(labelSpan);
+
+    if (moduleDef && moduleDef.coefficient != null) {
+      var coefDiv = document.createElement('div');
+      coefDiv.style.color = '#8B0101';
+      coefDiv.style.fontSize = '8.5px';
+      coefDiv.style.fontWeight = '700';
+      coefDiv.style.marginTop = '1px';
+      coefDiv.textContent = 'Coef: ' + moduleDef.coefficient;
+      th.appendChild(coefDiv);
+    }
+
+    return th;
+  }
+
+  function getModuleHeaderCells() {
+    if (!tableHead) {
+      return [];
+    }
+    return Array.prototype.slice.call(tableHead.querySelectorAll('th[data-module-index]'));
+  }
+
+  function collectModuleDefinitionsFromHeader() {
+    var cells = getModuleHeaderCells();
+    return cells.map(function (cell, idx) {
+      var labelNode = cell.querySelector('.module-label');
+      var rawLabel = labelNode ? labelNode.textContent.trim() : '';
+      var label = rawLabel || ('Module ' + (idx + 1));
+      var coefValue = cell.dataset.moduleCoefficient;
+      var coefficient = coefValue === '' || coefValue == null ? null : coefValue;
+      return { label: label, coefficient: coefficient };
+    });
+  }
+
+  function toResultModules(moduleDefs) {
+    return (Array.isArray(moduleDefs) ? moduleDefs : []).map(function (def) {
+      return {
+        name: def.label || '',
+        coef: def.coefficient != null ? def.coefficient : null,
+      };
+    });
+  }
+
+  function updateEditControlsForPage(pageType) {
+    if (!addModuleBtn || !addMatiereBtn) {
+      return;
+    }
+    var isMatieres = pageType === 'table_de_matieres';
+    addModuleBtn.style.display = editMode && !isMatieres ? 'inline-flex' : 'none';
+    addMatiereBtn.style.display = editMode && isMatieres ? 'inline-flex' : 'none';
+    if (tableActions) {
+      tableActions.classList.toggle('visible', editMode);
+    }
+  }
+
+  function syncTableActionsWidth() {
+    if (!tableActions || !dataTable) {
+      return;
+    }
+    var width = dataTable.scrollWidth;
+    tableActions.style.minWidth = width ? width + 'px' : '100%';
+  }
+
   function renderTableHeader(moduleDefs) {
     if (!tableHead) {
       return;
@@ -809,26 +891,16 @@
     appendHeadCell(topRow, 'th-group', 'Student Information', { colSpan: 3, style: { color: '#5F049C' } });
     appendHeadCell(topRow, 'th-group', 'Period', { style: { color: '#07A1A1' } });
 
-    modules.forEach(function (moduleDef) {
-      var th = document.createElement('th');
-      th.className = 'th-group';
-      th.style.color = '#085454';
-      th.style.minWidth = '52px';
-      th.style.fontSize = '9.5px';
-      th.textContent = moduleDef.label == null ? '' : String(moduleDef.label);
-      if (moduleDef.coefficient != null) {
-        var coefDiv = document.createElement('div');
-        coefDiv.style.color = '#8B0101';
-        coefDiv.style.fontSize = '8.5px';
-        coefDiv.style.fontWeight = '700';
-        coefDiv.style.marginTop = '1px';
-        coefDiv.textContent = 'Coef: ' + moduleDef.coefficient;
-        th.appendChild(coefDiv);
-      }
-      topRow.appendChild(th);
+    modules.forEach(function (moduleDef, moduleIndex) {
+      topRow.appendChild(buildModuleHeaderCell(moduleDef, moduleIndex));
     });
 
-    appendHeadCell(topRow, 'th-group', 'Moy S1/S2', { style: { color: '#25436B', minWidth: '64px' } });
+    var avgCell = document.createElement('th');
+    avgCell.className = 'th-group';
+    avgCell.style.color = '#25436B';
+    avgCell.style.minWidth = '64px';
+    avgCell.textContent = 'Moy S1/S2';
+    topRow.appendChild(avgCell);
     appendHeadCell(topRow, 'th-group', 'Rank', { style: { color: '#901684', minWidth: '38px' } });
     appendHeadCell(topRow, 'th-group', 'Annual Avg', { style: { color: '#25436B', minWidth: '58px' } });
     appendHeadCell(topRow, 'th-group', 'Annual Rank', { style: { color: '#901684', minWidth: '52px' } });
@@ -932,6 +1004,83 @@
       row.appendChild(createEditableCell(formatAcademicValue(matiere.moyAnnuel80, 2), 'matiere_moy_annuel_80'));
       tableBody.appendChild(row);
     });
+  }
+
+  function addMatiereRow() {
+    if (!editMode) {
+      return;
+    }
+    var page = getCurrentPage();
+    if (!page || !page.result || String(page.result.type || '') !== 'table_de_matieres') {
+      return;
+    }
+    var placeholder = tableBody.querySelector('tr:not([data-matiere-index]) td[colspan]');
+    if (placeholder && placeholder.parentNode) {
+      tableBody.innerHTML = '';
+    }
+    var index = tableBody.querySelectorAll('tr[data-matiere-index]').length;
+    var row = document.createElement('tr');
+    row.dataset.matiereIndex = String(index);
+    row.appendChild(createEditableCell('', 'matiere_abrev', 'cell-matiere-abrev'));
+    row.appendChild(createEditableCell('', 'matiere_libelle', 'cell-matiere-libelle'));
+    row.appendChild(createEditableCell('', 'matiere_coef_s1'));
+    row.appendChild(createEditableCell('', 'matiere_coef_s2'));
+    row.appendChild(createEditableCell('', 'matiere_moy_s1'));
+    row.appendChild(createEditableCell('', 'matiere_moy_s1_80'));
+    row.appendChild(createEditableCell('', 'matiere_moy_s2'));
+    row.appendChild(createEditableCell('', 'matiere_moy_s2_80'));
+    row.appendChild(createEditableCell('', 'matiere_moy_annuel'));
+    row.appendChild(createEditableCell('', 'matiere_moy_annuel_80'));
+    tableBody.appendChild(row);
+    applyEditMode(true);
+    syncTableActionsWidth();
+  }
+
+  function addModuleColumn() {
+    if (!editMode) {
+      return;
+    }
+    var page = getCurrentPage();
+    if (!page || !page.result || String(page.result.type || '') === 'table_de_matieres') {
+      return;
+    }
+
+    var moduleDefs = collectModuleDefinitionsFromHeader();
+    var newIndex = moduleDefs.length;
+    var newDef = { label: 'Module ' + (newIndex + 1), coefficient: null };
+    moduleDefs.push(newDef);
+
+    page.result.modules = toResultModules(moduleDefs);
+
+    var topRow = tableHead.querySelector('tr');
+    var subRow = tableHead.querySelector('tr:nth-child(2)');
+    if (!topRow || !subRow) {
+      renderSelectedPage();
+      return;
+    }
+
+    var insertIndexTop = 2 + newIndex;
+    var moduleTh = buildModuleHeaderCell(newDef, newIndex);
+    topRow.insertBefore(moduleTh, topRow.children[insertIndexTop] || null);
+
+    var subTh = document.createElement('th');
+    subTh.className = 'th-sub';
+    var insertIndexSub = 4 + newIndex;
+    subRow.insertBefore(subTh, subRow.children[insertIndexSub] || null);
+
+    tableBody.querySelectorAll('tr[data-student-index]').forEach(function (row) {
+      var sem = String(row.dataset.sem || '').toLowerCase();
+      if (!sem) {
+        return;
+      }
+      var field = 'module_' + newIndex + '_' + sem;
+      var cell = createEditableCell('', field);
+      var anchor = row.querySelector('td[data-field="avg_s1"], td[data-field="avg_s2"]');
+      row.insertBefore(cell, anchor || null);
+    });
+
+    applyEditMode(true);
+    syncTableActionsWidth();
   }
 
   function getTableColumnCount(moduleCount) {
@@ -1245,6 +1394,9 @@
     var pageType = String(result.type || 'unknown');
     var pageStatus = page && page.status ? String(page.status) : 'unknown';
 
+    currentPageType = pageType;
+    updateEditControlsForPage(pageType);
+
     if (pageType === 'table_de_matieres') {
       renderTableDeMatieresRows(result, pageStatus);
       closeActiveSuggestionDropdown();
@@ -1375,6 +1527,7 @@
       // Keep the validation table visible even if metadata mapping fails.
     }
     renderStudentsTable();
+    syncTableActionsWidth();
     if (editMode) {
       applyEditMode(true);
     }
@@ -1461,6 +1614,14 @@
       cell.classList.toggle('edit-mode', enabled);
     });
 
+    if (tableHead) {
+      var editableHeaders = tableHead.querySelectorAll('[data-editable="1"]');
+      editableHeaders.forEach(function (el) {
+        el.contentEditable = enabled ? 'true' : 'false';
+        el.classList.toggle('editing', enabled);
+      });
+    }
+
     [metaYear, metaLevel, metaSpec, metaTitle].forEach(function (el) {
       if (!el) {
         return;
@@ -1481,11 +1642,14 @@
       editBtnLabel.textContent = 'Edit Mode';
       editBanner.classList.remove('visible');
     }
+
+    updateEditControlsForPage(currentPageType);
   }
 
   function collectStudentsFromTable() {
     var studentsByIndex = {};
     var rows = tableBody.querySelectorAll('tr[data-student-index]');
+    var moduleDefs = collectModuleDefinitionsFromHeader();
 
     rows.forEach(function (row) {
       var studentIndex = row.dataset.studentIndex;
@@ -1530,11 +1694,21 @@
 
     return Object.keys(studentsByIndex).map(function (key) {
       var student = studentsByIndex[key];
+      var modules = moduleDefs.map(function (def, index) {
+        var entry = student.modules[index] || {};
+        return {
+          name: def.label || '',
+          coef: def.coefficient != null ? def.coefficient : null,
+          noteS1: entry.S1 != null ? entry.S1 : null,
+          noteS2: entry.S2 != null ? entry.S2 : null,
+        };
+      });
       return {
         nom: student.nom,
         prenom: student.prenom,
         matricule: student.matricule,
         is_first_year: false,
+        modules: modules,
       };
     }).filter(function (student) {
       return student.nom && student.prenom;
@@ -1620,6 +1794,7 @@
     }
 
     var students = collectStudentsFromTable();
+    result.modules = toResultModules(collectModuleDefinitionsFromHeader());
     if (!students.length) {
       var emptyProceed = confirm('No valid student rows found. Save metadata changes only?');
       if (!emptyProceed) {
@@ -1672,6 +1847,22 @@
         alert('Document rejected. Upload a corrected scan from Digitization.');
       });
     }
+
+    if (addModuleBtn) {
+      addModuleBtn.addEventListener('click', function (evt) {
+        evt.preventDefault();
+        addModuleColumn();
+      });
+    }
+
+    if (addMatiereBtn) {
+      addMatiereBtn.addEventListener('click', function (evt) {
+        evt.preventDefault();
+        addMatiereRow();
+      });
+    }
+
+    window.addEventListener('resize', syncTableActionsWidth);
 
     [metaYear, metaLevel, metaSpec, metaTitle].forEach(function (el) {
       if (!el) {

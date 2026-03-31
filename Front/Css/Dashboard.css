@@ -247,7 +247,7 @@ color: rgba(72, 93, 114, 1);
 }
 .header-right { display:flex; align-items:center; gap:16px; }
   .header-greeting { font-size: 13px; font-weight: 600; color: #266fa3; line-height: 1.6; }
-  .header-title { font-size: 34px; font-weight: 800; color: #132b52; line-height: 1.1; letter-spacing: -.5px; }
+  .header-title { font-size: 26px; font-weight: 800; color: #132b52; line-height: 1.2; letter-spacing: -0.6px; }
   .header-date { font-size:13px; color:var(--text-mid); font-weight:500; }
 .header-avatar {
   width:34px; height:34px; border-radius:50px;

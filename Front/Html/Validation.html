@@ -100,7 +100,7 @@
 
       <span class="nav-label">Statistics</span>
     </div>
-
+<a href="Database.html" style="text-decoration:none;">
     <div class="nav-item" onclick="setActive(this)">
       <svg fill="none" stroke="#266FA3" stroke-width="1.8" viewBox="0 0 24 24">
         <ellipse cx="12" cy="5" rx="9" ry="3"/>
@@ -109,7 +109,7 @@
       </svg>
       <span class="nav-label">Database</span>
     </div>
-
+</a>
     <div class="sidebar-spacer"></div>
 
     <div class="sidebar-user">
@@ -131,7 +131,10 @@
 
     <!-- Header -->
     <div class="header">
-      <h1>Data Validation</h1>
+      <div>
+        <div class="header-greeting">Welcome back , &#128075;</div>
+        <div class="header-title">Data Validation</div>
+      </div>
       <div class="header-right">
         <span class="header-date" id="headerDate"></span>
         <div class="header-avatar">AD</div>
@@ -244,6 +247,10 @@
             <tbody id="tableBody">
             </tbody>
           </table>
+          <div class="table-actions" id="tableActions">
+            <button class="edit-action-btn" id="addModuleBtn" type="button">+ Module</button>
+            <button class="edit-action-btn" id="addMatiereBtn" type="button">+ Mati&egrave;re</button>
+          </div>
         </div>
         </div><!-- end right-col -->
       </div><!-- end bottom-row -->
