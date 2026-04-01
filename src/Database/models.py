@@ -126,13 +126,17 @@ class Matiere(Base):
 	__table_args__ = (CheckConstraint("coefficient > 0", name="ck_matiere_coefficient"),)
 
 	id = Column(Integer, primary_key=True, autoincrement=True)
-	code = Column(String, nullable=False, unique=True)
+	code = Column(String, nullable=False)
 	title = Column(String, nullable=False)
 	coefficient = Column(Float, nullable=False)
 	created_at = Column(DateTime, server_default=func.current_timestamp())
 	updated_at = Column(DateTime, server_default=func.current_timestamp())
 
 	modules = relationship("Module", back_populates="matiere")
+
+
+Index("idx_matiere_code", Matiere.code)
+Index("ux_matiere_code_title_coefficient", Matiere.code, Matiere.title, Matiere.coefficient, unique=True)
 
 
 class PeriodeProgramme(Base):

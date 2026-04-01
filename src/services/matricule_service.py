@@ -141,55 +141,99 @@ def resolve_student_matricule(
             "pending_case": None,
         }
 
-    if not is_first_year:
-        existing = _find_existing_matricule(
-            db,
-            nom=nom,
-            prenom=prenom,
-            date_naissance=date_naissance,
-        )
-        if existing:
-            return {
-                "matricule": existing,
-                "source": "history",
-                "needs_review": False,
-                "pending_case": None,
-            }
-
-        temporary = _generate_unique_matricule(
-            db,
-            nom=nom,
-            prenom=prenom,
-            annee_univ=annee_univ,
-            temporary=True,
-        )
-        pending = append_pending_matricule_case(
-            nom=nom,
-            prenom=prenom,
-            generated_matricule=temporary,
-            annee_univ=annee_univ,
-            source=source,
-            pending_file=pending_file,
-        )
+    existing = _find_existing_matricule(
+        db,
+        nom=nom,
+        prenom=prenom,
+        date_naissance=date_naissance,
+    )
+    if existing:
         return {
-            "matricule": temporary,
-            "source": "generated_temporary",
-            "needs_review": True,
-            "pending_case": pending,
+            "matricule": existing,
+            "source": "history",
+            "needs_review": False,
+            "pending_case": None,
         }
 
-    generated = _generate_unique_matricule(
+    temporary = _generate_unique_matricule(
         db,
         nom=nom,
         prenom=prenom,
         annee_univ=annee_univ,
-        temporary=False,
+        temporary=True,
+    )
+    pending = append_pending_matricule_case(
+        nom=nom,
+        prenom=prenom,
+        generated_matricule=temporary,
+        annee_univ=annee_univ,
+        source=source,
+        pending_file=pending_file,
     )
     return {
-        "matricule": generated,
-        "source": "generated_first_year",
-        "needs_review": False,
-        "pending_case": None,
+        "matricule": temporary,
+        "source": "generated_temporary",
+        "needs_review": True,
+        "pending_case": pending,
+    }
+
+
+def convert_temporary_matricule_to_permanent(
+    db: Session,
+    *,
+    temporary_matricule: str,
+    annee_univ: str | None = None,
+    provided_permanent_matricule: str | None = None,
+) -> dict[str, Any]:
+    temporary_cleaned = (temporary_matricule or "").strip()
+    if not temporary_cleaned:
+        raise ValueError("temporary_matricule is required")
+
+    student = db.query(Etudiant).filter(Etudiant.matricule == temporary_cleaned).first()
+    if not student:
+        raise ValueError("Temporary matricule not found")
+
+    if not temporary_cleaned.upper().startswith("TMP-"):
+        return {
+            "student_id": student.id,
+            "old_matricule": temporary_cleaned,
+            "new_matricule": temporary_cleaned,
+            "changed": False,
+            "reason": "already_permanent_or_non_temporary",
+        }
+
+    explicit_permanent = (provided_permanent_matricule or "").strip()
+    if explicit_permanent:
+        current_owner = db.query(Etudiant).filter(Etudiant.matricule == explicit_permanent).first()
+        if current_owner and current_owner.id != student.id:
+            raise ValueError("provided_permanent_matricule is already assigned to another student")
+        new_matricule = explicit_permanent
+    else:
+        new_matricule = _generate_unique_matricule(
+            db,
+            nom=student.nom or "",
+            prenom=student.prenom or "",
+            annee_univ=annee_univ,
+            temporary=False,
+        )
+
+    if new_matricule == temporary_cleaned:
+        return {
+            "student_id": student.id,
+            "old_matricule": temporary_cleaned,
+            "new_matricule": new_matricule,
+            "changed": False,
+            "reason": "same_matricule",
+        }
+
+    student.matricule = new_matricule
+    db.flush()
+
+    return {
+        "student_id": student.id,
+        "old_matricule": temporary_cleaned,
+        "new_matricule": new_matricule,
+        "changed": True,
     }
 
 

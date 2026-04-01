@@ -1,3 +1,0 @@
-extract7475.py is a python program that is responsible for extracting data from the 74-75 documents , it can now handle multi pages documents and extract many students instead of one student 
-the execution of this program is the same as the old program .
-good luck , i will soon provide a program for 78-79 documents to gain time .

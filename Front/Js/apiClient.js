@@ -127,6 +127,16 @@
     });
   };
 
+  ApiClient.prototype.saveValidationRecord = async function (payload) {
+    return this._request('/verify/validation-record/save', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload || {}),
+    });
+  };
+
   ApiClient.prototype.suggestStudents = async function (payload) {
     return this._request('/students/suggestions', {
       method: 'POST',

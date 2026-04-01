@@ -1659,6 +1659,16 @@
           prenom: '',
           matricule: null,
           is_first_year: false,
+          avg_s1: null,
+          avg_s2: null,
+          annual_avg: null,
+          rank_s1: null,
+          rank_s2: null,
+          annual_rank: null,
+          decision_june: '',
+          stage: '',
+          final_decision: '',
+          diploma: '',
           modules: {},
         };
       }
@@ -1673,6 +1683,16 @@
         if (field === 'nom') student.nom = value;
         if (field === 'prenom') student.prenom = value;
         if (field === 'matricule') student.matricule = value || null;
+        if (field === 'avg_s1') student.avg_s1 = toFiniteNumberOrNull(value);
+        if (field === 'avg_s2') student.avg_s2 = toFiniteNumberOrNull(value);
+        if (field === 'annual_avg') student.annual_avg = toFiniteNumberOrNull(value);
+        if (field === 'rank_s1') student.rank_s1 = toFiniteNumberOrNull(value);
+        if (field === 'rank_s2') student.rank_s2 = toFiniteNumberOrNull(value);
+        if (field === 'annual_rank') student.annual_rank = toFiniteNumberOrNull(value);
+        if (field === 'decision_june') student.decision_june = value;
+        if (field === 'stage') student.stage = value;
+        if (field === 'decision_finale') student.final_decision = value;
+        if (field === 'diploma') student.diploma = value;
 
         var moduleMatch = field.match(/^module_(\d+)_(s1|s2)$/);
         if (moduleMatch) {
@@ -1708,6 +1728,16 @@
         prenom: student.prenom,
         matricule: student.matricule,
         is_first_year: false,
+        avg_s1: student.avg_s1,
+        avg_s2: student.avg_s2,
+        annual_avg: student.annual_avg,
+        rank_s1: student.rank_s1,
+        rank_s2: student.rank_s2,
+        annual_rank: student.annual_rank,
+        decision_june: student.decision_june || null,
+        stage: student.stage || null,
+        final_decision: student.final_decision || null,
+        diploma: student.diploma || null,
         modules: modules,
       };
     }).filter(function (student) {
@@ -1788,8 +1818,18 @@
 
     if (String(result.type || '') === 'table_de_matieres') {
       result.matieres = collectMatieresFromTable();
-      alert('Changes saved locally for table_de_matieres page.');
       saveCurrentRecordLocally();
+      try {
+        var tableSync = await api.saveValidationRecord({
+          record_id: record.id || null,
+          record: record,
+          source: 'validation_edit',
+        });
+        alert('Changes saved locally and synced to database for table_de_matieres page. Matieres/modules synced: ' +
+          Number((tableSync && tableSync.matiere_module_sync && tableSync.matiere_module_sync.length) || 0));
+      } catch (err) {
+        alert('Changes saved locally for table_de_matieres page, but database sync failed: ' + (err && err.message ? err.message : 'unknown error'));
+      }
       return;
     }
 
@@ -1804,8 +1844,18 @@
       result.students = students;
     }
 
-    alert('Changes saved locally. No database write was performed.');
     saveCurrentRecordLocally();
+    try {
+      var syncReport = await api.saveValidationRecord({
+        record_id: record.id || null,
+        record: record,
+        source: 'validation_edit',
+      });
+      alert('Changes saved locally and synced to database. Students: ' + Number((syncReport && syncReport.saved_students) || 0) +
+        ', Resultats: ' + Number((syncReport && syncReport.saved_resultats) || 0));
+    } catch (err) {
+      alert('Changes saved locally, but database sync failed: ' + (err && err.message ? err.message : 'unknown error'));
+    }
   }
 
   function changePage(dir) {

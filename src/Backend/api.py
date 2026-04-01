@@ -19,7 +19,7 @@ from sqlalchemy import func
 
 from src.Backend.extraction_service import ExtractionCancelledError, extract_pdf_with_page_mapping_async
 from src.Database.models import Etudiant
-from src.services.database import get_session
+from src.services.database import get_session, init_database
 from src.services.fuzzy_name_service import (
     apply_student_search_keys,
     rebuild_student_search_keys,
@@ -31,6 +31,7 @@ from src.services.matricule_service import (
     check_pending_cases_against_database,
     resolve_student_matricule,
 )
+from src.services.validation_db_integration import persist_validation_record
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -69,6 +70,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+async def on_startup() -> None:
+    init_database()
 
 
 @app.get("/", include_in_schema=False)
@@ -1142,6 +1148,24 @@ async def save_verified_students(payload: dict = Body(...)) -> dict:
         "saved": saved_items,
         "failed": failed_items,
     }
+
+
+@app.post("/verify/validation-record/save")
+async def save_validation_record(payload: dict = Body(...)) -> dict:
+    if not _db_writes_enabled():
+        raise HTTPException(
+            status_code=403,
+            detail="Database writes are disabled for testing. Set ALLOW_DB_WRITES=true to enable this endpoint.",
+        )
+
+    record = payload.get("record")
+    if not isinstance(record, dict) or not record:
+        raise HTTPException(status_code=400, detail="Payload must contain a non-empty record object")
+
+    with get_session() as db:
+        result = persist_validation_record(db, payload)
+
+    return result
 
 
 @app.get("/matricules/pending/check")

@@ -10,6 +10,7 @@ from .matricule_service import (
     apply_pending_matricule_reconciliation,
     append_pending_matricule_case,
     check_pending_cases_against_database,
+    convert_temporary_matricule_to_permanent,
     load_pending_matricule_cases,
     resolve_student_matricule,
 )
@@ -30,6 +31,7 @@ __all__ = [
     "apply_pending_matricule_reconciliation",
     "append_pending_matricule_case",
     "check_pending_cases_against_database",
+    "convert_temporary_matricule_to_permanent",
     "load_pending_matricule_cases",
     "resolve_student_matricule",
 ]

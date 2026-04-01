@@ -53,9 +53,14 @@ Endpoints:
 - `GET /extract/progress/{operation_id}` (live per-page extraction progress)
 - `GET /extract/completed?limit=50` (returns latest completed extracted files with per-page results)
 - `POST /verify/students/save` (JSON payload from human verification step)
+- `POST /verify/validation-record/save` (persist full edited Validation record into normalized relational tables)
 - `GET /matricules/pending/check` (find pending temporary matricules that can now be reconciled)
 - `POST /matricules/pending/apply?preview=true|false` (preview or apply reconciliation)
 - `GET /matricules/pending/conflicts` (fetch only conflict cases for manual review)
+
+Database startup behavior:
+- On API startup, the backend initializes tables and applies a SQLite migration for `matiere` uniqueness.
+- `matiere` uniqueness is now based on `(code, title, coefficient)`.
 
 Batch behavior for verification workflow:
 - Every request gets a `batch_id`.
