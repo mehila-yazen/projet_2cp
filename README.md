@@ -304,3 +304,36 @@ Response contains:
 
 ## Notes
 - If you get a Poppler error, install Poppler and add it to PATH.
+
+# Problems solved
+
+- Integrated full Validation-to-DB persistence pipeline from edited records (not OCR-only snapshots).
+- Added backend endpoint `POST /verify/validation-record/save` and wired frontend calls to it.
+- Extended Validation save payload to include edited academic and decision fields (`avg/rank/decision/stage/diploma`).
+- Implemented relational mapping/upsert flow for Programme, AnneeUniversitaire, Formation, Groupe, PeriodeProgramme, Inscription, InscriptionPeriode, Matiere, Module, and Resultat.
+- Added `table_de_matieres` ingestion into `matiere/module` catalog used by student results linking.
+- Added detailed sync report in backend response (`created/updated` actions per entity and per student/resultat).
+- Added a visible Sync Report panel in Validation UI under the bottom row with status, summary, and detailed sync preview.
+- Updated `matiere` uniqueness model from `code` only to `(code, title, coefficient)`.
+- Added SQLite startup migration for existing databases to align with new `matiere` uniqueness.
+- Enabled DB writes by default for testing (`ALLOW_DB_WRITES=true` by default, env still overrides).
+
+# Files Changed
+
+- `src/services/validation_db_integration.py`
+- `src/Backend/api.py`
+- `src/services/database.py`
+- `src/Database/models.py`
+- `Front/Js/apiClient.js`
+- `Front/Js/Validation.js`
+- `Front/Html/Validation.html`
+- `Front/Css/Validation.css`
+- `README.md`
+
+# What remains to do
+
+- Run an end-to-end test batch (single-student + multiple-students + table_de_matieres) and verify row counts in each target table.
+- Add a dry-run mode for `/verify/validation-record/save` to preview writes without committing.
+- Add robust integration tests for the mapping rules (especially annual/semester fields and group resolution).
+- Show collapsible per-student details in Sync Report UI (instead of text preview only).
+- Add a DB backup/rollback script before large production imports.

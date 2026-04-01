@@ -94,7 +94,7 @@ def _parse_date(value: str | None) -> date | None:
 
 
 def _db_writes_enabled() -> bool:
-    raw = os.getenv("ALLOW_DB_WRITES", "false").strip().lower()
+    raw = os.getenv("ALLOW_DB_WRITES", "true").strip().lower()
     return raw in {"1", "true", "yes", "on"}
 
 

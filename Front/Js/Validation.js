@@ -27,6 +27,10 @@
   var warningBox = document.querySelector('.warning-box');
   var pageExtractionInfo = document.getElementById('pageExtractionInfo');
   var zoomValueEl = document.getElementById('zoomValue');
+  var syncReportPanel = document.getElementById('syncReportPanel');
+  var syncReportBadge = document.getElementById('syncReportBadge');
+  var syncReportMeta = document.getElementById('syncReportMeta');
+  var syncReportBody = document.getElementById('syncReportBody');
   var nameValidationBox = null;
   var activeSuggestionDropdown = null;
   var latestValidationRunId = 0;
@@ -45,6 +49,91 @@
       .replace(/[\u0300-\u036f]/g, '')
       .trim()
       .toUpperCase();
+  }
+
+  function setSyncReportStatus(kind, label) {
+    if (!syncReportBadge) {
+      return;
+    }
+    syncReportBadge.classList.remove('ok', 'error', 'pending');
+    if (kind) {
+      syncReportBadge.classList.add(kind);
+    }
+    syncReportBadge.textContent = label || 'Idle';
+  }
+
+  function buildSyncReportDetails(report) {
+    if (!report || typeof report !== 'object') {
+      return 'No details available.';
+    }
+
+    var lines = [];
+    var base = report.created_or_updated || {};
+    var programme = base.programme || {};
+    var annee = base.annee_universitaire || {};
+    var formation = base.formation || {};
+    var periodes = base.periodes || {};
+
+    lines.push('Core Links');
+    lines.push('- Programme: #' + String(programme.id || 'N/A') + ' (' + String(programme.action || 'n/a') + ')');
+    lines.push('- Annee Universitaire: #' + String(annee.id || 'N/A') + ' (' + String(annee.action || 'n/a') + ')');
+    lines.push('- Formation: #' + String(formation.id || 'N/A') + ' (' + String(formation.action || 'n/a') + ')');
+    lines.push('- Periode S1: #' + String((periodes.S1 && periodes.S1.id) || 'N/A') + ' (' + String((periodes.S1 && periodes.S1.action) || 'n/a') + ')');
+    lines.push('- Periode S2: #' + String((periodes.S2 && periodes.S2.id) || 'N/A') + ' (' + String((periodes.S2 && periodes.S2.action) || 'n/a') + ')');
+
+    var matiereSync = Array.isArray(report.matiere_module_sync) ? report.matiere_module_sync : [];
+    lines.push('');
+    lines.push('Matieres/Modules Synced: ' + String(matiereSync.length));
+
+    var studentReport = Array.isArray(report.student_report) ? report.student_report : [];
+    lines.push('Students Synced: ' + String(studentReport.length));
+    studentReport.slice(0, 12).forEach(function (item, index) {
+      var etudiant = item.etudiant || {};
+      var inscription = item.inscription || {};
+      var group = item.group || {};
+      var resultats = Array.isArray(item.resultats) ? item.resultats : [];
+      lines.push('');
+      lines.push((index + 1) + '. ' + String(item.nom || '') + ' ' + String(item.prenom || ''));
+      lines.push('   - Etudiant #' + String(etudiant.id || 'N/A') + ' (' + String(etudiant.action || 'n/a') + ')');
+      lines.push('   - Groupe #' + String(group.id || 'N/A') + ' [' + String(group.code || 'N/A') + '] (' + String(group.action || 'n/a') + ')');
+      lines.push('   - Inscription #' + String(inscription.id || 'N/A') + ' (' + String(inscription.action || 'n/a') + ')');
+      lines.push('   - Resultats upserted: ' + String(resultats.length));
+    });
+
+    if (studentReport.length > 12) {
+      lines.push('');
+      lines.push('... ' + String(studentReport.length - 12) + ' more students omitted in preview ...');
+    }
+
+    return lines.join('\n');
+  }
+
+  function renderSyncReport(report, isError) {
+    if (!syncReportPanel) {
+      return;
+    }
+
+    var now = new Date();
+    var stamp = now.toLocaleTimeString();
+
+    if (isError) {
+      setSyncReportStatus('error', 'Failed');
+      if (syncReportMeta) {
+        syncReportMeta.textContent = 'Last attempt: ' + stamp;
+      }
+      if (syncReportBody) {
+        syncReportBody.textContent = 'Database sync failed.\n' + String(report || 'Unknown error');
+      }
+      return;
+    }
+
+    setSyncReportStatus('ok', 'Synced');
+    if (syncReportMeta) {
+      syncReportMeta.textContent = 'Last sync: ' + stamp + ' | Students: ' + Number((report && report.saved_students) || 0) + ' | Resultats: ' + Number((report && report.saved_resultats) || 0);
+    }
+    if (syncReportBody) {
+      syncReportBody.textContent = buildSyncReportDetails(report);
+    }
   }
 
   function closeActiveSuggestionDropdown() {
@@ -1789,6 +1878,7 @@
   }
 
   async function saveValidatedStudents() {
+    setSyncReportStatus('pending', 'Syncing...');
     var nameCheck = await validateStudentNameRows();
     if (nameCheck.invalidRows > 0) {
       var proceed = confirm(
@@ -1825,9 +1915,11 @@
           record: record,
           source: 'validation_edit',
         });
+        renderSyncReport(tableSync, false);
         alert('Changes saved locally and synced to database for table_de_matieres page. Matieres/modules synced: ' +
           Number((tableSync && tableSync.matiere_module_sync && tableSync.matiere_module_sync.length) || 0));
       } catch (err) {
+        renderSyncReport(err && err.message ? err.message : err, true);
         alert('Changes saved locally for table_de_matieres page, but database sync failed: ' + (err && err.message ? err.message : 'unknown error'));
       }
       return;
@@ -1851,9 +1943,11 @@
         record: record,
         source: 'validation_edit',
       });
+      renderSyncReport(syncReport, false);
       alert('Changes saved locally and synced to database. Students: ' + Number((syncReport && syncReport.saved_students) || 0) +
         ', Resultats: ' + Number((syncReport && syncReport.saved_resultats) || 0));
     } catch (err) {
+      renderSyncReport(err && err.message ? err.message : err, true);
       alert('Changes saved locally, but database sync failed: ' + (err && err.message ? err.message : 'unknown error'));
     }
   }
