@@ -42,6 +42,8 @@
   var previewDragStartX = 0;
   var previewDragStartY = 0;
   var currentPageType = 'unknown';
+  var moduleValidationHighlightCount = 0;
+  var moduleValidationIssuesByPageKey = {};
 
   function normalizeText(value) {
     return String(value || '')
@@ -1123,6 +1125,7 @@
     tableBody.appendChild(row);
     applyEditMode(true);
     syncTableActionsWidth();
+    refreshModuleValidationState();
   }
 
   function addModuleColumn() {
@@ -1170,6 +1173,7 @@
 
     applyEditMode(true);
     syncTableActionsWidth();
+    refreshModuleValidationState();
   }
 
   function getTableColumnCount(moduleCount) {
@@ -1488,6 +1492,7 @@
 
     if (pageType === 'table_de_matieres') {
       renderTableDeMatieresRows(result, pageStatus);
+      applyModuleValidationHighlightsForCurrentPage(page);
       closeActiveSuggestionDropdown();
       var tableMatieresBox = ensureNameValidationBox();
       if (tableMatieresBox) {
@@ -1529,6 +1534,7 @@
       emptyCell.style.padding = '16px';
       emptyRow.appendChild(emptyCell);
       tableBody.appendChild(emptyRow);
+      applyModuleValidationHighlightsForCurrentPage(page);
       return;
     }
 
@@ -1599,6 +1605,7 @@
     });
 
     closeActiveSuggestionDropdown();
+    applyModuleValidationHighlightsForCurrentPage(page);
     validateStudentNameRows().catch(function () {
       var box = ensureNameValidationBox();
       if (box) {
@@ -1616,6 +1623,7 @@
       // Keep the validation table visible even if metadata mapping fails.
     }
     renderStudentsTable();
+    refreshModuleValidationState();
     syncTableActionsWidth();
     if (editMode) {
       applyEditMode(true);
@@ -1873,20 +1881,447 @@
     });
   }
 
+  function toAcademicNumberOrNull(value) {
+    if (value == null || value === '') {
+      return null;
+    }
+    var normalized = String(value).replace(',', '.');
+    var num = Number(normalized);
+    return Number.isFinite(num) ? num : null;
+  }
+
+  function normalizeModuleAbrev(value) {
+    return normalizeText(value || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function getValidationPageKey(page) {
+    return String(Number((page && page.page_number) || 0)) + '|' + getPageType(page);
+  }
+
+  function clearModuleValidationHighlights() {
+    moduleValidationHighlightCount = 0;
+    document.querySelectorAll('.module-validation-error, .module-validation-warning').forEach(function (el) {
+      el.classList.remove('module-validation-error');
+      el.classList.remove('module-validation-warning');
+      if (el.dataset && el.dataset.validationStyleTouched === '1') {
+        el.style.removeProperty('background-color');
+        el.style.removeProperty('border-color');
+        el.style.removeProperty('color');
+        el.style.removeProperty('box-shadow');
+        delete el.dataset.validationStyleTouched;
+      }
+      if (el.dataset && el.dataset.validationOutlineTouched === '1') {
+        el.style.outline = '';
+        el.style.outlineOffset = '';
+        delete el.dataset.validationOutlineTouched;
+      }
+      if (el.dataset && el.dataset.validationTitleTouched === '1') {
+        el.removeAttribute('title');
+        delete el.dataset.validationTitleTouched;
+      }
+    });
+  }
+
+  function markValidationElementError(element, message) {
+    if (!element) {
+      return;
+    }
+    if (!element.classList.contains('module-validation-error')) {
+      moduleValidationHighlightCount += 1;
+    }
+    element.classList.add('module-validation-error');
+    element.style.setProperty('background-color', '#FEE2E2', 'important');
+    element.style.setProperty('border-color', '#DC2626', 'important');
+    element.style.setProperty('color', '#7F1D1D', 'important');
+    element.style.setProperty('box-shadow', 'inset 0 0 0 1px rgba(220, 38, 38, 0.35)', 'important');
+    element.dataset.validationStyleTouched = '1';
+    element.style.outline = '2px solid #DC2626';
+    element.style.outlineOffset = '-2px';
+    element.dataset.validationOutlineTouched = '1';
+    if (message) {
+      element.title = message;
+      element.dataset.validationTitleTouched = '1';
+    }
+  }
+
+  function markValidationElementWarning(element, message) {
+    if (!element) {
+      return;
+    }
+    if (!element.classList.contains('module-validation-error') && !element.classList.contains('module-validation-warning')) {
+      moduleValidationHighlightCount += 1;
+    }
+    element.classList.add('module-validation-warning');
+    element.style.setProperty('background-color', '#FEF9C3', 'important');
+    element.style.setProperty('border-color', '#EAB308', 'important');
+    element.style.setProperty('color', '#713F12', 'important');
+    element.style.setProperty('box-shadow', 'inset 0 0 0 1px rgba(202, 138, 4, 0.35)', 'important');
+    element.dataset.validationStyleTouched = '1';
+    element.style.outline = '2px solid #EAB308';
+    element.style.outlineOffset = '-2px';
+    element.dataset.validationOutlineTouched = '1';
+    if (message) {
+      element.title = message;
+      element.dataset.validationTitleTouched = '1';
+    }
+  }
+
+  function applyModuleValidationHighlightsForCurrentPage(page) {
+    clearModuleValidationHighlights();
+
+    if (!page) {
+      return;
+    }
+
+    var pageKey = getValidationPageKey(page);
+    var issues = moduleValidationIssuesByPageKey[pageKey] || [];
+
+    issues.forEach(function (issue) {
+      if (issue.kind === 'header-count-mismatch') {
+        var labels = tableHead ? tableHead.querySelectorAll('th[data-module-index] .module-label') : [];
+        if (!labels.length) {
+          markValidationElementError(tableHead, issue.message);
+          return;
+        }
+        labels.forEach(function (labelEl) {
+          markValidationElementError(labelEl, issue.message);
+        });
+        return;
+      }
+
+      if (issue.kind === 'module-name-mismatch') {
+        markValidationElementError(
+          tableHead && tableHead.querySelector('th[data-module-index="' + issue.moduleIndex + '"] .module-label'),
+          issue.message
+        );
+        return;
+      }
+
+      if (issue.kind === 'coef-intersection') {
+        var semField = String(issue.sem || '').toLowerCase() === 's1' ? 's1' : 's2';
+        markValidationElementError(
+          tableBody && tableBody.querySelector('tr[data-student-index="' + issue.studentIndex + '"][data-sem="' + issue.sem + '"] td[data-field="module_' + issue.moduleIndex + '_' + semField + '"]'),
+          issue.message
+        );
+        return;
+      }
+
+      if (issue.kind === 'missing-note-required') {
+        var requiredSemField = String(issue.sem || '').toLowerCase() === 's1' ? 's1' : 's2';
+        markValidationElementWarning(
+          tableBody && tableBody.querySelector('tr[data-student-index="' + issue.studentIndex + '"][data-sem="' + issue.sem + '"] td[data-field="module_' + issue.moduleIndex + '_' + requiredSemField + '"]'),
+          issue.message
+        );
+      }
+    });
+  }
+
+  function refreshModuleValidationState() {
+    var record = getSelectedRecord();
+    var page = getCurrentPage();
+    if (!record || !page) {
+      clearModuleValidationHighlights();
+      return { ok: true };
+    }
+    return validateRecordModulesBeforeDatabaseSave(record, page, {
+      applyHighlights: true,
+      suppressNoTableError: true,
+    });
+  }
+
+  function buildTableMatieresMap(record, currentPage) {
+    var pages = getSortedPages(record);
+    var map = {};
+    var ordered = [];
+
+    pages.forEach(function (page) {
+      var pageType = getPageType(page);
+      if (pageType !== 'table_de_matieres') {
+        return;
+      }
+
+      var matieres = [];
+      if (page === currentPage) {
+        matieres = collectMatieresFromTable().map(function (matiere) {
+          return {
+            abrev: matiere.abrev,
+            coefS1: matiere && matiere.coef ? matiere.coef.S1 : null,
+            coefS2: matiere && matiere.coef ? matiere.coef.S2 : null,
+          };
+        });
+      } else {
+        matieres = parseMatieresFromResult(page.result || {});
+      }
+
+      matieres.forEach(function (matiere) {
+        var key = normalizeModuleAbrev(matiere.abrev);
+        if (!key) {
+          return;
+        }
+
+        var existing = map[key] || {
+          key: key,
+          abrev: String(matiere.abrev || '').trim(),
+          coefS1: null,
+          coefS2: null,
+        };
+
+        var coefS1 = toAcademicNumberOrNull(matiere.coefS1);
+        var coefS2 = toAcademicNumberOrNull(matiere.coefS2);
+
+        if (!map[key]) {
+          ordered.push(existing);
+        }
+
+        if (existing.coefS1 == null && coefS1 != null) {
+          existing.coefS1 = coefS1;
+        }
+        if (existing.coefS2 == null && coefS2 != null) {
+          existing.coefS2 = coefS2;
+        }
+
+        map[key] = existing;
+      });
+    });
+
+    return {
+      ordered: ordered,
+      map: map,
+    };
+  }
+
+  function collectStudentSnapshotsForValidation(record, currentPage) {
+    var pages = getSortedPages(record);
+    var snapshots = [];
+
+    pages.forEach(function (page) {
+      var pageType = getPageType(page);
+      if (pageType === 'table_de_matieres') {
+        return;
+      }
+
+      var isCurrentPage = page === currentPage;
+      var students = [];
+      var moduleDefs = [];
+
+      if (isCurrentPage && pageType !== 'table_de_matieres') {
+        students = collectStudentsFromTable();
+        moduleDefs = collectModuleDefinitionsFromHeader();
+      } else {
+        var result = page && page.result ? page.result : {};
+        students = parseStudentsFromResult(result);
+        moduleDefs = getPageModuleDefinitions(result, students);
+      }
+
+      if (!moduleDefs.length || !students.length) {
+        return;
+      }
+
+      students.forEach(function (student, studentIndex) {
+        var modules = [];
+
+        if (isCurrentPage) {
+          modules = (Array.isArray(student.modules) ? student.modules : []).map(function (module, moduleIndex) {
+            return {
+              index: moduleIndex,
+              abrevRaw: module && module.name != null ? module.name : '',
+              noteS1: module ? toAcademicNumberOrNull(module.noteS1) : null,
+              noteS2: module ? toAcademicNumberOrNull(module.noteS2) : null,
+            };
+          });
+        } else {
+          var normalizedModules = formatModuleList(student.modules, moduleDefs.length);
+          modules = normalizedModules.map(function (module, moduleIndex) {
+            var def = moduleDefs[moduleIndex] || {};
+            return {
+              index: moduleIndex,
+              abrevRaw: def.label || '',
+              noteS1: toAcademicNumberOrNull(module.s1),
+              noteS2: toAcademicNumberOrNull(module.s2),
+            };
+          });
+        }
+
+        snapshots.push({
+          page: page,
+          pageNumber: Number(page.page_number || 0),
+          isCurrentPage: isCurrentPage,
+          studentIndex: studentIndex,
+          studentName: (String(student.nom || '').trim() + ' ' + String(student.prenom || '').trim()).trim() || ('Student #' + (studentIndex + 1)),
+          modules: modules,
+        });
+      });
+    });
+
+    return snapshots;
+  }
+
+  function validateRecordModulesBeforeDatabaseSave(record, currentPage, options) {
+    var opts = options || {};
+    var shouldApplyHighlights = opts.applyHighlights !== false;
+    var suppressNoTableError = opts.suppressNoTableError === true;
+
+    moduleValidationIssuesByPageKey = {};
+    clearModuleValidationHighlights();
+
+    var tableRef = buildTableMatieresMap(record, currentPage);
+    var tableMap = tableRef.map;
+    var tableOrdered = tableRef.ordered;
+    var tableKeys = Object.keys(tableMap);
+    var errors = [];
+    var pageIssueSeen = {};
+
+    function pushIssueForPage(page, issue) {
+      var key = getValidationPageKey(page);
+      if (!moduleValidationIssuesByPageKey[key]) {
+        moduleValidationIssuesByPageKey[key] = [];
+      }
+      var signature = key + '|' + issue.kind + '|' + String(issue.moduleIndex || '') + '|' + String(issue.studentIndex || '') + '|' + String(issue.sem || '') + '|' + String(issue.message || '');
+      if (pageIssueSeen[signature]) {
+        return;
+      }
+      pageIssueSeen[signature] = true;
+      moduleValidationIssuesByPageKey[key].push(issue);
+    }
+
+    if (!tableKeys.length) {
+      if (suppressNoTableError) {
+        return { ok: true };
+      }
+      return {
+        ok: false,
+        message: 'Impossible de sauvegarder: aucune matiere (abrev) detectee dans table_de_matieres.',
+      };
+    }
+
+    var snapshots = collectStudentSnapshotsForValidation(record, currentPage);
+
+    snapshots.forEach(function (snapshot) {
+      var studentModules = Array.isArray(snapshot.modules) ? snapshot.modules : [];
+
+      if (studentModules.length !== tableOrdered.length) {
+        var countMessage = 'Page ' + snapshot.pageNumber + ': nombre de modules differents de table_de_matieres (' + studentModules.length + ' vs ' + tableOrdered.length + ').';
+        errors.push(countMessage);
+        pushIssueForPage(snapshot.page, {
+          kind: 'header-count-mismatch',
+          message: 'Nombre de modules different de table_de_matieres.',
+        });
+      }
+
+      studentModules.forEach(function (moduleEntry) {
+        var abrevKey = normalizeModuleAbrev(moduleEntry.abrevRaw);
+        var hasS1 = moduleEntry.noteS1 != null;
+        var hasS2 = moduleEntry.noteS2 != null;
+        var tableModuleByName = abrevKey ? tableMap[abrevKey] : null;
+        var tableModuleByIndex = tableOrdered[moduleEntry.index] || null;
+        var tableModule = tableModuleByName || tableModuleByIndex;
+
+        if (studentModules.length === tableOrdered.length && !tableModuleByName && !tableModuleByIndex) {
+          var wrongNameMessage = 'Page ' + snapshot.pageNumber + ': nom module invalide "' + String(moduleEntry.abrevRaw || '') + '" (abrev absent de table_de_matieres).';
+          errors.push(wrongNameMessage);
+          pushIssueForPage(snapshot.page, {
+            kind: 'module-name-mismatch',
+            moduleIndex: moduleEntry.index,
+            message: 'Nom de module invalide (abrev absent de table_de_matieres).',
+          });
+          return;
+        }
+
+        if (!tableModule) {
+          return;
+        }
+
+        if (hasS1 && tableModule.coefS1 == null) {
+          errors.push('Page ' + snapshot.pageNumber + ' - ' + snapshot.studentName + ': note S1 pour "' + tableModule.abrev + '" mais coef S1 vide dans table_de_matieres.');
+          pushIssueForPage(snapshot.page, {
+            kind: 'coef-intersection',
+            studentIndex: snapshot.studentIndex,
+            sem: 'S1',
+            moduleIndex: moduleEntry.index,
+            message: 'Note S1 presente alors que coef S1 est vide dans table_de_matieres.',
+          });
+        }
+
+        if (!hasS1 && tableModule.coefS1 != null) {
+          errors.push('Page ' + snapshot.pageNumber + ' - ' + snapshot.studentName + ': note S1 manquante pour "' + tableModule.abrev + '" alors que coef S1 est renseigne dans table_de_matieres.');
+          pushIssueForPage(snapshot.page, {
+            kind: 'missing-note-required',
+            studentIndex: snapshot.studentIndex,
+            sem: 'S1',
+            moduleIndex: moduleEntry.index,
+            message: 'Note S1 manquante: coef S1 existe dans table_de_matieres.',
+          });
+        }
+
+        if (hasS2 && tableModule.coefS2 == null) {
+          errors.push('Page ' + snapshot.pageNumber + ' - ' + snapshot.studentName + ': note S2 pour "' + tableModule.abrev + '" mais coef S2 vide dans table_de_matieres.');
+          pushIssueForPage(snapshot.page, {
+            kind: 'coef-intersection',
+            studentIndex: snapshot.studentIndex,
+            sem: 'S2',
+            moduleIndex: moduleEntry.index,
+            message: 'Note S2 presente alors que coef S2 est vide dans table_de_matieres.',
+          });
+        }
+
+        if (!hasS2 && tableModule.coefS2 != null) {
+          errors.push('Page ' + snapshot.pageNumber + ' - ' + snapshot.studentName + ': note S2 manquante pour "' + tableModule.abrev + '" alors que coef S2 est renseigne dans table_de_matieres.');
+          pushIssueForPage(snapshot.page, {
+            kind: 'missing-note-required',
+            studentIndex: snapshot.studentIndex,
+            sem: 'S2',
+            moduleIndex: moduleEntry.index,
+            message: 'Note S2 manquante: coef S2 existe dans table_de_matieres.',
+          });
+        }
+      });
+    });
+
+    if (!errors.length) {
+      moduleValidationIssuesByPageKey = {};
+      return { ok: true };
+    }
+
+    if (shouldApplyHighlights) {
+      applyModuleValidationHighlightsForCurrentPage(currentPage);
+    }
+
+    var uniqueErrors = [];
+    var seen = {};
+    errors.forEach(function (line) {
+      if (!seen[line]) {
+        seen[line] = true;
+        uniqueErrors.push(line);
+      }
+    });
+
+    var previewLines = uniqueErrors.slice(0, 10);
+    var suffix = uniqueErrors.length > 10 ? ('\n... ' + (uniqueErrors.length - 10) + ' autre(s) erreur(s).') : '';
+
+    return {
+      ok: false,
+      message: 'Sauvegarde BDD bloquee. Corrigez les champs surlignes (jaune/rouge).\n\n' + previewLines.join('\n') + suffix,
+    };
+  }
+
   function saveCurrentRecordLocally() {
     writeLocalRecords(records);
   }
 
-  async function saveValidatedStudents() {
-    setSyncReportStatus('pending', 'Syncing...');
-    var nameCheck = await validateStudentNameRows();
-    if (nameCheck.invalidRows > 0) {
-      var proceed = confirm(
-        nameCheck.invalidRows + ' etudiant(s) ont un nom/prenom introuvable en BDD.\n' +
-        'Voulez-vous enregistrer les changements quand meme ?'
-      );
-      if (!proceed) {
-        return;
+  async function saveCurrentPageChanges(syncToDatabase) {
+    var shouldSyncToDatabase = syncToDatabase !== false;
+
+    if (shouldSyncToDatabase) {
+      setSyncReportStatus('pending', 'Syncing...');
+      var nameCheck = await validateStudentNameRows();
+      if (nameCheck.invalidRows > 0) {
+        var proceed = confirm(
+          nameCheck.invalidRows + ' etudiant(s) ont un nom/prenom introuvable en BDD.\n' +
+          'Voulez-vous enregistrer les changements quand meme ?'
+        );
+        if (!proceed) {
+          return;
+        }
       }
     }
 
@@ -1909,18 +2344,34 @@
     if (String(result.type || '') === 'table_de_matieres') {
       result.matieres = collectMatieresFromTable();
       saveCurrentRecordLocally();
-      try {
-        var tableSync = await api.saveValidationRecord({
-          record_id: record.id || null,
-          record: record,
-          source: 'validation_edit',
+      if (shouldSyncToDatabase) {
+        var tableValidation = validateRecordModulesBeforeDatabaseSave(record, page, {
+          applyHighlights: true,
+          suppressNoTableError: false,
         });
-        renderSyncReport(tableSync, false);
-        alert('Changes saved locally and synced to database for table_de_matieres page. Matieres/modules synced: ' +
-          Number((tableSync && tableSync.matiere_module_sync && tableSync.matiere_module_sync.length) || 0));
-      } catch (err) {
-        renderSyncReport(err && err.message ? err.message : err, true);
-        alert('Changes saved locally for table_de_matieres page, but database sync failed: ' + (err && err.message ? err.message : 'unknown error'));
+        if (!tableValidation.ok) {
+          setSyncReportStatus('error', 'Blocked');
+          if (syncReportMeta) {
+            syncReportMeta.textContent = 'Validation failed before database sync';
+          }
+          if (syncReportBody) {
+            syncReportBody.textContent = tableValidation.message;
+          }
+          return;
+        }
+
+        try {
+          var tableSync = await api.saveValidationRecord({
+            record_id: record.id || null,
+            record: record,
+            source: 'validation_edit',
+          });
+          renderSyncReport(tableSync, false);
+        } catch (err) {
+          renderSyncReport(err && err.message ? err.message : err, true);
+        }
+      } else {
+        alert('Changes saved locally for table_de_matieres page. Click Validate and Save to sync to database.');
       }
       return;
     }
@@ -1937,19 +2388,39 @@
     }
 
     saveCurrentRecordLocally();
-    try {
-      var syncReport = await api.saveValidationRecord({
-        record_id: record.id || null,
-        record: record,
-        source: 'validation_edit',
+    if (shouldSyncToDatabase) {
+      var moduleValidation = validateRecordModulesBeforeDatabaseSave(record, page, {
+        applyHighlights: true,
+        suppressNoTableError: false,
       });
-      renderSyncReport(syncReport, false);
-      alert('Changes saved locally and synced to database. Students: ' + Number((syncReport && syncReport.saved_students) || 0) +
-        ', Resultats: ' + Number((syncReport && syncReport.saved_resultats) || 0));
-    } catch (err) {
-      renderSyncReport(err && err.message ? err.message : err, true);
-      alert('Changes saved locally, but database sync failed: ' + (err && err.message ? err.message : 'unknown error'));
+      if (!moduleValidation.ok) {
+        setSyncReportStatus('error', 'Blocked');
+        if (syncReportMeta) {
+          syncReportMeta.textContent = 'Validation failed before database sync';
+        }
+        if (syncReportBody) {
+          syncReportBody.textContent = moduleValidation.message;
+        }
+        return;
+      }
+
+      try {
+        var syncReport = await api.saveValidationRecord({
+          record_id: record.id || null,
+          record: record,
+          source: 'validation_edit',
+        });
+        renderSyncReport(syncReport, false);
+      } catch (err) {
+        renderSyncReport(err && err.message ? err.message : err, true);
+      }
+    } else {
+      alert('Changes saved locally. Click Validate and Save to sync to database.');
     }
+  }
+
+  async function saveValidatedStudents() {
+    return saveCurrentPageChanges(true);
   }
 
   function changePage(dir) {
@@ -1970,9 +2441,10 @@
   function toggleEditMode() {
     editMode = !editMode;
     applyEditMode(editMode);
+    refreshModuleValidationState();
 
     if (!editMode) {
-      saveValidatedStudents();
+      saveCurrentPageChanges(false);
     }
   }
 
@@ -2007,6 +2479,17 @@
     }
 
     window.addEventListener('resize', syncTableActionsWidth);
+
+    function onValidationEditableInput() {
+      refreshModuleValidationState();
+    }
+
+    if (tableBody) {
+      tableBody.addEventListener('input', onValidationEditableInput);
+    }
+    if (tableHead) {
+      tableHead.addEventListener('input', onValidationEditableInput);
+    }
 
     [metaYear, metaLevel, metaSpec, metaTitle].forEach(function (el) {
       if (!el) {
