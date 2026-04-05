@@ -2135,7 +2135,7 @@
             var def = moduleDefs[moduleIndex] || {};
             return {
               index: moduleIndex,
-              abrevRaw: def.label || '',
+              abrevRaw: module && module.code ? module.code : (def.label || ''),
               noteS1: toAcademicNumberOrNull(module.s1),
               noteS2: toAcademicNumberOrNull(module.s2),
             };
@@ -2216,13 +2216,14 @@
         var tableModuleByIndex = tableOrdered[moduleEntry.index] || null;
         var tableModule = tableModuleByName || tableModuleByIndex;
 
-        if (studentModules.length === tableOrdered.length && !tableModuleByName && !tableModuleByIndex) {
-          var wrongNameMessage = 'Page ' + snapshot.pageNumber + ': nom module invalide "' + String(moduleEntry.abrevRaw || '') + '" (abrev absent de table_de_matieres).';
+        if (studentModules.length === tableOrdered.length && !tableModuleByName) {
+          var expectedAbrev = tableModuleByIndex && tableModuleByIndex.abrev ? String(tableModuleByIndex.abrev) : '';
+          var wrongNameMessage = 'Page ' + snapshot.pageNumber + ': nom module invalide "' + String(moduleEntry.abrevRaw || '') + '" (abrev absent de table_de_matieres' + (expectedAbrev ? ', attendu: ' + expectedAbrev : '') + ').';
           errors.push(wrongNameMessage);
           pushIssueForPage(snapshot.page, {
             kind: 'module-name-mismatch',
             moduleIndex: moduleEntry.index,
-            message: 'Nom de module invalide (abrev absent de table_de_matieres).',
+            message: 'Nom de module invalide (abrev absent de table_de_matieres' + (expectedAbrev ? ', attendu: ' + expectedAbrev : '') + ').',
           });
           return;
         }
