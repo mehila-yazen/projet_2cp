@@ -33,6 +33,7 @@
   var syncReportBody = document.getElementById('syncReportBody');
   var nameValidationBox = null;
   var activeSuggestionDropdown = null;
+  var studentSuggestionsByRowKey = {};
   var latestValidationRunId = 0;
   var previewZoom = 1;
   var previewHasImage = false;
@@ -1304,6 +1305,31 @@
     });
   }
 
+  function buildStudentSuggestionRowKey(row) {
+    if (!row) {
+      return '';
+    }
+    var page = getCurrentPage();
+    var pageNumber = page ? String(Number(page.page_number || currentPageIndex || 0)) : String(currentPageIndex || 0);
+    var studentIndex = String(row.dataset.studentIndex || '');
+    return pageNumber + '::' + studentIndex;
+  }
+
+  function handleStudentSuggestionCellClick(evt) {
+    evt.stopPropagation();
+    var cell = evt.currentTarget;
+    if (!cell) {
+      return;
+    }
+    var row = cell.parentElement;
+    if (!row) {
+      return;
+    }
+    var rowKey = String(cell.dataset.suggestionRowKey || buildStudentSuggestionRowKey(row));
+    var currentSuggestions = studentSuggestionsByRowKey[rowKey] || [];
+    openStudentSuggestionDropdown(cell, row, currentSuggestions);
+  }
+
   function openStudentSuggestionDropdown(anchorCell, row, suggestions) {
     if (!anchorCell) {
       return;
@@ -1409,6 +1435,7 @@
 
     var runId = ++latestValidationRunId;
     var invalidRows = 0;
+    studentSuggestionsByRowKey = {};
 
     for (var i = 0; i < rows.length; i += 1) {
       var row = rows[i];
@@ -1448,12 +1475,12 @@
 
         invalidRows += 1;
         setStudentCellsMismatch(cells, 'Nom/prenom introuvable en base. Cliquez pour voir des suggestions.');
+        var rowKey = buildStudentSuggestionRowKey(row);
+        studentSuggestionsByRowKey[rowKey] = suggestions.slice();
         [cells.nom, cells.prenom].forEach(function (cell) {
           if (!cell) return;
-          cell.onclick = function (evt) {
-            evt.stopPropagation();
-            openStudentSuggestionDropdown(cell, row, suggestions);
-          };
+          cell.dataset.suggestionRowKey = rowKey;
+          cell.onclick = handleStudentSuggestionCellClick;
         });
       } catch (_err) {
         invalidRows += 1;
